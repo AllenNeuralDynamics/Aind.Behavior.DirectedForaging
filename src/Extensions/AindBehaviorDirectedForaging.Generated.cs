@@ -495,234 +495,45 @@ namespace AindBehaviorDirectedForagingDataSchema
 
 
     /// <summary>
-    /// Parameters for a beta distribution.
+    /// A beta probability distribution.
     ///
-    ///Defined by alpha and beta shape parameters.
+    ///Continuous distribution bounded between 0 and 1. Commonly used
+    ///for modeling probabilities and proportions.
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
-    [System.ComponentModel.DescriptionAttribute("Parameters for a beta distribution.\n\nDefined by alpha and beta shape parameters.")]
+    [System.ComponentModel.DescriptionAttribute("A beta probability distribution.\n\nContinuous distribution bounded between 0 and 1" +
+        ". Commonly used\nfor modeling probabilities and proportions.")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
-    public partial class BetaDistributionParameters : DistributionParameters
+    public partial class BetaDistribution : Distribution
     {
     
-        private double _alpha;
-    
-        private double _beta;
-    
-        public BetaDistributionParameters()
-        {
-            _alpha = 5D;
-            _beta = 5D;
-        }
-    
-        protected BetaDistributionParameters(BetaDistributionParameters other) : 
-                base(other)
-        {
-            _alpha = other._alpha;
-            _beta = other._beta;
-        }
-    
-        /// <summary>
-        /// Alpha parameter of the distribution
-        /// </summary>
-        [Newtonsoft.Json.JsonPropertyAttribute("alpha")]
-        [System.ComponentModel.DescriptionAttribute("Alpha parameter of the distribution")]
-        public double Alpha
-        {
-            get
-            {
-                return _alpha;
-            }
-            set
-            {
-                _alpha = value;
-            }
-        }
-    
-        /// <summary>
-        /// Beta parameter of the distribution
-        /// </summary>
-        [Newtonsoft.Json.JsonPropertyAttribute("beta")]
-        [System.ComponentModel.DescriptionAttribute("Beta parameter of the distribution")]
-        public double Beta
-        {
-            get
-            {
-                return _beta;
-            }
-            set
-            {
-                _beta = value;
-            }
-        }
-    
-        public System.IObservable<BetaDistributionParameters> Generate()
-        {
-            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new BetaDistributionParameters(this)));
-        }
-    
-        public System.IObservable<BetaDistributionParameters> Generate<TSource>(System.IObservable<TSource> source)
-        {
-            return System.Reactive.Linq.Observable.Select(source, _ => new BetaDistributionParameters(this));
-        }
-    
-        protected override bool PrintMembers(System.Text.StringBuilder stringBuilder)
-        {
-            if (base.PrintMembers(stringBuilder))
-            {
-                stringBuilder.Append(", ");
-            }
-            stringBuilder.Append("Alpha = " + _alpha + ", ");
-            stringBuilder.Append("Beta = " + _beta);
-            return true;
-        }
-    }
-
-
-    /// <summary>
-    /// Parameters for a binomial distribution.
-    ///
-    ///Defined by number of trials (n) and success probability (p).
-    /// </summary>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
-    [System.ComponentModel.DescriptionAttribute("Parameters for a binomial distribution.\n\nDefined by number of trials (n) and succ" +
-        "ess probability (p).")]
-    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
-    [Bonsai.CombinatorAttribute(MethodName="Generate")]
-    public partial class BinomialDistributionParameters : DistributionParameters
-    {
-    
-        private int _n;
-    
-        private double _p;
-    
-        public BinomialDistributionParameters()
-        {
-            _n = 1;
-            _p = 0.5D;
-        }
-    
-        protected BinomialDistributionParameters(BinomialDistributionParameters other) : 
-                base(other)
-        {
-            _n = other._n;
-            _p = other._p;
-        }
-    
-        /// <summary>
-        /// Number of trials
-        /// </summary>
-        [Newtonsoft.Json.JsonPropertyAttribute("n")]
-        [System.ComponentModel.DescriptionAttribute("Number of trials")]
-        public int N
-        {
-            get
-            {
-                return _n;
-            }
-            set
-            {
-                _n = value;
-            }
-        }
-    
-        /// <summary>
-        /// Probability of success
-        /// </summary>
-        [Newtonsoft.Json.JsonPropertyAttribute("p")]
-        [System.ComponentModel.DescriptionAttribute("Probability of success")]
-        public double P
-        {
-            get
-            {
-                return _p;
-            }
-            set
-            {
-                _p = value;
-            }
-        }
-    
-        public System.IObservable<BinomialDistributionParameters> Generate()
-        {
-            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new BinomialDistributionParameters(this)));
-        }
-    
-        public System.IObservable<BinomialDistributionParameters> Generate<TSource>(System.IObservable<TSource> source)
-        {
-            return System.Reactive.Linq.Observable.Select(source, _ => new BinomialDistributionParameters(this));
-        }
-    
-        protected override bool PrintMembers(System.Text.StringBuilder stringBuilder)
-        {
-            if (base.PrintMembers(stringBuilder))
-            {
-                stringBuilder.Append(", ");
-            }
-            stringBuilder.Append("N = " + _n + ", ");
-            stringBuilder.Append("P = " + _p);
-            return true;
-        }
-    }
-
-
-    /// <summary>
-    /// Base class for all distribution models. This class should not be instantiated directly.
-    ///
-    ///Combines distribution parameters with optional truncation and scaling
-    ///transformations for flexible probability distributions.
-    /// </summary>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
-    [System.ComponentModel.DescriptionAttribute("Base class for all distribution models. This class should not be instantiated dir" +
-        "ectly.\n\nCombines distribution parameters with optional truncation and scaling\ntr" +
-        "ansformations for flexible probability distributions.")]
-    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
-    [Bonsai.CombinatorAttribute(MethodName="Generate")]
-    public partial class DistributionBase
-    {
-    
-        private DistributionFamily _family;
-    
-        private DistributionParameters _distributionParameters;
+        private BetaDistributionParameters _distributionParameters;
     
         private TruncationParameters _truncationParameters;
     
         private ScalingParameters _scalingParameters;
     
-        public DistributionBase()
+        public BetaDistribution()
         {
+            _distributionParameters = new BetaDistributionParameters();
         }
     
-        protected DistributionBase(DistributionBase other)
+        protected BetaDistribution(BetaDistribution other) : 
+                base(other)
         {
-            _family = other._family;
             _distributionParameters = other._distributionParameters;
             _truncationParameters = other._truncationParameters;
             _scalingParameters = other._scalingParameters;
         }
     
         /// <summary>
-        /// Family of the distribution
+        /// Parameters of the distribution
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        [Newtonsoft.Json.JsonPropertyAttribute("family", Required=Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DescriptionAttribute("Family of the distribution")]
-        public DistributionFamily Family
-        {
-            get
-            {
-                return _family;
-            }
-            set
-            {
-                _family = value;
-            }
-        }
-    
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        [Newtonsoft.Json.JsonPropertyAttribute("distribution_parameters", Required=Newtonsoft.Json.Required.Always)]
-        public DistributionParameters DistributionParameters
+        [Newtonsoft.Json.JsonPropertyAttribute("distribution_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Parameters of the distribution")]
+        public BetaDistributionParameters DistributionParameters
         {
             get
             {
@@ -770,22 +581,124 @@ namespace AindBehaviorDirectedForagingDataSchema
             }
         }
     
-        public System.IObservable<DistributionBase> Generate()
+        public System.IObservable<BetaDistribution> Generate()
         {
-            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new DistributionBase(this)));
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new BetaDistribution(this)));
         }
     
-        public System.IObservable<DistributionBase> Generate<TSource>(System.IObservable<TSource> source)
+        public System.IObservable<BetaDistribution> Generate<TSource>(System.IObservable<TSource> source)
         {
-            return System.Reactive.Linq.Observable.Select(source, _ => new DistributionBase(this));
+            return System.Reactive.Linq.Observable.Select(source, _ => new BetaDistribution(this));
+        }
+    
+        protected override bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            if (base.PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(", ");
+            }
+            stringBuilder.Append("DistributionParameters = " + _distributionParameters + ", ");
+            stringBuilder.Append("TruncationParameters = " + _truncationParameters + ", ");
+            stringBuilder.Append("ScalingParameters = " + _scalingParameters);
+            return true;
+        }
+    }
+
+
+    /// <summary>
+    /// Parameters for a beta distribution.
+    ///
+    ///Defined by alpha and beta shape parameters.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.ComponentModel.DescriptionAttribute("Parameters for a beta distribution.\n\nDefined by alpha and beta shape parameters.")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class BetaDistributionParameters
+    {
+    
+        private string _family;
+    
+        private double _alpha;
+    
+        private double _beta;
+    
+        public BetaDistributionParameters()
+        {
+            _family = "Beta";
+            _alpha = 5D;
+            _beta = 5D;
+        }
+    
+        protected BetaDistributionParameters(BetaDistributionParameters other)
+        {
+            _family = other._family;
+            _alpha = other._alpha;
+            _beta = other._beta;
+        }
+    
+        [Newtonsoft.Json.JsonPropertyAttribute("family")]
+        public string Family
+        {
+            get
+            {
+                return _family;
+            }
+            set
+            {
+                _family = value;
+            }
+        }
+    
+        /// <summary>
+        /// Alpha parameter of the distribution
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("alpha")]
+        [System.ComponentModel.DescriptionAttribute("Alpha parameter of the distribution")]
+        public double Alpha
+        {
+            get
+            {
+                return _alpha;
+            }
+            set
+            {
+                _alpha = value;
+            }
+        }
+    
+        /// <summary>
+        /// Beta parameter of the distribution
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("beta")]
+        [System.ComponentModel.DescriptionAttribute("Beta parameter of the distribution")]
+        public double Beta
+        {
+            get
+            {
+                return _beta;
+            }
+            set
+            {
+                _beta = value;
+            }
+        }
+    
+        public System.IObservable<BetaDistributionParameters> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new BetaDistributionParameters(this)));
+        }
+    
+        public System.IObservable<BetaDistributionParameters> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new BetaDistributionParameters(this));
         }
     
         protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
         {
             stringBuilder.Append("Family = " + _family + ", ");
-            stringBuilder.Append("DistributionParameters = " + _distributionParameters + ", ");
-            stringBuilder.Append("TruncationParameters = " + _truncationParameters + ", ");
-            stringBuilder.Append("ScalingParameters = " + _scalingParameters);
+            stringBuilder.Append("Alpha = " + _alpha + ", ");
+            stringBuilder.Append("Beta = " + _beta);
             return true;
         }
     
@@ -805,81 +718,262 @@ namespace AindBehaviorDirectedForagingDataSchema
 
 
     /// <summary>
-    /// Enumeration of supported probability distribution families.
+    /// A binomial probability distribution.
     ///
-    ///Defines all available statistical distributions that can be used
-    ///for sampling random values in the task implementation.
+    ///Models the number of successes in a fixed number of independent
+    ///Bernoulli trials with constant success probability.
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
-    [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public enum DistributionFamily
+    [System.ComponentModel.DescriptionAttribute("A binomial probability distribution.\n\nModels the number of successes in a fixed n" +
+        "umber of independent\nBernoulli trials with constant success probability.")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class BinomialDistribution : Distribution
     {
     
-        [System.Runtime.Serialization.EnumMemberAttribute(Value="Scalar")]
-        Scalar = 0,
+        private BinomialDistributionParameters _distributionParameters;
     
-        [System.Runtime.Serialization.EnumMemberAttribute(Value="Normal")]
-        Normal = 1,
+        private TruncationParameters _truncationParameters;
     
-        [System.Runtime.Serialization.EnumMemberAttribute(Value="LogNormal")]
-        LogNormal = 2,
+        private ScalingParameters _scalingParameters;
     
-        [System.Runtime.Serialization.EnumMemberAttribute(Value="Uniform")]
-        Uniform = 3,
+        public BinomialDistribution()
+        {
+            _distributionParameters = new BinomialDistributionParameters();
+        }
     
-        [System.Runtime.Serialization.EnumMemberAttribute(Value="Exponential")]
-        Exponential = 4,
+        protected BinomialDistribution(BinomialDistribution other) : 
+                base(other)
+        {
+            _distributionParameters = other._distributionParameters;
+            _truncationParameters = other._truncationParameters;
+            _scalingParameters = other._scalingParameters;
+        }
     
-        [System.Runtime.Serialization.EnumMemberAttribute(Value="Gamma")]
-        Gamma = 5,
+        /// <summary>
+        /// Parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("distribution_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Parameters of the distribution")]
+        public BinomialDistributionParameters DistributionParameters
+        {
+            get
+            {
+                return _distributionParameters;
+            }
+            set
+            {
+                _distributionParameters = value;
+            }
+        }
     
-        [System.Runtime.Serialization.EnumMemberAttribute(Value="Binomial")]
-        Binomial = 6,
+        /// <summary>
+        /// Truncation parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("truncation_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Truncation parameters of the distribution")]
+        public TruncationParameters TruncationParameters
+        {
+            get
+            {
+                return _truncationParameters;
+            }
+            set
+            {
+                _truncationParameters = value;
+            }
+        }
     
-        [System.Runtime.Serialization.EnumMemberAttribute(Value="Beta")]
-        Beta = 7,
+        /// <summary>
+        /// Scaling parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("scaling_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Scaling parameters of the distribution")]
+        public ScalingParameters ScalingParameters
+        {
+            get
+            {
+                return _scalingParameters;
+            }
+            set
+            {
+                _scalingParameters = value;
+            }
+        }
     
-        [System.Runtime.Serialization.EnumMemberAttribute(Value="Poisson")]
-        Poisson = 8,
+        public System.IObservable<BinomialDistribution> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new BinomialDistribution(this)));
+        }
     
-        [System.Runtime.Serialization.EnumMemberAttribute(Value="Pdf")]
-        Pdf = 9,
+        public System.IObservable<BinomialDistribution> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new BinomialDistribution(this));
+        }
+    
+        protected override bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            if (base.PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(", ");
+            }
+            stringBuilder.Append("DistributionParameters = " + _distributionParameters + ", ");
+            stringBuilder.Append("TruncationParameters = " + _truncationParameters + ", ");
+            stringBuilder.Append("ScalingParameters = " + _scalingParameters);
+            return true;
+        }
+    }
+
+
+    /// <summary>
+    /// Parameters for a binomial distribution.
+    ///
+    ///Defined by number of trials (n) and success probability (p).
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.ComponentModel.DescriptionAttribute("Parameters for a binomial distribution.\n\nDefined by number of trials (n) and succ" +
+        "ess probability (p).")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class BinomialDistributionParameters
+    {
+    
+        private string _family;
+    
+        private int _n;
+    
+        private double _p;
+    
+        public BinomialDistributionParameters()
+        {
+            _family = "Binomial";
+            _n = 1;
+            _p = 0.5D;
+        }
+    
+        protected BinomialDistributionParameters(BinomialDistributionParameters other)
+        {
+            _family = other._family;
+            _n = other._n;
+            _p = other._p;
+        }
+    
+        [Newtonsoft.Json.JsonPropertyAttribute("family")]
+        public string Family
+        {
+            get
+            {
+                return _family;
+            }
+            set
+            {
+                _family = value;
+            }
+        }
+    
+        /// <summary>
+        /// Number of trials
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("n")]
+        [System.ComponentModel.DescriptionAttribute("Number of trials")]
+        public int N
+        {
+            get
+            {
+                return _n;
+            }
+            set
+            {
+                _n = value;
+            }
+        }
+    
+        /// <summary>
+        /// Probability of success
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("p")]
+        [System.ComponentModel.DescriptionAttribute("Probability of success")]
+        public double P
+        {
+            get
+            {
+                return _p;
+            }
+            set
+            {
+                _p = value;
+            }
+        }
+    
+        public System.IObservable<BinomialDistributionParameters> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new BinomialDistributionParameters(this)));
+        }
+    
+        public System.IObservable<BinomialDistributionParameters> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new BinomialDistributionParameters(this));
+        }
+    
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            stringBuilder.Append("Family = " + _family + ", ");
+            stringBuilder.Append("N = " + _n + ", ");
+            stringBuilder.Append("P = " + _p);
+            return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
+        }
     }
 
 
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
     [Newtonsoft.Json.JsonConverter(typeof(JsonInheritanceConverter), "family")]
-    [JsonInheritanceAttribute("Scalar", typeof(ScalarDistributionParameter))]
-    [JsonInheritanceAttribute("Beta", typeof(BetaDistributionParameters))]
-    [JsonInheritanceAttribute("Normal", typeof(NormalDistributionParameters))]
-    [JsonInheritanceAttribute("LogNormal", typeof(LogNormalDistributionParameters))]
-    [JsonInheritanceAttribute("Exponential", typeof(ExponentialDistributionParameters))]
-    [JsonInheritanceAttribute("Uniform", typeof(UniformDistributionParameters))]
-    [JsonInheritanceAttribute("Poisson", typeof(PoissonDistributionParameters))]
-    [JsonInheritanceAttribute("Binomial", typeof(BinomialDistributionParameters))]
-    [JsonInheritanceAttribute("Gamma", typeof(GammaDistributionParameters))]
-    [JsonInheritanceAttribute("Pdf", typeof(PdfDistributionParameters))]
+    [JsonInheritanceAttribute("Scalar", typeof(Scalar))]
+    [JsonInheritanceAttribute("Beta", typeof(BetaDistribution))]
+    [JsonInheritanceAttribute("Normal", typeof(NormalDistribution))]
+    [JsonInheritanceAttribute("LogNormal", typeof(LogNormalDistribution))]
+    [JsonInheritanceAttribute("Exponential", typeof(ExponentialDistribution))]
+    [JsonInheritanceAttribute("Uniform", typeof(UniformDistribution))]
+    [JsonInheritanceAttribute("Poisson", typeof(PoissonDistribution))]
+    [JsonInheritanceAttribute("Binomial", typeof(BinomialDistribution))]
+    [JsonInheritanceAttribute("Gamma", typeof(GammaDistribution))]
+    [JsonInheritanceAttribute("Pdf", typeof(PdfDistribution))]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
-    public partial class DistributionParameters
+    public partial class Distribution
     {
     
-        public DistributionParameters()
+        public Distribution()
         {
         }
     
-        protected DistributionParameters(DistributionParameters other)
+        protected Distribution(Distribution other)
         {
         }
     
-        public System.IObservable<DistributionParameters> Generate()
+        public System.IObservable<Distribution> Generate()
         {
-            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new DistributionParameters(this)));
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new Distribution(this)));
         }
     
-        public System.IObservable<DistributionParameters> Generate<TSource>(System.IObservable<TSource> source)
+        public System.IObservable<Distribution> Generate<TSource>(System.IObservable<TSource> source)
         {
-            return System.Reactive.Linq.Observable.Select(source, _ => new DistributionParameters(this));
+            return System.Reactive.Linq.Observable.Select(source, _ => new Distribution(this));
         }
     
         protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
@@ -903,6 +997,117 @@ namespace AindBehaviorDirectedForagingDataSchema
 
 
     /// <summary>
+    /// An exponential probability distribution.
+    ///
+    ///Models time between events in a Poisson process. Commonly used
+    ///for wait times and inter-event intervals.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.ComponentModel.DescriptionAttribute("An exponential probability distribution.\n\nModels time between events in a Poisson" +
+        " process. Commonly used\nfor wait times and inter-event intervals.")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class ExponentialDistribution : Distribution
+    {
+    
+        private ExponentialDistributionParameters _distributionParameters;
+    
+        private TruncationParameters _truncationParameters;
+    
+        private ScalingParameters _scalingParameters;
+    
+        public ExponentialDistribution()
+        {
+            _distributionParameters = new ExponentialDistributionParameters();
+        }
+    
+        protected ExponentialDistribution(ExponentialDistribution other) : 
+                base(other)
+        {
+            _distributionParameters = other._distributionParameters;
+            _truncationParameters = other._truncationParameters;
+            _scalingParameters = other._scalingParameters;
+        }
+    
+        /// <summary>
+        /// Parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("distribution_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Parameters of the distribution")]
+        public ExponentialDistributionParameters DistributionParameters
+        {
+            get
+            {
+                return _distributionParameters;
+            }
+            set
+            {
+                _distributionParameters = value;
+            }
+        }
+    
+        /// <summary>
+        /// Truncation parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("truncation_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Truncation parameters of the distribution")]
+        public TruncationParameters TruncationParameters
+        {
+            get
+            {
+                return _truncationParameters;
+            }
+            set
+            {
+                _truncationParameters = value;
+            }
+        }
+    
+        /// <summary>
+        /// Scaling parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("scaling_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Scaling parameters of the distribution")]
+        public ScalingParameters ScalingParameters
+        {
+            get
+            {
+                return _scalingParameters;
+            }
+            set
+            {
+                _scalingParameters = value;
+            }
+        }
+    
+        public System.IObservable<ExponentialDistribution> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new ExponentialDistribution(this)));
+        }
+    
+        public System.IObservable<ExponentialDistribution> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new ExponentialDistribution(this));
+        }
+    
+        protected override bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            if (base.PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(", ");
+            }
+            stringBuilder.Append("DistributionParameters = " + _distributionParameters + ", ");
+            stringBuilder.Append("TruncationParameters = " + _truncationParameters + ", ");
+            stringBuilder.Append("ScalingParameters = " + _scalingParameters);
+            return true;
+        }
+    }
+
+
+    /// <summary>
     /// Parameters for an exponential distribution.
     ///
     ///Defined by the rate parameter (inverse of mean).
@@ -912,20 +1117,36 @@ namespace AindBehaviorDirectedForagingDataSchema
         "se of mean).")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
-    public partial class ExponentialDistributionParameters : DistributionParameters
+    public partial class ExponentialDistributionParameters
     {
+    
+        private string _family;
     
         private double _rate;
     
         public ExponentialDistributionParameters()
         {
+            _family = "Exponential";
             _rate = 0D;
         }
     
-        protected ExponentialDistributionParameters(ExponentialDistributionParameters other) : 
-                base(other)
+        protected ExponentialDistributionParameters(ExponentialDistributionParameters other)
         {
+            _family = other._family;
             _rate = other._rate;
+        }
+    
+        [Newtonsoft.Json.JsonPropertyAttribute("family")]
+        public string Family
+        {
+            get
+            {
+                return _family;
+            }
+            set
+            {
+                _family = value;
+            }
         }
     
         /// <summary>
@@ -955,14 +1176,24 @@ namespace AindBehaviorDirectedForagingDataSchema
             return System.Reactive.Linq.Observable.Select(source, _ => new ExponentialDistributionParameters(this));
         }
     
-        protected override bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
         {
-            if (base.PrintMembers(stringBuilder))
-            {
-                stringBuilder.Append(", ");
-            }
+            stringBuilder.Append("Family = " + _family + ", ");
             stringBuilder.Append("Rate = " + _rate);
             return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
         }
     }
 
@@ -1023,6 +1254,117 @@ namespace AindBehaviorDirectedForagingDataSchema
 
 
     /// <summary>
+    /// A gamma probability distribution.
+    ///
+    ///Generalizes the exponential distribution. Used for modeling
+    ///positive continuous variables with right-skewed distributions.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.ComponentModel.DescriptionAttribute("A gamma probability distribution.\n\nGeneralizes the exponential distribution. Used" +
+        " for modeling\npositive continuous variables with right-skewed distributions.")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class GammaDistribution : Distribution
+    {
+    
+        private GammaDistributionParameters _distributionParameters;
+    
+        private TruncationParameters _truncationParameters;
+    
+        private ScalingParameters _scalingParameters;
+    
+        public GammaDistribution()
+        {
+            _distributionParameters = new GammaDistributionParameters();
+        }
+    
+        protected GammaDistribution(GammaDistribution other) : 
+                base(other)
+        {
+            _distributionParameters = other._distributionParameters;
+            _truncationParameters = other._truncationParameters;
+            _scalingParameters = other._scalingParameters;
+        }
+    
+        /// <summary>
+        /// Parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("distribution_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Parameters of the distribution")]
+        public GammaDistributionParameters DistributionParameters
+        {
+            get
+            {
+                return _distributionParameters;
+            }
+            set
+            {
+                _distributionParameters = value;
+            }
+        }
+    
+        /// <summary>
+        /// Truncation parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("truncation_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Truncation parameters of the distribution")]
+        public TruncationParameters TruncationParameters
+        {
+            get
+            {
+                return _truncationParameters;
+            }
+            set
+            {
+                _truncationParameters = value;
+            }
+        }
+    
+        /// <summary>
+        /// Scaling parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("scaling_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Scaling parameters of the distribution")]
+        public ScalingParameters ScalingParameters
+        {
+            get
+            {
+                return _scalingParameters;
+            }
+            set
+            {
+                _scalingParameters = value;
+            }
+        }
+    
+        public System.IObservable<GammaDistribution> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new GammaDistribution(this)));
+        }
+    
+        public System.IObservable<GammaDistribution> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new GammaDistribution(this));
+        }
+    
+        protected override bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            if (base.PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(", ");
+            }
+            stringBuilder.Append("DistributionParameters = " + _distributionParameters + ", ");
+            stringBuilder.Append("TruncationParameters = " + _truncationParameters + ", ");
+            stringBuilder.Append("ScalingParameters = " + _scalingParameters);
+            return true;
+        }
+    }
+
+
+    /// <summary>
     /// Parameters for a gamma distribution.
     ///
     ///Defined by shape (k) and rate (θ⁻¹) parameters.
@@ -1032,8 +1374,10 @@ namespace AindBehaviorDirectedForagingDataSchema
         "ers.")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
-    public partial class GammaDistributionParameters : DistributionParameters
+    public partial class GammaDistributionParameters
     {
+    
+        private string _family;
     
         private double _shape;
     
@@ -1041,15 +1385,29 @@ namespace AindBehaviorDirectedForagingDataSchema
     
         public GammaDistributionParameters()
         {
+            _family = "Gamma";
             _shape = 1D;
             _rate = 1D;
         }
     
-        protected GammaDistributionParameters(GammaDistributionParameters other) : 
-                base(other)
+        protected GammaDistributionParameters(GammaDistributionParameters other)
         {
+            _family = other._family;
             _shape = other._shape;
             _rate = other._rate;
+        }
+    
+        [Newtonsoft.Json.JsonPropertyAttribute("family")]
+        public string Family
+        {
+            get
+            {
+                return _family;
+            }
+            set
+            {
+                _family = value;
+            }
         }
     
         /// <summary>
@@ -1096,15 +1454,25 @@ namespace AindBehaviorDirectedForagingDataSchema
             return System.Reactive.Linq.Observable.Select(source, _ => new GammaDistributionParameters(this));
         }
     
-        protected override bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
         {
-            if (base.PrintMembers(stringBuilder))
-            {
-                stringBuilder.Append(", ");
-            }
+            stringBuilder.Append("Family = " + _family + ", ");
             stringBuilder.Append("Shape = " + _shape + ", ");
             stringBuilder.Append("Rate = " + _rate);
             return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
         }
     }
 
@@ -1397,6 +1765,118 @@ namespace AindBehaviorDirectedForagingDataSchema
 
 
     /// <summary>
+    /// A log-normal probability distribution.
+    ///
+    ///Distribution where the logarithm of the variable is normally distributed.
+    ///Always produces positive values and is right-skewed.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.ComponentModel.DescriptionAttribute("A log-normal probability distribution.\n\nDistribution where the logarithm of the v" +
+        "ariable is normally distributed.\nAlways produces positive values and is right-sk" +
+        "ewed.")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class LogNormalDistribution : Distribution
+    {
+    
+        private LogNormalDistributionParameters _distributionParameters;
+    
+        private TruncationParameters _truncationParameters;
+    
+        private ScalingParameters _scalingParameters;
+    
+        public LogNormalDistribution()
+        {
+            _distributionParameters = new LogNormalDistributionParameters();
+        }
+    
+        protected LogNormalDistribution(LogNormalDistribution other) : 
+                base(other)
+        {
+            _distributionParameters = other._distributionParameters;
+            _truncationParameters = other._truncationParameters;
+            _scalingParameters = other._scalingParameters;
+        }
+    
+        /// <summary>
+        /// Parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("distribution_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Parameters of the distribution")]
+        public LogNormalDistributionParameters DistributionParameters
+        {
+            get
+            {
+                return _distributionParameters;
+            }
+            set
+            {
+                _distributionParameters = value;
+            }
+        }
+    
+        /// <summary>
+        /// Truncation parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("truncation_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Truncation parameters of the distribution")]
+        public TruncationParameters TruncationParameters
+        {
+            get
+            {
+                return _truncationParameters;
+            }
+            set
+            {
+                _truncationParameters = value;
+            }
+        }
+    
+        /// <summary>
+        /// Scaling parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("scaling_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Scaling parameters of the distribution")]
+        public ScalingParameters ScalingParameters
+        {
+            get
+            {
+                return _scalingParameters;
+            }
+            set
+            {
+                _scalingParameters = value;
+            }
+        }
+    
+        public System.IObservable<LogNormalDistribution> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new LogNormalDistribution(this)));
+        }
+    
+        public System.IObservable<LogNormalDistribution> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new LogNormalDistribution(this));
+        }
+    
+        protected override bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            if (base.PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(", ");
+            }
+            stringBuilder.Append("DistributionParameters = " + _distributionParameters + ", ");
+            stringBuilder.Append("TruncationParameters = " + _truncationParameters + ", ");
+            stringBuilder.Append("ScalingParameters = " + _scalingParameters);
+            return true;
+        }
+    }
+
+
+    /// <summary>
     /// Parameters for a log-normal distribution.
     ///
     ///Defined by the mean and standard deviation of the underlying normal distribution.
@@ -1406,8 +1886,10 @@ namespace AindBehaviorDirectedForagingDataSchema
         "tion of the underlying normal distribution.")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
-    public partial class LogNormalDistributionParameters : DistributionParameters
+    public partial class LogNormalDistributionParameters
     {
+    
+        private string _family;
     
         private double _mean;
     
@@ -1415,15 +1897,29 @@ namespace AindBehaviorDirectedForagingDataSchema
     
         public LogNormalDistributionParameters()
         {
+            _family = "LogNormal";
             _mean = 0D;
             _std = 0D;
         }
     
-        protected LogNormalDistributionParameters(LogNormalDistributionParameters other) : 
-                base(other)
+        protected LogNormalDistributionParameters(LogNormalDistributionParameters other)
         {
+            _family = other._family;
             _mean = other._mean;
             _std = other._std;
+        }
+    
+        [Newtonsoft.Json.JsonPropertyAttribute("family")]
+        public string Family
+        {
+            get
+            {
+                return _family;
+            }
+            set
+            {
+                _family = value;
+            }
         }
     
         /// <summary>
@@ -1470,14 +1966,136 @@ namespace AindBehaviorDirectedForagingDataSchema
             return System.Reactive.Linq.Observable.Select(source, _ => new LogNormalDistributionParameters(this));
         }
     
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            stringBuilder.Append("Family = " + _family + ", ");
+            stringBuilder.Append("Mean = " + _mean + ", ");
+            stringBuilder.Append("Std = " + _std);
+            return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
+        }
+    }
+
+
+    /// <summary>
+    /// A normal (Gaussian) probability distribution.
+    ///
+    ///Bell-shaped distribution symmetric around the mean, commonly used
+    ///for modeling naturally occurring random variables.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.ComponentModel.DescriptionAttribute("A normal (Gaussian) probability distribution.\n\nBell-shaped distribution symmetric" +
+        " around the mean, commonly used\nfor modeling naturally occurring random variable" +
+        "s.")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class NormalDistribution : Distribution
+    {
+    
+        private NormalDistributionParameters _distributionParameters;
+    
+        private TruncationParameters _truncationParameters;
+    
+        private ScalingParameters _scalingParameters;
+    
+        public NormalDistribution()
+        {
+            _distributionParameters = new NormalDistributionParameters();
+        }
+    
+        protected NormalDistribution(NormalDistribution other) : 
+                base(other)
+        {
+            _distributionParameters = other._distributionParameters;
+            _truncationParameters = other._truncationParameters;
+            _scalingParameters = other._scalingParameters;
+        }
+    
+        /// <summary>
+        /// Parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("distribution_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Parameters of the distribution")]
+        public NormalDistributionParameters DistributionParameters
+        {
+            get
+            {
+                return _distributionParameters;
+            }
+            set
+            {
+                _distributionParameters = value;
+            }
+        }
+    
+        /// <summary>
+        /// Truncation parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("truncation_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Truncation parameters of the distribution")]
+        public TruncationParameters TruncationParameters
+        {
+            get
+            {
+                return _truncationParameters;
+            }
+            set
+            {
+                _truncationParameters = value;
+            }
+        }
+    
+        /// <summary>
+        /// Scaling parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("scaling_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Scaling parameters of the distribution")]
+        public ScalingParameters ScalingParameters
+        {
+            get
+            {
+                return _scalingParameters;
+            }
+            set
+            {
+                _scalingParameters = value;
+            }
+        }
+    
+        public System.IObservable<NormalDistribution> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new NormalDistribution(this)));
+        }
+    
+        public System.IObservable<NormalDistribution> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new NormalDistribution(this));
+        }
+    
         protected override bool PrintMembers(System.Text.StringBuilder stringBuilder)
         {
             if (base.PrintMembers(stringBuilder))
             {
                 stringBuilder.Append(", ");
             }
-            stringBuilder.Append("Mean = " + _mean + ", ");
-            stringBuilder.Append("Std = " + _std);
+            stringBuilder.Append("DistributionParameters = " + _distributionParameters + ", ");
+            stringBuilder.Append("TruncationParameters = " + _truncationParameters + ", ");
+            stringBuilder.Append("ScalingParameters = " + _scalingParameters);
             return true;
         }
     }
@@ -1493,8 +2111,10 @@ namespace AindBehaviorDirectedForagingDataSchema
         "andard deviation (spread).")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
-    public partial class NormalDistributionParameters : DistributionParameters
+    public partial class NormalDistributionParameters
     {
+    
+        private string _family;
     
         private double _mean;
     
@@ -1502,15 +2122,29 @@ namespace AindBehaviorDirectedForagingDataSchema
     
         public NormalDistributionParameters()
         {
+            _family = "Normal";
             _mean = 0D;
             _std = 0D;
         }
     
-        protected NormalDistributionParameters(NormalDistributionParameters other) : 
-                base(other)
+        protected NormalDistributionParameters(NormalDistributionParameters other)
         {
+            _family = other._family;
             _mean = other._mean;
             _std = other._std;
+        }
+    
+        [Newtonsoft.Json.JsonPropertyAttribute("family")]
+        public string Family
+        {
+            get
+            {
+                return _family;
+            }
+            set
+            {
+                _family = value;
+            }
         }
     
         /// <summary>
@@ -1557,15 +2191,25 @@ namespace AindBehaviorDirectedForagingDataSchema
             return System.Reactive.Linq.Observable.Select(source, _ => new NormalDistributionParameters(this));
         }
     
-        protected override bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
         {
-            if (base.PrintMembers(stringBuilder))
-            {
-                stringBuilder.Append(", ");
-            }
+            stringBuilder.Append("Family = " + _family + ", ");
             stringBuilder.Append("Mean = " + _mean + ", ");
             stringBuilder.Append("Std = " + _std);
             return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
         }
     }
 
@@ -1649,6 +2293,118 @@ namespace AindBehaviorDirectedForagingDataSchema
 
 
     /// <summary>
+    /// A custom probability density function distribution.
+    ///
+    ///Allows defining arbitrary discrete distributions by specifying
+    ///probability values and their corresponding indices.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.ComponentModel.DescriptionAttribute("A custom probability density function distribution.\n\nAllows defining arbitrary di" +
+        "screte distributions by specifying\nprobability values and their corresponding in" +
+        "dices.")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class PdfDistribution : Distribution
+    {
+    
+        private PdfDistributionParameters _distributionParameters;
+    
+        private TruncationParameters _truncationParameters;
+    
+        private ScalingParameters _scalingParameters;
+    
+        public PdfDistribution()
+        {
+            _distributionParameters = new PdfDistributionParameters();
+        }
+    
+        protected PdfDistribution(PdfDistribution other) : 
+                base(other)
+        {
+            _distributionParameters = other._distributionParameters;
+            _truncationParameters = other._truncationParameters;
+            _scalingParameters = other._scalingParameters;
+        }
+    
+        /// <summary>
+        /// Parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("distribution_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Parameters of the distribution")]
+        public PdfDistributionParameters DistributionParameters
+        {
+            get
+            {
+                return _distributionParameters;
+            }
+            set
+            {
+                _distributionParameters = value;
+            }
+        }
+    
+        /// <summary>
+        /// Truncation parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("truncation_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Truncation parameters of the distribution")]
+        public TruncationParameters TruncationParameters
+        {
+            get
+            {
+                return _truncationParameters;
+            }
+            set
+            {
+                _truncationParameters = value;
+            }
+        }
+    
+        /// <summary>
+        /// Scaling parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("scaling_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Scaling parameters of the distribution")]
+        public ScalingParameters ScalingParameters
+        {
+            get
+            {
+                return _scalingParameters;
+            }
+            set
+            {
+                _scalingParameters = value;
+            }
+        }
+    
+        public System.IObservable<PdfDistribution> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new PdfDistribution(this)));
+        }
+    
+        public System.IObservable<PdfDistribution> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new PdfDistribution(this));
+        }
+    
+        protected override bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            if (base.PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(", ");
+            }
+            stringBuilder.Append("DistributionParameters = " + _distributionParameters + ", ");
+            stringBuilder.Append("TruncationParameters = " + _truncationParameters + ", ");
+            stringBuilder.Append("ScalingParameters = " + _scalingParameters);
+            return true;
+        }
+    }
+
+
+    /// <summary>
     /// Parameters for a custom probability density function distribution.
     ///
     ///Defined by explicit probability values and their corresponding indices.
@@ -1660,8 +2416,10 @@ namespace AindBehaviorDirectedForagingDataSchema
         "omatically normalized to sum to 1.")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
-    public partial class PdfDistributionParameters : DistributionParameters
+    public partial class PdfDistributionParameters
     {
+    
+        private string _family;
     
         private System.Collections.Generic.List<double> _pdf;
     
@@ -1669,15 +2427,29 @@ namespace AindBehaviorDirectedForagingDataSchema
     
         public PdfDistributionParameters()
         {
+            _family = "Pdf";
             _pdf = new System.Collections.Generic.List<double>();
             _index = new System.Collections.Generic.List<double>();
         }
     
-        protected PdfDistributionParameters(PdfDistributionParameters other) : 
-                base(other)
+        protected PdfDistributionParameters(PdfDistributionParameters other)
         {
+            _family = other._family;
             _pdf = other._pdf;
             _index = other._index;
+        }
+    
+        [Newtonsoft.Json.JsonPropertyAttribute("family")]
+        public string Family
+        {
+            get
+            {
+                return _family;
+            }
+            set
+            {
+                _family = value;
+            }
         }
     
         /// <summary>
@@ -1726,14 +2498,136 @@ namespace AindBehaviorDirectedForagingDataSchema
             return System.Reactive.Linq.Observable.Select(source, _ => new PdfDistributionParameters(this));
         }
     
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            stringBuilder.Append("Family = " + _family + ", ");
+            stringBuilder.Append("Pdf = " + _pdf + ", ");
+            stringBuilder.Append("Index = " + _index);
+            return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
+        }
+    }
+
+
+    /// <summary>
+    /// A Poisson probability distribution.
+    ///
+    ///Models the number of events occurring in a fixed interval of time or space
+    ///when events occur independently at a constant rate.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.ComponentModel.DescriptionAttribute("A Poisson probability distribution.\n\nModels the number of events occurring in a f" +
+        "ixed interval of time or space\nwhen events occur independently at a constant rat" +
+        "e.")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class PoissonDistribution : Distribution
+    {
+    
+        private PoissonDistributionParameters _distributionParameters;
+    
+        private TruncationParameters _truncationParameters;
+    
+        private ScalingParameters _scalingParameters;
+    
+        public PoissonDistribution()
+        {
+            _distributionParameters = new PoissonDistributionParameters();
+        }
+    
+        protected PoissonDistribution(PoissonDistribution other) : 
+                base(other)
+        {
+            _distributionParameters = other._distributionParameters;
+            _truncationParameters = other._truncationParameters;
+            _scalingParameters = other._scalingParameters;
+        }
+    
+        /// <summary>
+        /// Parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("distribution_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Parameters of the distribution")]
+        public PoissonDistributionParameters DistributionParameters
+        {
+            get
+            {
+                return _distributionParameters;
+            }
+            set
+            {
+                _distributionParameters = value;
+            }
+        }
+    
+        /// <summary>
+        /// Truncation parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("truncation_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Truncation parameters of the distribution")]
+        public TruncationParameters TruncationParameters
+        {
+            get
+            {
+                return _truncationParameters;
+            }
+            set
+            {
+                _truncationParameters = value;
+            }
+        }
+    
+        /// <summary>
+        /// Scaling parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("scaling_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Scaling parameters of the distribution")]
+        public ScalingParameters ScalingParameters
+        {
+            get
+            {
+                return _scalingParameters;
+            }
+            set
+            {
+                _scalingParameters = value;
+            }
+        }
+    
+        public System.IObservable<PoissonDistribution> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new PoissonDistribution(this)));
+        }
+    
+        public System.IObservable<PoissonDistribution> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new PoissonDistribution(this));
+        }
+    
         protected override bool PrintMembers(System.Text.StringBuilder stringBuilder)
         {
             if (base.PrintMembers(stringBuilder))
             {
                 stringBuilder.Append(", ");
             }
-            stringBuilder.Append("Pdf = " + _pdf + ", ");
-            stringBuilder.Append("Index = " + _index);
+            stringBuilder.Append("DistributionParameters = " + _distributionParameters + ", ");
+            stringBuilder.Append("TruncationParameters = " + _truncationParameters + ", ");
+            stringBuilder.Append("ScalingParameters = " + _scalingParameters);
             return true;
         }
     }
@@ -1749,20 +2643,36 @@ namespace AindBehaviorDirectedForagingDataSchema
         "mber of events).")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
-    public partial class PoissonDistributionParameters : DistributionParameters
+    public partial class PoissonDistributionParameters
     {
+    
+        private string _family;
     
         private double _rate;
     
         public PoissonDistributionParameters()
         {
+            _family = "Poisson";
             _rate = 1D;
         }
     
-        protected PoissonDistributionParameters(PoissonDistributionParameters other) : 
-                base(other)
+        protected PoissonDistributionParameters(PoissonDistributionParameters other)
         {
+            _family = other._family;
             _rate = other._rate;
+        }
+    
+        [Newtonsoft.Json.JsonPropertyAttribute("family")]
+        public string Family
+        {
+            get
+            {
+                return _family;
+            }
+            set
+            {
+                _family = value;
+            }
         }
     
         /// <summary>
@@ -1792,14 +2702,24 @@ namespace AindBehaviorDirectedForagingDataSchema
             return System.Reactive.Linq.Observable.Select(source, _ => new PoissonDistributionParameters(this));
         }
     
-        protected override bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
         {
-            if (base.PrintMembers(stringBuilder))
-            {
-                stringBuilder.Append(", ");
-            }
+            stringBuilder.Append("Family = " + _family + ", ");
             stringBuilder.Append("Rate = " + _rate);
             return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
         }
     }
 
@@ -1863,11 +2783,10 @@ namespace AindBehaviorDirectedForagingDataSchema
     public partial class RandomisedTimer : TriggerSource
     {
     
-        private DistributionBase _distribution;
+        private Distribution _distribution;
     
         public RandomisedTimer()
         {
-            _distribution = new DistributionBase();
         }
     
         protected RandomisedTimer(RandomisedTimer other) : 
@@ -1878,7 +2797,7 @@ namespace AindBehaviorDirectedForagingDataSchema
     
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         [Newtonsoft.Json.JsonPropertyAttribute("distribution", Required=Newtonsoft.Json.Required.Always)]
-        public DistributionBase Distribution
+        public Distribution Distribution
         {
             get
             {
@@ -1913,6 +2832,108 @@ namespace AindBehaviorDirectedForagingDataSchema
 
 
     /// <summary>
+    /// A scalar distribution that returns a constant value.
+    ///
+    ///Useful for fixed parameters that don't vary across trials or samples.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.ComponentModel.DescriptionAttribute("A scalar distribution that returns a constant value.\n\nUseful for fixed parameters" +
+        " that don\'t vary across trials or samples.")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class Scalar : Distribution
+    {
+    
+        private ScalarDistributionParameter _distributionParameters;
+    
+        private TruncationParameters2 _truncationParameters;
+    
+        private ScalingParameters2 _scalingParameters;
+    
+        public Scalar()
+        {
+            _distributionParameters = new ScalarDistributionParameter();
+        }
+    
+        protected Scalar(Scalar other) : 
+                base(other)
+        {
+            _distributionParameters = other._distributionParameters;
+            _truncationParameters = other._truncationParameters;
+            _scalingParameters = other._scalingParameters;
+        }
+    
+        /// <summary>
+        /// Parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("distribution_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Parameters of the distribution")]
+        public ScalarDistributionParameter DistributionParameters
+        {
+            get
+            {
+                return _distributionParameters;
+            }
+            set
+            {
+                _distributionParameters = value;
+            }
+        }
+    
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("truncation_parameters")]
+        public TruncationParameters2 TruncationParameters
+        {
+            get
+            {
+                return _truncationParameters;
+            }
+            set
+            {
+                _truncationParameters = value;
+            }
+        }
+    
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("scaling_parameters")]
+        public ScalingParameters2 ScalingParameters
+        {
+            get
+            {
+                return _scalingParameters;
+            }
+            set
+            {
+                _scalingParameters = value;
+            }
+        }
+    
+        public System.IObservable<Scalar> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new Scalar(this)));
+        }
+    
+        public System.IObservable<Scalar> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new Scalar(this));
+        }
+    
+        protected override bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            if (base.PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(", ");
+            }
+            stringBuilder.Append("DistributionParameters = " + _distributionParameters + ", ");
+            stringBuilder.Append("TruncationParameters = " + _truncationParameters + ", ");
+            stringBuilder.Append("ScalingParameters = " + _scalingParameters);
+            return true;
+        }
+    }
+
+
+    /// <summary>
     /// Parameters for a scalar (constant) distribution.
     ///
     ///Represents a deterministic value that always returns the same number.
@@ -1922,20 +2943,36 @@ namespace AindBehaviorDirectedForagingDataSchema
         "e that always returns the same number.")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
-    public partial class ScalarDistributionParameter : DistributionParameters
+    public partial class ScalarDistributionParameter
     {
+    
+        private string _family;
     
         private double _value;
     
         public ScalarDistributionParameter()
         {
+            _family = "Scalar";
             _value = 0D;
         }
     
-        protected ScalarDistributionParameter(ScalarDistributionParameter other) : 
-                base(other)
+        protected ScalarDistributionParameter(ScalarDistributionParameter other)
         {
+            _family = other._family;
             _value = other._value;
+        }
+    
+        [Newtonsoft.Json.JsonPropertyAttribute("family")]
+        public string Family
+        {
+            get
+            {
+                return _family;
+            }
+            set
+            {
+                _family = value;
+            }
         }
     
         /// <summary>
@@ -1965,14 +3002,24 @@ namespace AindBehaviorDirectedForagingDataSchema
             return System.Reactive.Linq.Observable.Select(source, _ => new ScalarDistributionParameter(this));
         }
     
-        protected override bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
         {
-            if (base.PrintMembers(stringBuilder))
-            {
-                stringBuilder.Append(", ");
-            }
+            stringBuilder.Append("Family = " + _family + ", ");
             stringBuilder.Append("Value = " + _value);
             return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
         }
     }
 
@@ -2653,6 +3700,116 @@ namespace AindBehaviorDirectedForagingDataSchema
 
 
     /// <summary>
+    /// A uniform probability distribution.
+    ///
+    ///All values between min and max have equal probability of being sampled.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.ComponentModel.DescriptionAttribute("A uniform probability distribution.\n\nAll values between min and max have equal pr" +
+        "obability of being sampled.")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class UniformDistribution : Distribution
+    {
+    
+        private UniformDistributionParameters _distributionParameters;
+    
+        private TruncationParameters _truncationParameters;
+    
+        private ScalingParameters _scalingParameters;
+    
+        public UniformDistribution()
+        {
+            _distributionParameters = new UniformDistributionParameters();
+        }
+    
+        protected UniformDistribution(UniformDistribution other) : 
+                base(other)
+        {
+            _distributionParameters = other._distributionParameters;
+            _truncationParameters = other._truncationParameters;
+            _scalingParameters = other._scalingParameters;
+        }
+    
+        /// <summary>
+        /// Parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("distribution_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Parameters of the distribution")]
+        public UniformDistributionParameters DistributionParameters
+        {
+            get
+            {
+                return _distributionParameters;
+            }
+            set
+            {
+                _distributionParameters = value;
+            }
+        }
+    
+        /// <summary>
+        /// Truncation parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("truncation_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Truncation parameters of the distribution")]
+        public TruncationParameters TruncationParameters
+        {
+            get
+            {
+                return _truncationParameters;
+            }
+            set
+            {
+                _truncationParameters = value;
+            }
+        }
+    
+        /// <summary>
+        /// Scaling parameters of the distribution
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("scaling_parameters")]
+        [System.ComponentModel.DescriptionAttribute("Scaling parameters of the distribution")]
+        public ScalingParameters ScalingParameters
+        {
+            get
+            {
+                return _scalingParameters;
+            }
+            set
+            {
+                _scalingParameters = value;
+            }
+        }
+    
+        public System.IObservable<UniformDistribution> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new UniformDistribution(this)));
+        }
+    
+        public System.IObservable<UniformDistribution> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new UniformDistribution(this));
+        }
+    
+        protected override bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            if (base.PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(", ");
+            }
+            stringBuilder.Append("DistributionParameters = " + _distributionParameters + ", ");
+            stringBuilder.Append("TruncationParameters = " + _truncationParameters + ", ");
+            stringBuilder.Append("ScalingParameters = " + _scalingParameters);
+            return true;
+        }
+    }
+
+
+    /// <summary>
     /// Parameters for a uniform distribution.
     ///
     ///Defined by minimum and maximum bounds of the distribution.
@@ -2662,8 +3819,10 @@ namespace AindBehaviorDirectedForagingDataSchema
         "the distribution.")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
-    public partial class UniformDistributionParameters : DistributionParameters
+    public partial class UniformDistributionParameters
     {
+    
+        private string _family;
     
         private double _min;
     
@@ -2671,15 +3830,29 @@ namespace AindBehaviorDirectedForagingDataSchema
     
         public UniformDistributionParameters()
         {
+            _family = "Uniform";
             _min = 0D;
             _max = 0D;
         }
     
-        protected UniformDistributionParameters(UniformDistributionParameters other) : 
-                base(other)
+        protected UniformDistributionParameters(UniformDistributionParameters other)
         {
+            _family = other._family;
             _min = other._min;
             _max = other._max;
+        }
+    
+        [Newtonsoft.Json.JsonPropertyAttribute("family")]
+        public string Family
+        {
+            get
+            {
+                return _family;
+            }
+            set
+            {
+                _family = value;
+            }
         }
     
         /// <summary>
@@ -2726,15 +3899,25 @@ namespace AindBehaviorDirectedForagingDataSchema
             return System.Reactive.Linq.Observable.Select(source, _ => new UniformDistributionParameters(this));
         }
     
-        protected override bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
         {
-            if (base.PrintMembers(stringBuilder))
-            {
-                stringBuilder.Append(", ");
-            }
+            stringBuilder.Append("Family = " + _family + ", ");
             stringBuilder.Append("Min = " + _min + ", ");
             stringBuilder.Append("Max = " + _max);
             return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
         }
     }
 
@@ -2765,6 +3948,94 @@ namespace AindBehaviorDirectedForagingDataSchema
         public System.IObservable<TriggerSource> Generate<TSource>(System.IObservable<TSource> source)
         {
             return System.Reactive.Linq.Observable.Select(source, _ => new TriggerSource(this));
+        }
+    
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            return false;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
+        }
+    }
+
+
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class TruncationParameters2
+    {
+    
+        public TruncationParameters2()
+        {
+        }
+    
+        protected TruncationParameters2(TruncationParameters2 other)
+        {
+        }
+    
+        public System.IObservable<TruncationParameters2> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new TruncationParameters2(this)));
+        }
+    
+        public System.IObservable<TruncationParameters2> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new TruncationParameters2(this));
+        }
+    
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            return false;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
+        }
+    }
+
+
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class ScalingParameters2
+    {
+    
+        public ScalingParameters2()
+        {
+        }
+    
+        protected ScalingParameters2(ScalingParameters2 other)
+        {
+        }
+    
+        public System.IObservable<ScalingParameters2> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new ScalingParameters2(this)));
+        }
+    
+        public System.IObservable<ScalingParameters2> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new ScalingParameters2(this));
         }
     
         protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
@@ -2940,17 +4211,17 @@ namespace AindBehaviorDirectedForagingDataSchema
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
     [System.ComponentModel.DefaultPropertyAttribute("Type")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Combinator)]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<ScalarDistributionParameter>))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<BetaDistributionParameters>))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<NormalDistributionParameters>))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<LogNormalDistributionParameters>))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<ExponentialDistributionParameters>))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<UniformDistributionParameters>))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<PoissonDistributionParameters>))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<BinomialDistributionParameters>))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<GammaDistributionParameters>))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<PdfDistributionParameters>))]
-    public partial class MatchDistributionParameters : Bonsai.Expressions.SingleArgumentExpressionBuilder
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Scalar>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<BetaDistribution>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<NormalDistribution>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<LogNormalDistribution>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<ExponentialDistribution>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<UniformDistribution>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<PoissonDistribution>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<BinomialDistribution>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<GammaDistribution>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<PdfDistribution>))]
+    public partial class MatchDistribution : Bonsai.Expressions.SingleArgumentExpressionBuilder
     {
     
         public Bonsai.Expressions.TypeMapping Type { get; set; }
@@ -2958,21 +4229,21 @@ namespace AindBehaviorDirectedForagingDataSchema
         public override System.Linq.Expressions.Expression Build(System.Collections.Generic.IEnumerable<System.Linq.Expressions.Expression> arguments)
         {
             var typeMapping = Type;
-            var returnType = typeMapping != null ? typeMapping.GetType().GetGenericArguments()[0] : typeof(DistributionParameters);
+            var returnType = typeMapping != null ? typeMapping.GetType().GetGenericArguments()[0] : typeof(Distribution);
             return System.Linq.Expressions.Expression.Call(
-                typeof(MatchDistributionParameters),
+                typeof(MatchDistribution),
                 "Process",
                 new System.Type[] { returnType },
                 System.Linq.Enumerable.Single(arguments));
         }
 
     
-        private static System.IObservable<TResult> Process<TResult>(System.IObservable<DistributionParameters> source)
-            where TResult : DistributionParameters
+        private static System.IObservable<TResult> Process<TResult>(System.IObservable<Distribution> source)
+            where TResult : Distribution
         {
             return System.Reactive.Linq.Observable.Create<TResult>(observer =>
             {
-                var sourceObserver = System.Reactive.Observer.Create<DistributionParameters>(
+                var sourceObserver = System.Reactive.Observer.Create<Distribution>(
                     value =>
                     {
                         var match = value as TResult;
@@ -3066,9 +4337,19 @@ namespace AindBehaviorDirectedForagingDataSchema
             return Process<BaseModel>(source);
         }
 
+        public System.IObservable<string> Process(System.IObservable<BetaDistribution> source)
+        {
+            return Process<BetaDistribution>(source);
+        }
+
         public System.IObservable<string> Process(System.IObservable<BetaDistributionParameters> source)
         {
             return Process<BetaDistributionParameters>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<BinomialDistribution> source)
+        {
+            return Process<BinomialDistribution>(source);
         }
 
         public System.IObservable<string> Process(System.IObservable<BinomialDistributionParameters> source)
@@ -3076,14 +4357,14 @@ namespace AindBehaviorDirectedForagingDataSchema
             return Process<BinomialDistributionParameters>(source);
         }
 
-        public System.IObservable<string> Process(System.IObservable<DistributionBase> source)
+        public System.IObservable<string> Process(System.IObservable<Distribution> source)
         {
-            return Process<DistributionBase>(source);
+            return Process<Distribution>(source);
         }
 
-        public System.IObservable<string> Process(System.IObservable<DistributionParameters> source)
+        public System.IObservable<string> Process(System.IObservable<ExponentialDistribution> source)
         {
-            return Process<DistributionParameters>(source);
+            return Process<ExponentialDistribution>(source);
         }
 
         public System.IObservable<string> Process(System.IObservable<ExponentialDistributionParameters> source)
@@ -3096,6 +4377,11 @@ namespace AindBehaviorDirectedForagingDataSchema
             return Process<FixedTimer>(source);
         }
 
+        public System.IObservable<string> Process(System.IObservable<GammaDistribution> source)
+        {
+            return Process<GammaDistribution>(source);
+        }
+
         public System.IObservable<string> Process(System.IObservable<GammaDistributionParameters> source)
         {
             return Process<GammaDistributionParameters>(source);
@@ -3106,9 +4392,19 @@ namespace AindBehaviorDirectedForagingDataSchema
             return Process<HarpDelphiController>(source);
         }
 
+        public System.IObservable<string> Process(System.IObservable<LogNormalDistribution> source)
+        {
+            return Process<LogNormalDistribution>(source);
+        }
+
         public System.IObservable<string> Process(System.IObservable<LogNormalDistributionParameters> source)
         {
             return Process<LogNormalDistributionParameters>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<NormalDistribution> source)
+        {
+            return Process<NormalDistribution>(source);
         }
 
         public System.IObservable<string> Process(System.IObservable<NormalDistributionParameters> source)
@@ -3121,9 +4417,19 @@ namespace AindBehaviorDirectedForagingDataSchema
             return Process<OdorDefinition>(source);
         }
 
+        public System.IObservable<string> Process(System.IObservable<PdfDistribution> source)
+        {
+            return Process<PdfDistribution>(source);
+        }
+
         public System.IObservable<string> Process(System.IObservable<PdfDistributionParameters> source)
         {
             return Process<PdfDistributionParameters>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<PoissonDistribution> source)
+        {
+            return Process<PoissonDistribution>(source);
         }
 
         public System.IObservable<string> Process(System.IObservable<PoissonDistributionParameters> source)
@@ -3139,6 +4445,11 @@ namespace AindBehaviorDirectedForagingDataSchema
         public System.IObservable<string> Process(System.IObservable<RandomisedTimer> source)
         {
             return Process<RandomisedTimer>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<Scalar> source)
+        {
+            return Process<Scalar>(source);
         }
 
         public System.IObservable<string> Process(System.IObservable<ScalarDistributionParameter> source)
@@ -3166,6 +4477,11 @@ namespace AindBehaviorDirectedForagingDataSchema
             return Process<TruncationParameters>(source);
         }
 
+        public System.IObservable<string> Process(System.IObservable<UniformDistribution> source)
+        {
+            return Process<UniformDistribution>(source);
+        }
+
         public System.IObservable<string> Process(System.IObservable<UniformDistributionParameters> source)
         {
             return Process<UniformDistributionParameters>(source);
@@ -3174,6 +4490,16 @@ namespace AindBehaviorDirectedForagingDataSchema
         public System.IObservable<string> Process(System.IObservable<TriggerSource> source)
         {
             return Process<TriggerSource>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<TruncationParameters2> source)
+        {
+            return Process<TruncationParameters2>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<ScalingParameters2> source)
+        {
+            return Process<ScalingParameters2>(source);
         }
     }
 
@@ -3189,28 +4515,39 @@ namespace AindBehaviorDirectedForagingDataSchema
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<AindBehaviorDirectedForagingTaskLogic>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<AindBehaviorDirectedForagingTaskParameters>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<BaseModel>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<BetaDistribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<BetaDistributionParameters>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<BinomialDistribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<BinomialDistributionParameters>))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<DistributionBase>))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<DistributionParameters>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Distribution>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<ExponentialDistribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<ExponentialDistributionParameters>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<FixedTimer>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<GammaDistribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<GammaDistributionParameters>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<HarpDelphiController>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<LogNormalDistribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<LogNormalDistributionParameters>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<NormalDistribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<NormalDistributionParameters>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<OdorDefinition>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<PdfDistribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<PdfDistributionParameters>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<PoissonDistribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<PoissonDistributionParameters>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<RadiusThreshold>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<RandomisedTimer>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Scalar>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<ScalarDistributionParameter>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<ScalingParameters>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Session>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Trial>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<TruncationParameters>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<UniformDistribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<UniformDistributionParameters>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<TriggerSource>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<TruncationParameters2>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<ScalingParameters2>))]
     public partial class DeserializeFromJson : Bonsai.Expressions.SingleArgumentExpressionBuilder
     {
     

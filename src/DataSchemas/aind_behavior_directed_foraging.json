@@ -155,6 +155,52 @@
       "title": "BaseModel",
       "type": "object"
     },
+    "BetaDistribution": {
+      "description": "A beta probability distribution.\n\nContinuous distribution bounded between 0 and 1. Commonly used\nfor modeling probabilities and proportions.",
+      "properties": {
+        "family": {
+          "const": "Beta",
+          "default": "Beta",
+          "title": "Family",
+          "type": "string"
+        },
+        "distribution_parameters": {
+          "$ref": "#/$defs/BetaDistributionParameters",
+          "default": {
+            "family": "Beta",
+            "alpha": 5.0,
+            "beta": 5.0
+          },
+          "description": "Parameters of the distribution"
+        },
+        "truncation_parameters": {
+          "default": null,
+          "description": "Truncation parameters of the distribution",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/TruncationParameters"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scaling_parameters": {
+          "default": null,
+          "description": "Scaling parameters of the distribution",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/ScalingParameters"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "title": "BetaDistribution",
+      "type": "object"
+    },
     "BetaDistributionParameters": {
       "description": "Parameters for a beta distribution.\n\nDefined by alpha and beta shape parameters.",
       "properties": {
@@ -180,6 +226,52 @@
         }
       },
       "title": "BetaDistributionParameters",
+      "type": "object"
+    },
+    "BinomialDistribution": {
+      "description": "A binomial probability distribution.\n\nModels the number of successes in a fixed number of independent\nBernoulli trials with constant success probability.",
+      "properties": {
+        "family": {
+          "const": "Binomial",
+          "default": "Binomial",
+          "title": "Family",
+          "type": "string"
+        },
+        "distribution_parameters": {
+          "$ref": "#/$defs/BinomialDistributionParameters",
+          "default": {
+            "family": "Binomial",
+            "n": 1,
+            "p": 0.5
+          },
+          "description": "Parameters of the distribution"
+        },
+        "truncation_parameters": {
+          "default": null,
+          "description": "Truncation parameters of the distribution",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/TruncationParameters"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scaling_parameters": {
+          "default": null,
+          "description": "Scaling parameters of the distribution",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/ScalingParameters"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "title": "BinomialDistribution",
       "type": "object"
     },
     "BinomialDistributionParameters": {
@@ -210,15 +302,73 @@
       "title": "BinomialDistributionParameters",
       "type": "object"
     },
-    "DistributionBase": {
-      "description": "Base class for all distribution models. This class should not be instantiated directly.\n\nCombines distribution parameters with optional truncation and scaling\ntransformations for flexible probability distributions.",
+    "Distribution": {
+      "description": "Available distributions",
+      "discriminator": {
+        "mapping": {
+          "Beta": "#/$defs/BetaDistribution",
+          "Binomial": "#/$defs/BinomialDistribution",
+          "Exponential": "#/$defs/ExponentialDistribution",
+          "Gamma": "#/$defs/GammaDistribution",
+          "LogNormal": "#/$defs/LogNormalDistribution",
+          "Normal": "#/$defs/NormalDistribution",
+          "Pdf": "#/$defs/PdfDistribution",
+          "Poisson": "#/$defs/PoissonDistribution",
+          "Scalar": "#/$defs/Scalar",
+          "Uniform": "#/$defs/UniformDistribution"
+        },
+        "propertyName": "family"
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/Scalar"
+        },
+        {
+          "$ref": "#/$defs/NormalDistribution"
+        },
+        {
+          "$ref": "#/$defs/LogNormalDistribution"
+        },
+        {
+          "$ref": "#/$defs/ExponentialDistribution"
+        },
+        {
+          "$ref": "#/$defs/UniformDistribution"
+        },
+        {
+          "$ref": "#/$defs/PoissonDistribution"
+        },
+        {
+          "$ref": "#/$defs/BinomialDistribution"
+        },
+        {
+          "$ref": "#/$defs/BetaDistribution"
+        },
+        {
+          "$ref": "#/$defs/GammaDistribution"
+        },
+        {
+          "$ref": "#/$defs/PdfDistribution"
+        }
+      ],
+      "title": "Distribution"
+    },
+    "ExponentialDistribution": {
+      "description": "An exponential probability distribution.\n\nModels time between events in a Poisson process. Commonly used\nfor wait times and inter-event intervals.",
       "properties": {
         "family": {
-          "$ref": "#/$defs/DistributionFamily",
-          "description": "Family of the distribution"
+          "const": "Exponential",
+          "default": "Exponential",
+          "title": "Family",
+          "type": "string"
         },
         "distribution_parameters": {
-          "$ref": "#/$defs/DistributionParameters"
+          "$ref": "#/$defs/ExponentialDistributionParameters",
+          "default": {
+            "family": "Exponential",
+            "rate": 0.0
+          },
+          "description": "Parameters of the distribution"
         },
         "truncation_parameters": {
           "default": null,
@@ -245,80 +395,8 @@
           ]
         }
       },
-      "required": [
-        "family",
-        "distribution_parameters"
-      ],
-      "title": "DistributionBase",
+      "title": "ExponentialDistribution",
       "type": "object"
-    },
-    "DistributionFamily": {
-      "description": "Enumeration of supported probability distribution families.\n\nDefines all available statistical distributions that can be used\nfor sampling random values in the task implementation.",
-      "enum": [
-        "Scalar",
-        "Normal",
-        "LogNormal",
-        "Uniform",
-        "Exponential",
-        "Gamma",
-        "Binomial",
-        "Beta",
-        "Poisson",
-        "Pdf"
-      ],
-      "title": "DistributionFamily",
-      "type": "string"
-    },
-    "DistributionParameters": {
-      "description": "Parameters of the distribution",
-      "discriminator": {
-        "mapping": {
-          "Beta": "#/$defs/BetaDistributionParameters",
-          "Binomial": "#/$defs/BinomialDistributionParameters",
-          "Exponential": "#/$defs/ExponentialDistributionParameters",
-          "Gamma": "#/$defs/GammaDistributionParameters",
-          "LogNormal": "#/$defs/LogNormalDistributionParameters",
-          "Normal": "#/$defs/NormalDistributionParameters",
-          "Pdf": "#/$defs/PdfDistributionParameters",
-          "Poisson": "#/$defs/PoissonDistributionParameters",
-          "Scalar": "#/$defs/ScalarDistributionParameter",
-          "Uniform": "#/$defs/UniformDistributionParameters"
-        },
-        "propertyName": "family"
-      },
-      "oneOf": [
-        {
-          "$ref": "#/$defs/ScalarDistributionParameter"
-        },
-        {
-          "$ref": "#/$defs/NormalDistributionParameters"
-        },
-        {
-          "$ref": "#/$defs/LogNormalDistributionParameters"
-        },
-        {
-          "$ref": "#/$defs/ExponentialDistributionParameters"
-        },
-        {
-          "$ref": "#/$defs/UniformDistributionParameters"
-        },
-        {
-          "$ref": "#/$defs/PoissonDistributionParameters"
-        },
-        {
-          "$ref": "#/$defs/BinomialDistributionParameters"
-        },
-        {
-          "$ref": "#/$defs/BetaDistributionParameters"
-        },
-        {
-          "$ref": "#/$defs/GammaDistributionParameters"
-        },
-        {
-          "$ref": "#/$defs/PdfDistributionParameters"
-        }
-      ],
-      "title": "DistributionParameters"
     },
     "ExponentialDistributionParameters": {
       "description": "Parameters for an exponential distribution.\n\nDefined by the rate parameter (inverse of mean).",
@@ -360,6 +438,52 @@
         "sequence"
       ],
       "title": "FixedTimer",
+      "type": "object"
+    },
+    "GammaDistribution": {
+      "description": "A gamma probability distribution.\n\nGeneralizes the exponential distribution. Used for modeling\npositive continuous variables with right-skewed distributions.",
+      "properties": {
+        "family": {
+          "const": "Gamma",
+          "default": "Gamma",
+          "title": "Family",
+          "type": "string"
+        },
+        "distribution_parameters": {
+          "$ref": "#/$defs/GammaDistributionParameters",
+          "default": {
+            "family": "Gamma",
+            "shape": 1.0,
+            "rate": 1.0
+          },
+          "description": "Parameters of the distribution"
+        },
+        "truncation_parameters": {
+          "default": null,
+          "description": "Truncation parameters of the distribution",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/TruncationParameters"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scaling_parameters": {
+          "default": null,
+          "description": "Scaling parameters of the distribution",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/ScalingParameters"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "title": "GammaDistribution",
       "type": "object"
     },
     "GammaDistributionParameters": {
@@ -480,6 +604,52 @@
       "title": "HarpDelphiController",
       "type": "object"
     },
+    "LogNormalDistribution": {
+      "description": "A log-normal probability distribution.\n\nDistribution where the logarithm of the variable is normally distributed.\nAlways produces positive values and is right-skewed.",
+      "properties": {
+        "family": {
+          "const": "LogNormal",
+          "default": "LogNormal",
+          "title": "Family",
+          "type": "string"
+        },
+        "distribution_parameters": {
+          "$ref": "#/$defs/LogNormalDistributionParameters",
+          "default": {
+            "family": "LogNormal",
+            "mean": 0.0,
+            "std": 0.0
+          },
+          "description": "Parameters of the distribution"
+        },
+        "truncation_parameters": {
+          "default": null,
+          "description": "Truncation parameters of the distribution",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/TruncationParameters"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scaling_parameters": {
+          "default": null,
+          "description": "Scaling parameters of the distribution",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/ScalingParameters"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "title": "LogNormalDistribution",
+      "type": "object"
+    },
     "LogNormalDistributionParameters": {
       "description": "Parameters for a log-normal distribution.\n\nDefined by the mean and standard deviation of the underlying normal distribution.",
       "properties": {
@@ -503,6 +673,52 @@
         }
       },
       "title": "LogNormalDistributionParameters",
+      "type": "object"
+    },
+    "NormalDistribution": {
+      "description": "A normal (Gaussian) probability distribution.\n\nBell-shaped distribution symmetric around the mean, commonly used\nfor modeling naturally occurring random variables.",
+      "properties": {
+        "family": {
+          "const": "Normal",
+          "default": "Normal",
+          "title": "Family",
+          "type": "string"
+        },
+        "distribution_parameters": {
+          "$ref": "#/$defs/NormalDistributionParameters",
+          "default": {
+            "family": "Normal",
+            "mean": 0.0,
+            "std": 0.0
+          },
+          "description": "Parameters of the distribution"
+        },
+        "truncation_parameters": {
+          "default": null,
+          "description": "Truncation parameters of the distribution",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/TruncationParameters"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scaling_parameters": {
+          "default": null,
+          "description": "Scaling parameters of the distribution",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/ScalingParameters"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "title": "NormalDistribution",
       "type": "object"
     },
     "NormalDistributionParameters": {
@@ -548,6 +764,56 @@
       "title": "OdorDefinition",
       "type": "object"
     },
+    "PdfDistribution": {
+      "description": "A custom probability density function distribution.\n\nAllows defining arbitrary discrete distributions by specifying\nprobability values and their corresponding indices.",
+      "properties": {
+        "family": {
+          "const": "Pdf",
+          "default": "Pdf",
+          "title": "Family",
+          "type": "string"
+        },
+        "distribution_parameters": {
+          "$ref": "#/$defs/PdfDistributionParameters",
+          "default": {
+            "family": "Pdf",
+            "pdf": [
+              1.0
+            ],
+            "index": [
+              0.0
+            ]
+          },
+          "description": "Parameters of the distribution"
+        },
+        "truncation_parameters": {
+          "default": null,
+          "description": "Truncation parameters of the distribution",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/TruncationParameters"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scaling_parameters": {
+          "default": null,
+          "description": "Scaling parameters of the distribution",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/ScalingParameters"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "title": "PdfDistribution",
+      "type": "object"
+    },
     "PdfDistributionParameters": {
       "description": "Parameters for a custom probability density function distribution.\n\nDefined by explicit probability values and their corresponding indices.\nProbabilities are automatically normalized to sum to 1.",
       "properties": {
@@ -582,6 +848,51 @@
         }
       },
       "title": "PdfDistributionParameters",
+      "type": "object"
+    },
+    "PoissonDistribution": {
+      "description": "A Poisson probability distribution.\n\nModels the number of events occurring in a fixed interval of time or space\nwhen events occur independently at a constant rate.",
+      "properties": {
+        "family": {
+          "const": "Poisson",
+          "default": "Poisson",
+          "title": "Family",
+          "type": "string"
+        },
+        "distribution_parameters": {
+          "$ref": "#/$defs/PoissonDistributionParameters",
+          "default": {
+            "family": "Poisson",
+            "rate": 1.0
+          },
+          "description": "Parameters of the distribution"
+        },
+        "truncation_parameters": {
+          "default": null,
+          "description": "Truncation parameters of the distribution",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/TruncationParameters"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scaling_parameters": {
+          "default": null,
+          "description": "Scaling parameters of the distribution",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/ScalingParameters"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "title": "PoissonDistribution",
       "type": "object"
     },
     "PoissonDistributionParameters": {
@@ -631,7 +942,7 @@
           "type": "string"
         },
         "distribution": {
-          "$ref": "#/$defs/DistributionBase"
+          "$ref": "#/$defs/Distribution"
         }
       },
       "required": [
@@ -639,6 +950,39 @@
         "distribution"
       ],
       "title": "RandomisedTimer",
+      "type": "object"
+    },
+    "Scalar": {
+      "description": "A scalar distribution that returns a constant value.\n\nUseful for fixed parameters that don't vary across trials or samples.",
+      "properties": {
+        "family": {
+          "const": "Scalar",
+          "default": "Scalar",
+          "title": "Family",
+          "type": "string"
+        },
+        "distribution_parameters": {
+          "$ref": "#/$defs/ScalarDistributionParameter",
+          "default": {
+            "family": "Scalar",
+            "value": 0.0
+          },
+          "description": "Parameters of the distribution"
+        },
+        "truncation_parameters": {
+          "const": null,
+          "default": null,
+          "title": "Truncation Parameters",
+          "type": "null"
+        },
+        "scaling_parameters": {
+          "const": null,
+          "default": null,
+          "title": "Scaling Parameters",
+          "type": "null"
+        }
+      },
+      "title": "Scalar",
       "type": "object"
     },
     "ScalarDistributionParameter": {
@@ -856,6 +1200,52 @@
         }
       },
       "title": "TruncationParameters",
+      "type": "object"
+    },
+    "UniformDistribution": {
+      "description": "A uniform probability distribution.\n\nAll values between min and max have equal probability of being sampled.",
+      "properties": {
+        "family": {
+          "const": "Uniform",
+          "default": "Uniform",
+          "title": "Family",
+          "type": "string"
+        },
+        "distribution_parameters": {
+          "$ref": "#/$defs/UniformDistributionParameters",
+          "default": {
+            "family": "Uniform",
+            "min": 0.0,
+            "max": 0.0
+          },
+          "description": "Parameters of the distribution"
+        },
+        "truncation_parameters": {
+          "default": null,
+          "description": "Truncation parameters of the distribution",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/TruncationParameters"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scaling_parameters": {
+          "default": null,
+          "description": "Scaling parameters of the distribution",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/ScalingParameters"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "title": "UniformDistribution",
       "type": "object"
     },
     "UniformDistributionParameters": {

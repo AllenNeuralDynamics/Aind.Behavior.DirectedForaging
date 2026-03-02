@@ -34,7 +34,7 @@ class RadiusThreshold(TriggerSource):
     
 class RandomisedTimer(TriggerSource):
     trigger_type: Literal["randomised_timer"]
-    distribution: distributions.DistributionBase
+    distribution: distributions.Distribution
     
 class FixedTimer(TriggerSource):
     trigger_type: Literal["fixed_timer"]
