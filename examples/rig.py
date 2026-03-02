@@ -1,12 +1,19 @@
 import os
+from pathlib import Path
 
 import aind_behavior_services.rig as rig
 
 from aind_behavior_directed_foraging.rig import (
     AindBehaviorDirectedForagingRig,
+    HarpDelphiController
 )
 
-rig = AindBehaviorDirectedForagingRig(rig_name="test_rig")
+rig = AindBehaviorDirectedForagingRig(
+    computer_name="TestRigComputer", 
+    rig_name="test_rig", 
+    data_directory=Path("../temp_data"),
+    harp_delphi_controller=HarpDelphiController(port_name="COM3", enable_valve_leds=True)
+)
 
 def main(path_seed: str = "./local/{schema}.json"):
     os.makedirs(os.path.dirname(path_seed), exist_ok=True)

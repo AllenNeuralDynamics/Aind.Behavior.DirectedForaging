@@ -1,16 +1,27 @@
 import os
 
-import aind_behavior_services.task_logic.distributions as distributions
+import aind_behavior_services.task.distributions as distributions
 from aind_behavior_curriculum import Stage, TrainerState
 
 from aind_behavior_directed_foraging.task_logic import (
     AindBehaviorDirectedForagingTaskLogic,
     AindBehaviorDirectedForagingTaskParameters,
+    Trial,
+    OdorDefinition
 )
 
+odorA = OdorDefinition(odor_id="OdorA", olfactometer_mask=1)
+odorB = OdorDefinition(odor_id="OdorB", olfactometer_mask=2)
 
 task_logic = AindBehaviorDirectedForagingTaskLogic(
-    task_parameters=AindBehaviorDirectedForagingTaskParameters(),
+    task_parameters=AindBehaviorDirectedForagingTaskParameters(
+        trials = [
+            Trial(odor_definition=odorA, release_time=0.5, dig_threshold=5, trial_timeout=30, threshold_reward=2, threshold_punishment=5),
+            Trial(odor_definition=odorB, release_time=0.5, dig_threshold=5, trial_timeout=30, threshold_reward=2, threshold_punishment=5),
+            Trial(odor_definition=odorA, release_time=0.5, dig_threshold=5, trial_timeout=30, threshold_reward=2, threshold_punishment=5),
+            Trial(odor_definition=odorB, release_time=0.5, dig_threshold=5, trial_timeout=30, threshold_reward=2, threshold_punishment=5)
+        ]
+    ),
 )
 
 
