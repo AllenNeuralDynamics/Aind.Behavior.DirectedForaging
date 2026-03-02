@@ -140,7 +140,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="num:CreateRandom">
-                <num:Seed>4</num:Seed>
+                <num:Seed>8</num:Seed>
               </Combinator>
             </Expression>
             <Expression xsi:type="Combinator">
@@ -180,7 +180,7 @@
             </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="AllenNeuralDynamics.Core:GenerateRootLoggingPathFromSession.bonsai">
               <RootFolder>..\temp_data</RootFolder>
-              <SessionName>test_2026-02-24T093015Z</SessionName>
+              <SessionName>test_2026-03-02T135305Z</SessionName>
               <SubjectName>LoggingRootPath</SubjectName>
             </Expression>
           </Nodes>
@@ -1030,15 +1030,47 @@
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="rx:Concat" />
             </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="wie:KeyDown">
-                <wie:Filter>T</wie:Filter>
-                <wie:SuppressRepetitions>false</wie:SuppressRepetitions>
-              </Combinator>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>TaskLogicParameters</Name>
             </Expression>
-            <Expression xsi:type="Unit" />
+            <Expression xsi:type="MemberSelector">
+              <Selector>TriggerSource</Selector>
+            </Expression>
+            <Expression xsi:type="p1:MatchTriggerSource">
+              <p1:Type xsi:type="TypeMapping" TypeArguments="p1:RadiusThreshold" />
+            </Expression>
+            <Expression xsi:type="rx:SelectMany">
+              <Name>RadiusThresholdTrigger</Name>
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="Annotation">
+                    <Name>Placeholder</Name>
+                    <Text><![CDATA[Placeholder for animal in-radius trigger]]></Text>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="wie:KeyDown">
+                      <wie:Filter>T</wie:Filter>
+                      <wie:SuppressRepetitions>false</wie:SuppressRepetitions>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Unit" />
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="2" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
             <Expression xsi:type="rx:PublishSubject">
               <Name>TrialTrigger</Name>
+            </Expression>
+            <Expression xsi:type="p1:MatchTriggerSource">
+              <p1:Type xsi:type="TypeMapping" TypeArguments="p1:RandomisedTimer" />
+            </Expression>
+            <Expression xsi:type="p1:MatchTriggerSource">
+              <p1:Type xsi:type="TypeMapping" TypeArguments="p1:FixedTimer" />
             </Expression>
           </Nodes>
           <Edges>
@@ -1048,6 +1080,10 @@
             <Edge From="3" To="4" Label="Source1" />
             <Edge From="5" To="6" Label="Source1" />
             <Edge From="6" To="7" Label="Source1" />
+            <Edge From="6" To="10" Label="Source1" />
+            <Edge From="6" To="11" Label="Source1" />
+            <Edge From="7" To="8" Label="Source1" />
+            <Edge From="8" To="9" Label="Source1" />
           </Edges>
         </Workflow>
       </Expression>

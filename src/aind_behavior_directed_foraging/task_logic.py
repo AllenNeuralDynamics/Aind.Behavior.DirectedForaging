@@ -1,5 +1,5 @@
 import logging
-from typing import Literal, List
+from typing import Literal, List, Annotated, Union
 
 import aind_behavior_services.task.distributions as distributions
 from aind_behavior_services.task import Task, TaskParameters
@@ -24,12 +24,28 @@ class Trial(BaseModel):
     trial_timeout: float = Field(description="Subject must begin digging within this amount of time to register a response")
     threshold_reward: int = Field(ge=0, description="Reward amount to be delivered when threshold reached")
     threshold_punishment: float = Field(ge=0, description="Punishment time added when threshold is reached")
+    
+class TriggerSource(BaseModel):
+    trigger_type: str
+    
+class RadiusThreshold(TriggerSource):
+    trigger_type: Literal["radius"]
+    radius: float
+    
+class RandomisedTimer(TriggerSource):
+    trigger_type: Literal["randomised_timer"]
+    distribution: distributions.DistributionBase
+    
+class FixedTimer(TriggerSource):
+    trigger_type: Literal["fixed_timer"]
+    sequence: List[float]
 
 class AindBehaviorDirectedForagingTaskParameters(TaskParameters):
     """
     Complete parameter specification for the directed-foraging task.
     """
     trials: List[Trial]
+    trigger_source: Annotated[Union[RadiusThreshold, RandomisedTimer, FixedTimer], Field(discriminator="trigger_type")]
 
 class AindBehaviorDirectedForagingTaskLogic(Task):
     """
