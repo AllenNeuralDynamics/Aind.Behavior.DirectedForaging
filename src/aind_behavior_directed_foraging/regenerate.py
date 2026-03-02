@@ -2,8 +2,8 @@ from pathlib import Path
 from typing import Union
 
 import pydantic
-from aind_behavior_services.session import AindBehaviorSessionModel
-from aind_behavior_services.utils import BonsaiSgenSerializers, convert_pydantic_to_bonsai
+from aind_behavior_services.session import Session
+from aind_behavior_services.schema import BonsaiSgenSerializers, convert_pydantic_to_bonsai
 
 import aind_behavior_directed_foraging.rig
 import aind_behavior_directed_foraging.task_logic
@@ -17,7 +17,7 @@ def main():
     models = [
         aind_behavior_directed_foraging.task_logic.AindBehaviorDirectedForagingTaskLogic,
         aind_behavior_directed_foraging.rig.AindBehaviorDirectedForagingRig,
-        AindBehaviorSessionModel,
+        Session,
     ]
     model = pydantic.RootModel[Union[tuple(models)]]
 
