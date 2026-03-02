@@ -1,0 +1,7 @@
+_commit: bed074d
+_src_path: Aind.Behavior.CopierTemplate
+author_email: erskine94@gmail.com
+author_name: RoboDoig
+prefix: aind-behavior
+project_description: A library that defines AIND data schema for a behavior experiment.
+project_name: directed-foraging

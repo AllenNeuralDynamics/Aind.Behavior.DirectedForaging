@@ -1,0 +1,395 @@
+{
+  "$defs": {
+    "AindBehaviorDirectedForagingRig": {
+      "properties": {
+        "aind_behavior_services_pkg_version": {
+          "default": "0.13.2",
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
+          "title": "aind_behavior_services package version",
+          "type": "string"
+        },
+        "version": {
+          "const": "0.0.0-rc0",
+          "default": "0.0.0-rc0",
+          "title": "Version",
+          "type": "string"
+        },
+        "computer_name": {
+          "description": "Computer name",
+          "title": "Computer Name",
+          "type": "string"
+        },
+        "rig_name": {
+          "description": "Rig name",
+          "title": "Rig Name",
+          "type": "string"
+        },
+        "data_directory": {
+          "description": "Directory where data will be saved to",
+          "format": "path",
+          "title": "Data Directory",
+          "type": "string"
+        },
+        "harp_delphi_controller": {
+          "$ref": "#/$defs/HarpDelphiController"
+        }
+      },
+      "required": [
+        "computer_name",
+        "rig_name",
+        "data_directory",
+        "harp_delphi_controller"
+      ],
+      "title": "AindBehaviorDirectedForagingRig",
+      "type": "object"
+    },
+    "AindBehaviorDirectedForagingTaskLogic": {
+      "additionalProperties": false,
+      "description": "Main task logic model for the directed-foraging task.",
+      "properties": {
+        "name": {
+          "const": "AindBehaviorDirectedForaging",
+          "default": "AindBehaviorDirectedForaging",
+          "description": "Name of the task logic",
+          "title": "Name",
+          "type": "string"
+        },
+        "description": {
+          "default": "",
+          "description": "Description of the task.",
+          "title": "Description",
+          "type": "string"
+        },
+        "task_parameters": {
+          "$ref": "#/$defs/AindBehaviorDirectedForagingTaskParameters",
+          "description": "Parameters of the task logic"
+        },
+        "version": {
+          "const": "0.0.0-rc0",
+          "default": "0.0.0-rc0",
+          "title": "Version",
+          "type": "string"
+        },
+        "stage_name": {
+          "default": null,
+          "description": "Optional stage name the `Task` object instance represents.",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Stage Name"
+        }
+      },
+      "required": [
+        "task_parameters"
+      ],
+      "title": "AindBehaviorDirectedForagingTaskLogic",
+      "type": "object"
+    },
+    "AindBehaviorDirectedForagingTaskParameters": {
+      "additionalProperties": true,
+      "description": "Complete parameter specification for the directed-foraging task.",
+      "properties": {
+        "rng_seed": {
+          "default": null,
+          "description": "Seed of the random number generator",
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Rng Seed"
+        },
+        "aind_behavior_services_pkg_version": {
+          "default": "0.13.2",
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
+          "title": "aind_behavior_services package version",
+          "type": "string"
+        },
+        "trials": {
+          "items": {
+            "$ref": "#/$defs/Trial"
+          },
+          "title": "Trials",
+          "type": "array"
+        }
+      },
+      "required": [
+        "trials"
+      ],
+      "title": "AindBehaviorDirectedForagingTaskParameters",
+      "type": "object"
+    },
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "HarpDelphiController": {
+      "properties": {
+        "device_type": {
+          "const": "DelphiController",
+          "default": "DelphiController",
+          "title": "Device Type",
+          "type": "string"
+        },
+        "calibration": {
+          "default": null,
+          "description": "Calibration for the device.",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/BaseModel"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "who_am_i": {
+          "const": 1409,
+          "default": 1409,
+          "title": "Who Am I",
+          "type": "integer"
+        },
+        "serial_number": {
+          "default": null,
+          "description": "Device serial number",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Serial Number"
+        },
+        "port_name": {
+          "description": "Device port name",
+          "title": "Port Name",
+          "type": "string"
+        },
+        "enable_valve_leds": {
+          "title": "Enable Valve Leds",
+          "type": "boolean"
+        },
+        "minimum_poke_time": {
+          "default": 0.1,
+          "title": "Minimum Poke Time",
+          "type": "number"
+        },
+        "minimum_odor_delivery_time": {
+          "default": 0.5,
+          "title": "Minimum Odor Delivery Time",
+          "type": "number"
+        },
+        "final_valve_energized_time": {
+          "default": 0.11,
+          "title": "Final Valve Energized Time",
+          "type": "number"
+        },
+        "vacuum_setup_time": {
+          "default": 0.01,
+          "title": "Vacuum Setup Time",
+          "type": "number"
+        },
+        "vacuum_close_time": {
+          "default": 0.02,
+          "title": "Vacuum Close Time",
+          "type": "number"
+        },
+        "odor_transition_time": {
+          "default": 0.02,
+          "title": "Odor Transition Time",
+          "type": "number"
+        },
+        "max_odor_delivery_time": {
+          "default": 0.6,
+          "title": "Max Odor Delivery Time",
+          "type": "number"
+        }
+      },
+      "required": [
+        "port_name",
+        "enable_valve_leds"
+      ],
+      "title": "HarpDelphiController",
+      "type": "object"
+    },
+    "OdorDefinition": {
+      "properties": {
+        "odor_id": {
+          "title": "Odor Id",
+          "type": "string"
+        },
+        "olfactometer_mask": {
+          "title": "Olfactometer Mask",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "odor_id",
+        "olfactometer_mask"
+      ],
+      "title": "OdorDefinition",
+      "type": "object"
+    },
+    "Session": {
+      "properties": {
+        "aind_behavior_services_pkg_version": {
+          "default": "0.13.2",
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
+          "title": "aind_behavior_services package version",
+          "type": "string"
+        },
+        "version": {
+          "const": "0.13.2",
+          "default": "0.13.2",
+          "title": "Version",
+          "type": "string"
+        },
+        "experiment": {
+          "default": null,
+          "description": "Name of the experiment",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Experiment"
+        },
+        "experimenter": {
+          "default": [],
+          "description": "Name of the experimenter",
+          "items": {
+            "type": "string"
+          },
+          "title": "Experimenter",
+          "type": "array"
+        },
+        "date": {
+          "description": "Date of the experiment",
+          "format": "date-time",
+          "title": "Date",
+          "type": "string"
+        },
+        "session_name": {
+          "default": null,
+          "description": "Name of the session. This will be used to create a folder in the root path. If not provided, it will be generated using subject and date.",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Session Name"
+        },
+        "subject": {
+          "description": "Name of the subject",
+          "title": "Subject",
+          "type": "string"
+        },
+        "notes": {
+          "default": null,
+          "description": "Notes about the experiment",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Notes"
+        },
+        "commit_hash": {
+          "default": null,
+          "description": "Commit hash of the repository",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Commit Hash"
+        },
+        "allow_dirty_repo": {
+          "default": false,
+          "description": "Allow running from a dirty repository",
+          "title": "Allow Dirty Repo",
+          "type": "boolean"
+        },
+        "skip_hardware_validation": {
+          "default": false,
+          "description": "Skip hardware validation",
+          "title": "Skip Hardware Validation",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "subject"
+      ],
+      "title": "Session",
+      "type": "object"
+    },
+    "Trial": {
+      "properties": {
+        "odor_definition": {
+          "$ref": "#/$defs/OdorDefinition",
+          "description": "The odor that will be released on this trial"
+        },
+        "release_time": {
+          "description": "The amount of time this odor will be released",
+          "title": "Release Time",
+          "type": "number"
+        },
+        "dig_threshold": {
+          "description": "The distance a subject must dig before reward delivery, if reward is available",
+          "title": "Dig Threshold",
+          "type": "number"
+        },
+        "trial_timeout": {
+          "description": "Subject must begin digging within this amount of time to register a response",
+          "title": "Trial Timeout",
+          "type": "number"
+        },
+        "threshold_reward": {
+          "description": "Reward amount to be delivered when threshold reached",
+          "minimum": 0,
+          "title": "Threshold Reward",
+          "type": "integer"
+        },
+        "threshold_punishment": {
+          "description": "Punishment time added when threshold is reached",
+          "minimum": 0,
+          "title": "Threshold Punishment",
+          "type": "number"
+        }
+      },
+      "required": [
+        "odor_definition",
+        "release_time",
+        "dig_threshold",
+        "trial_timeout",
+        "threshold_reward",
+        "threshold_punishment"
+      ],
+      "title": "Trial",
+      "type": "object"
+    }
+  }
+}
