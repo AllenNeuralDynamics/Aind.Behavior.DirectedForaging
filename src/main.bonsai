@@ -140,7 +140,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="num:CreateRandom">
-                <num:Seed>7</num:Seed>
+                <num:Seed>0</num:Seed>
               </Combinator>
             </Expression>
             <Expression xsi:type="Combinator">
@@ -1342,7 +1342,7 @@
                         </Expression>
                         <Expression xsi:type="Index">
                           <Operand xsi:type="IntProperty">
-                            <Value>5</Value>
+                            <Value>4</Value>
                           </Operand>
                         </Expression>
                         <Expression xsi:type="Combinator">
