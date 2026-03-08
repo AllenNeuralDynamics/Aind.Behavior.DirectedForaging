@@ -6,6 +6,8 @@
                  xmlns:p1="clr-namespace:AllenNeuralDynamics.DelphiController;assembly=AllenNeuralDynamics.DelphiController"
                  xmlns:sys="clr-namespace:System;assembly=mscorlib"
                  xmlns:wie="clr-namespace:Bonsai.Windows.Input;assembly=Bonsai.Windows.Input"
+                 xmlns:p2="clr-namespace:;assembly=Extensions"
+                 xmlns:spk="clr-namespace:Bonsai.Spinnaker;assembly=Bonsai.Spinnaker"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
@@ -435,6 +437,25 @@
       </Expression>
       <Expression xsi:type="MulticastSubject">
         <Name>DelphiControllerCommands</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p2:LimitedAindSpinnakerCapture">
+          <spk:Index xsi:nil="true" />
+          <spk:SerialNumber>18575294</spk:SerialNumber>
+          <spk:ColorProcessing>Default</spk:ColorProcessing>
+          <p2:ExposureTime>19000</p2:ExposureTime>
+          <p2:Gain>0</p2:Gain>
+          <p2:Binning>1</p2:Binning>
+          <p2:Gamma xsi:nil="true" />
+          <p2:PixelFormat>Mono8</p2:PixelFormat>
+          <p2:RegionOfInterest>
+            <p2:X>0</p2:X>
+            <p2:Y>0</p2:Y>
+            <p2:Width>0</p2:Width>
+            <p2:Height>0</p2:Height>
+          </p2:RegionOfInterest>
+          <p2:AdcBitDepth xsi:nil="true" />
+        </Combinator>
       </Expression>
     </Nodes>
     <Edges>
