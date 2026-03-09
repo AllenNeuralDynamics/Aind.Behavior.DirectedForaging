@@ -1254,6 +1254,7 @@
       <Expression xsi:type="ExternalizedMapping">
         <Property Name="StartKey" Category="HotKeys" />
         <Property Name="StopKey" Category="HotKeys" />
+        <Property Name="TriggersKey" />
       </Expression>
       <Expression xsi:type="GroupWorkflow">
         <Name>OperationControl</Name>
