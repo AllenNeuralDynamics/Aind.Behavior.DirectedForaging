@@ -20,7 +20,7 @@ rig = AindBehaviorDirectedForagingRig(
         frame_rate=60,
         cameras = {
             "MainCamera": cameras.SpinnakerCamera(
-                serial_number="18575294", binning=1, exposure=5000, gain=0, video_writer=video_writer
+                serial_number="18575294", binning=1, exposure=3000, gain=0, video_writer=video_writer
             )
         }
     )
