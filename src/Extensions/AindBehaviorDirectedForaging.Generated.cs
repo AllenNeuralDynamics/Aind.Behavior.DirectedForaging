@@ -27,11 +27,14 @@ namespace AindBehaviorDirectedForagingDataSchema
     
         private HarpDelphiController _harpDelphiController;
     
+        private CameraControllerSpinnakerCamera _triggeredCameraController;
+    
         public AindBehaviorDirectedForagingRig()
         {
             _aindBehaviorServicesPkgVersion = "0.13.2";
             _version = "0.0.0-rc0";
             _harpDelphiController = new HarpDelphiController();
+            _triggeredCameraController = new CameraControllerSpinnakerCamera();
         }
     
         protected AindBehaviorDirectedForagingRig(AindBehaviorDirectedForagingRig other)
@@ -42,6 +45,7 @@ namespace AindBehaviorDirectedForagingDataSchema
             _rigName = other._rigName;
             _dataDirectory = other._dataDirectory;
             _harpDelphiController = other._harpDelphiController;
+            _triggeredCameraController = other._triggeredCameraController;
         }
     
         [Newtonsoft.Json.JsonPropertyAttribute("aind_behavior_services_pkg_version")]
@@ -135,6 +139,20 @@ namespace AindBehaviorDirectedForagingDataSchema
             }
         }
     
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("triggered_camera_controller", Required=Newtonsoft.Json.Required.Always)]
+        public CameraControllerSpinnakerCamera TriggeredCameraController
+        {
+            get
+            {
+                return _triggeredCameraController;
+            }
+            set
+            {
+                _triggeredCameraController = value;
+            }
+        }
+    
         public System.IObservable<AindBehaviorDirectedForagingRig> Generate()
         {
             return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new AindBehaviorDirectedForagingRig(this)));
@@ -152,7 +170,8 @@ namespace AindBehaviorDirectedForagingDataSchema
             stringBuilder.Append("ComputerName = " + _computerName + ", ");
             stringBuilder.Append("RigName = " + _rigName + ", ");
             stringBuilder.Append("DataDirectory = " + _dataDirectory + ", ");
-            stringBuilder.Append("HarpDelphiController = " + _harpDelphiController);
+            stringBuilder.Append("HarpDelphiController = " + _harpDelphiController + ", ");
+            stringBuilder.Append("TriggeredCameraController = " + _triggeredCameraController);
             return true;
         }
     
@@ -923,6 +942,135 @@ namespace AindBehaviorDirectedForagingDataSchema
             stringBuilder.Append("Family = " + _family + ", ");
             stringBuilder.Append("N = " + _n + ", ");
             stringBuilder.Append("P = " + _p);
+            return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
+        }
+    }
+
+
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class CameraControllerSpinnakerCamera
+    {
+    
+        private string _deviceType;
+    
+        private BaseModel _calibration;
+    
+        private System.Collections.Generic.Dictionary<string, SpinnakerCamera> _cameras;
+    
+        private int? _frameRate;
+    
+        public CameraControllerSpinnakerCamera()
+        {
+            _deviceType = "CameraController";
+            _cameras = new System.Collections.Generic.Dictionary<string, SpinnakerCamera>();
+        }
+    
+        protected CameraControllerSpinnakerCamera(CameraControllerSpinnakerCamera other)
+        {
+            _deviceType = other._deviceType;
+            _calibration = other._calibration;
+            _cameras = other._cameras;
+            _frameRate = other._frameRate;
+        }
+    
+        [Newtonsoft.Json.JsonPropertyAttribute("device_type")]
+        public string DeviceType
+        {
+            get
+            {
+                return _deviceType;
+            }
+            set
+            {
+                _deviceType = value;
+            }
+        }
+    
+        /// <summary>
+        /// Calibration for the device.
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("calibration")]
+        [System.ComponentModel.DescriptionAttribute("Calibration for the device.")]
+        public BaseModel Calibration
+        {
+            get
+            {
+                return _calibration;
+            }
+            set
+            {
+                _calibration = value;
+            }
+        }
+    
+        /// <summary>
+        /// Cameras to be instantiated
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("cameras", Required=Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DescriptionAttribute("Cameras to be instantiated")]
+        public System.Collections.Generic.Dictionary<string, SpinnakerCamera> Cameras
+        {
+            get
+            {
+                return _cameras;
+            }
+            set
+            {
+                _cameras = value;
+            }
+        }
+    
+        /// <summary>
+        /// Frame rate of the trigger to all cameras
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("frame_rate")]
+        [System.ComponentModel.DescriptionAttribute("Frame rate of the trigger to all cameras")]
+        public int? FrameRate
+        {
+            get
+            {
+                return _frameRate;
+            }
+            set
+            {
+                _frameRate = value;
+            }
+        }
+    
+        public System.IObservable<CameraControllerSpinnakerCamera> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new CameraControllerSpinnakerCamera(this)));
+        }
+    
+        public System.IObservable<CameraControllerSpinnakerCamera> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new CameraControllerSpinnakerCamera(this));
+        }
+    
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            stringBuilder.Append("DeviceType = " + _deviceType + ", ");
+            stringBuilder.Append("Calibration = " + _calibration + ", ");
+            stringBuilder.Append("Cameras = " + _cameras + ", ");
+            stringBuilder.Append("FrameRate = " + _frameRate);
             return true;
         }
     
@@ -2832,6 +2980,142 @@ namespace AindBehaviorDirectedForagingDataSchema
 
 
     /// <summary>
+    /// Represents a rectangle defined by its top-left corner, width, and height.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.ComponentModel.DescriptionAttribute("Represents a rectangle defined by its top-left corner, width, and height.")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class Rect
+    {
+    
+        private int _x;
+    
+        private int _y;
+    
+        private int _width;
+    
+        private int _height;
+    
+        public Rect()
+        {
+            _x = 0;
+            _y = 0;
+            _width = 0;
+            _height = 0;
+        }
+    
+        protected Rect(Rect other)
+        {
+            _x = other._x;
+            _y = other._y;
+            _width = other._width;
+            _height = other._height;
+        }
+    
+        /// <summary>
+        /// X coordinate of the top-left corner
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("x")]
+        [System.ComponentModel.DescriptionAttribute("X coordinate of the top-left corner")]
+        public int X
+        {
+            get
+            {
+                return _x;
+            }
+            set
+            {
+                _x = value;
+            }
+        }
+    
+        /// <summary>
+        /// Y coordinate of the top-left corner
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("y")]
+        [System.ComponentModel.DescriptionAttribute("Y coordinate of the top-left corner")]
+        public int Y
+        {
+            get
+            {
+                return _y;
+            }
+            set
+            {
+                _y = value;
+            }
+        }
+    
+        /// <summary>
+        /// Width of the rectangle
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("width")]
+        [System.ComponentModel.DescriptionAttribute("Width of the rectangle")]
+        public int Width
+        {
+            get
+            {
+                return _width;
+            }
+            set
+            {
+                _width = value;
+            }
+        }
+    
+        /// <summary>
+        /// Height of the rectangle
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("height")]
+        [System.ComponentModel.DescriptionAttribute("Height of the rectangle")]
+        public int Height
+        {
+            get
+            {
+                return _height;
+            }
+            set
+            {
+                _height = value;
+            }
+        }
+    
+        public System.IObservable<Rect> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new Rect(this)));
+        }
+    
+        public System.IObservable<Rect> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new Rect(this));
+        }
+    
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            stringBuilder.Append("X = " + _x + ", ");
+            stringBuilder.Append("Y = " + _y + ", ");
+            stringBuilder.Append("Width = " + _width + ", ");
+            stringBuilder.Append("Height = " + _height);
+            return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
+        }
+    }
+
+
+    /// <summary>
     /// A scalar distribution that returns a constant value.
     ///
     ///Useful for fixed parameters that don't vary across trials or samples.
@@ -3396,6 +3680,776 @@ namespace AindBehaviorDirectedForagingDataSchema
     }
 
 
+    /// <summary>
+    /// Spinnaker camera device configuration.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.ComponentModel.DescriptionAttribute("Spinnaker camera device configuration.")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class SpinnakerCamera
+    {
+    
+        private string _deviceType;
+    
+        private BaseModel _calibration;
+    
+        private string _serialNumber;
+    
+        private int _binning;
+    
+        private SpinnakerCameraColorProcessing _colorProcessing;
+    
+        private int _exposure;
+    
+        private double _gain;
+    
+        private double? _gamma;
+    
+        private SpinnakerCameraAdcBitDepth? _adcBitDepth;
+    
+        private SpinnakerCameraPixelFormat? _pixelFormat;
+    
+        private Rect _regionOfInterest;
+    
+        private VideoWriter _videoWriter;
+    
+        public SpinnakerCamera()
+        {
+            _deviceType = "SpinnakerCamera";
+            _binning = 1;
+            _colorProcessing = AindBehaviorDirectedForagingDataSchema.SpinnakerCameraColorProcessing.Default;
+            _exposure = 1000;
+            _gain = 0D;
+            _adcBitDepth = AindBehaviorDirectedForagingDataSchema.SpinnakerCameraAdcBitDepth.Adc8bit;
+            _pixelFormat = AindBehaviorDirectedForagingDataSchema.SpinnakerCameraPixelFormat.Mono8;
+            _regionOfInterest = new Rect();
+        }
+    
+        protected SpinnakerCamera(SpinnakerCamera other)
+        {
+            _deviceType = other._deviceType;
+            _calibration = other._calibration;
+            _serialNumber = other._serialNumber;
+            _binning = other._binning;
+            _colorProcessing = other._colorProcessing;
+            _exposure = other._exposure;
+            _gain = other._gain;
+            _gamma = other._gamma;
+            _adcBitDepth = other._adcBitDepth;
+            _pixelFormat = other._pixelFormat;
+            _regionOfInterest = other._regionOfInterest;
+            _videoWriter = other._videoWriter;
+        }
+    
+        [Newtonsoft.Json.JsonPropertyAttribute("device_type")]
+        public string DeviceType
+        {
+            get
+            {
+                return _deviceType;
+            }
+            set
+            {
+                _deviceType = value;
+            }
+        }
+    
+        /// <summary>
+        /// Calibration for the device.
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("calibration")]
+        [System.ComponentModel.DescriptionAttribute("Calibration for the device.")]
+        public BaseModel Calibration
+        {
+            get
+            {
+                return _calibration;
+            }
+            set
+            {
+                _calibration = value;
+            }
+        }
+    
+        /// <summary>
+        /// Camera serial number
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("serial_number", Required=Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DescriptionAttribute("Camera serial number")]
+        public string SerialNumber
+        {
+            get
+            {
+                return _serialNumber;
+            }
+            set
+            {
+                _serialNumber = value;
+            }
+        }
+    
+        /// <summary>
+        /// Binning
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("binning")]
+        [System.ComponentModel.DescriptionAttribute("Binning")]
+        public int Binning
+        {
+            get
+            {
+                return _binning;
+            }
+            set
+            {
+                _binning = value;
+            }
+        }
+    
+        /// <summary>
+        /// Color processing
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("color_processing")]
+        [System.ComponentModel.DescriptionAttribute("Color processing")]
+        public SpinnakerCameraColorProcessing ColorProcessing
+        {
+            get
+            {
+                return _colorProcessing;
+            }
+            set
+            {
+                _colorProcessing = value;
+            }
+        }
+    
+        /// <summary>
+        /// Exposure time
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("exposure")]
+        [System.ComponentModel.DescriptionAttribute("Exposure time")]
+        public int Exposure
+        {
+            get
+            {
+                return _exposure;
+            }
+            set
+            {
+                _exposure = value;
+            }
+        }
+    
+        /// <summary>
+        /// Gain
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("gain")]
+        [System.ComponentModel.DescriptionAttribute("Gain")]
+        public double Gain
+        {
+            get
+            {
+                return _gain;
+            }
+            set
+            {
+                _gain = value;
+            }
+        }
+    
+        /// <summary>
+        /// Gamma. If None, will disable gamma correction.
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("gamma")]
+        [System.ComponentModel.DescriptionAttribute("Gamma. If None, will disable gamma correction.")]
+        public double? Gamma
+        {
+            get
+            {
+                return _gamma;
+            }
+            set
+            {
+                _gamma = value;
+            }
+        }
+    
+        /// <summary>
+        /// ADC bit depth. If None will be left as default.
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("adc_bit_depth")]
+        [System.ComponentModel.DescriptionAttribute("ADC bit depth. If None will be left as default.")]
+        public SpinnakerCameraAdcBitDepth? AdcBitDepth
+        {
+            get
+            {
+                return _adcBitDepth;
+            }
+            set
+            {
+                _adcBitDepth = value;
+            }
+        }
+    
+        /// <summary>
+        /// Pixel format. If None will be left as default.
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("pixel_format")]
+        [System.ComponentModel.DescriptionAttribute("Pixel format. If None will be left as default.")]
+        public SpinnakerCameraPixelFormat? PixelFormat
+        {
+            get
+            {
+                return _pixelFormat;
+            }
+            set
+            {
+                _pixelFormat = value;
+            }
+        }
+    
+        /// <summary>
+        /// Region of interest
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("region_of_interest")]
+        [System.ComponentModel.DescriptionAttribute("Region of interest")]
+        public Rect RegionOfInterest
+        {
+            get
+            {
+                return _regionOfInterest;
+            }
+            set
+            {
+                _regionOfInterest = value;
+            }
+        }
+    
+        /// <summary>
+        /// Video writer. If not provided, no video will be saved.
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("video_writer")]
+        [System.ComponentModel.DescriptionAttribute("Video writer. If not provided, no video will be saved.")]
+        public VideoWriter VideoWriter
+        {
+            get
+            {
+                return _videoWriter;
+            }
+            set
+            {
+                _videoWriter = value;
+            }
+        }
+    
+        public System.IObservable<SpinnakerCamera> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new SpinnakerCamera(this)));
+        }
+    
+        public System.IObservable<SpinnakerCamera> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new SpinnakerCamera(this));
+        }
+    
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            stringBuilder.Append("DeviceType = " + _deviceType + ", ");
+            stringBuilder.Append("Calibration = " + _calibration + ", ");
+            stringBuilder.Append("SerialNumber = " + _serialNumber + ", ");
+            stringBuilder.Append("Binning = " + _binning + ", ");
+            stringBuilder.Append("ColorProcessing = " + _colorProcessing + ", ");
+            stringBuilder.Append("Exposure = " + _exposure + ", ");
+            stringBuilder.Append("Gain = " + _gain + ", ");
+            stringBuilder.Append("Gamma = " + _gamma + ", ");
+            stringBuilder.Append("AdcBitDepth = " + _adcBitDepth + ", ");
+            stringBuilder.Append("PixelFormat = " + _pixelFormat + ", ");
+            stringBuilder.Append("RegionOfInterest = " + _regionOfInterest + ", ");
+            stringBuilder.Append("VideoWriter = " + _videoWriter);
+            return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
+        }
+    }
+
+
+    /// <summary>
+    /// ADC bit depth options for Spinnaker cameras.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    public enum SpinnakerCameraAdcBitDepth
+    {
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="0")]
+        Adc8bit = 0,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="1")]
+        Adc10bit = 1,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="2")]
+        Adc12bit = 2,
+    }
+
+
+    /// <summary>
+    /// Pixel format options for Spinnaker cameras.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    public enum SpinnakerCameraPixelFormat
+    {
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="0")]
+        Mono8 = 0,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="1")]
+        Mono16 = 1,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="2")]
+        Rgb8packed = 2,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="3")]
+        Bayergr8 = 3,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="4")]
+        Bayerrg8 = 4,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="5")]
+        Bayergb8 = 5,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="6")]
+        Bayerbg8 = 6,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="7")]
+        Bayergr16 = 7,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="8")]
+        Bayerrg16 = 8,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="9")]
+        Bayergb16 = 9,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="10")]
+        Bayerbg16 = 10,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="11")]
+        Mono12packed = 11,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="12")]
+        Bayergr12packed = 12,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="13")]
+        Bayerrg12packed = 13,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="14")]
+        Bayergb12packed = 14,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="15")]
+        Bayerbg12packed = 15,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="16")]
+        Yuv411packed = 16,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="17")]
+        Yuv422packed = 17,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="18")]
+        Yuv444packed = 18,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="19")]
+        Mono12p = 19,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="20")]
+        Bayergr12p = 20,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="21")]
+        Bayerrg12p = 21,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="22")]
+        Bayergb12p = 22,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="23")]
+        Bayerbg12p = 23,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="24")]
+        Ycbcr8 = 24,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="25")]
+        Ycbcr4228 = 25,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="26")]
+        Ycbcr4118 = 26,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="27")]
+        Bgr8 = 27,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="28")]
+        Bgra8 = 28,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="29")]
+        Mono10packed = 29,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="30")]
+        Bayergr10packed = 30,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="31")]
+        Bayerrg10packed = 31,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="32")]
+        Bayergb10packed = 32,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="33")]
+        Bayerbg10packed = 33,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="34")]
+        Mono10p = 34,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="35")]
+        Bayergr10p = 35,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="36")]
+        Bayerrg10p = 36,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="37")]
+        Bayergb10p = 37,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="38")]
+        Bayerbg10p = 38,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="39")]
+        Mono1p = 39,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="40")]
+        Mono2p = 40,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="41")]
+        Mono4p = 41,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="42")]
+        Mono8s = 42,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="43")]
+        Mono10 = 43,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="44")]
+        Mono12 = 44,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="45")]
+        Mono14 = 45,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="46")]
+        Mono16s = 46,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="47")]
+        Mono32f = 47,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="48")]
+        Bayerbg10 = 48,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="49")]
+        Bayerbg12 = 49,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="50")]
+        Bayergb10 = 50,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="51")]
+        Bayergb12 = 51,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="52")]
+        Bayergr10 = 52,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="53")]
+        Bayergr12 = 53,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="54")]
+        Bayerrg10 = 54,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="55")]
+        Bayerrg12 = 55,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="56")]
+        Rgba8 = 56,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="57")]
+        Rgba10 = 57,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="58")]
+        Rgba10p = 58,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="59")]
+        Rgba12 = 59,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="60")]
+        Rgba12p = 60,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="61")]
+        Rgba14 = 61,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="62")]
+        Rgba16 = 62,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="63")]
+        Rgb8 = 63,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="64")]
+        Rgb8Planar = 64,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="65")]
+        Rgb10 = 65,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="66")]
+        Rgb10Planar = 66,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="67")]
+        Rgb10p = 67,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="68")]
+        Rgb10p32 = 68,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="69")]
+        Rgb12 = 69,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="70")]
+        Rgb12Planar = 70,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="71")]
+        Rgb12p = 71,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="72")]
+        Rgb14 = 72,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="73")]
+        Rgb16 = 73,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="74")]
+        Rgb16s = 74,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="75")]
+        Rgb32f = 75,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="76")]
+        Rgb16Planar = 76,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="77")]
+        Rgb565p = 77,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="78")]
+        Bgra10 = 78,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="79")]
+        Bgra10p = 79,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="80")]
+        Bgra12 = 80,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="81")]
+        Bgra12p = 81,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="82")]
+        Bgra14 = 82,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="83")]
+        Bgra16 = 83,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="84")]
+        Rgba32f = 84,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="85")]
+        Bgr10 = 85,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="86")]
+        Bgr10p = 86,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="87")]
+        Bgr12 = 87,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="88")]
+        Bgr12p = 88,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="89")]
+        Bgr14 = 89,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="90")]
+        Bgr16 = 90,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="91")]
+        Bgr565p = 91,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="92")]
+        R8 = 92,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="93")]
+        R10 = 93,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="94")]
+        R12 = 94,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="95")]
+        R16 = 95,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="96")]
+        G8 = 96,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="97")]
+        G10 = 97,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="98")]
+        G12 = 98,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="99")]
+        G16 = 99,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="100")]
+        B8 = 100,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="101")]
+        B10 = 101,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="102")]
+        B12 = 102,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="103")]
+        B16 = 103,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="104")]
+        Coord3dAbc8 = 104,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="105")]
+        Coord3dAbc8Planar = 105,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="106")]
+        Coord3dAbc10p = 106,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="107")]
+        Coord3dAbc10pPlanar = 107,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="108")]
+        Coord3dAbc12p = 108,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="109")]
+        Coord3dAbc12pPlanar = 109,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="110")]
+        Coord3dAbc16 = 110,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="111")]
+        Coord3dAbc16Planar = 111,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="112")]
+        Coord3dAbc32f = 112,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="113")]
+        Coord3dAbc32fPlanar = 113,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="114")]
+        Coord3dAc8 = 114,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="115")]
+        Coord3dAc8Planar = 115,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="116")]
+        Coord3dAc10p = 116,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="117")]
+        Coord3dAc10pPlanar = 117,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="118")]
+        Coord3dAc12p = 118,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="119")]
+        Coord3dAc12pPlanar = 119,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="120")]
+        Coord3dAc16 = 120,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="121")]
+        Coord3dAc16Planar = 121,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="122")]
+        Coord3dAc32f = 122,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="123")]
+        Coord3dAc32fPlanar = 123,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="124")]
+        Coord3dA8 = 124,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="125")]
+        Coord3dA10p = 125,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="126")]
+        Coord3dA12p = 126,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="127")]
+        Coord3dA16 = 127,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="128")]
+        Coord3dA32f = 128,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="129")]
+        Coord3dB8 = 129,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="130")]
+        Coord3dB10p = 130,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="131")]
+        Coord3dB12p = 131,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="132")]
+        Coord3dB16 = 132,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="133")]
+        Coord3dB32f = 133,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="134")]
+        Coord3dC8 = 134,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="135")]
+        Coord3dC10p = 135,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="136")]
+        Coord3dC12p = 136,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="137")]
+        Coord3dC16 = 137,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="138")]
+        Coord3dC32f = 138,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="139")]
+        Confidence1 = 139,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="140")]
+        Confidence1p = 140,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="141")]
+        Confidence8 = 141,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="142")]
+        Confidence16 = 142,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="143")]
+        Confidence32f = 143,
+    }
+
+
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
@@ -3922,6 +4976,291 @@ namespace AindBehaviorDirectedForagingDataSchema
     }
 
 
+    /// <summary>
+    /// FFMPEG video writer configuration.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [Newtonsoft.Json.JsonConverter(typeof(JsonInheritanceConverter), "video_writer_type")]
+    [JsonInheritanceAttribute("FFMPEG", typeof(VideoWriterFfmpeg))]
+    [JsonInheritanceAttribute("OPENCV", typeof(VideoWriterOpenCv))]
+    [System.ComponentModel.DescriptionAttribute("FFMPEG video writer configuration.")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class VideoWriter
+    {
+    
+        public VideoWriter()
+        {
+        }
+    
+        protected VideoWriter(VideoWriter other)
+        {
+        }
+    
+        public System.IObservable<VideoWriter> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new VideoWriter(this)));
+        }
+    
+        public System.IObservable<VideoWriter> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new VideoWriter(this));
+        }
+    
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            return false;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
+        }
+    }
+
+
+    /// <summary>
+    /// FFMPEG video writer configuration.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.ComponentModel.DescriptionAttribute("FFMPEG video writer configuration.")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class VideoWriterFfmpeg : VideoWriter
+    {
+    
+        private int _frameRate;
+    
+        private string _containerExtension;
+    
+        private string _outputArguments;
+    
+        private string _inputArguments;
+    
+        public VideoWriterFfmpeg()
+        {
+            _frameRate = 30;
+            _containerExtension = "mkv";
+            _outputArguments = "-vf \"scale=out_range=full,setparams=range=full:colorspace=bt709:color_primaries=bt709:color_trc=linear\" -c:v h264_nvenc -pix_fmt yuv420p -color_range full -colorspace bt709 -color_trc linear -tune hq -preset p3 -rc vbr -cq 18 -b:v 0M -metadata author=\"Allen Institute for Neural Dynamics\" -maxrate 700M -bufsize 350M -f matroska -write_crc32 0";
+            _inputArguments = "-colorspace bt709 -color_primaries bt709 -color_range full -color_trc linear";
+        }
+    
+        protected VideoWriterFfmpeg(VideoWriterFfmpeg other) : 
+                base(other)
+        {
+            _frameRate = other._frameRate;
+            _containerExtension = other._containerExtension;
+            _outputArguments = other._outputArguments;
+            _inputArguments = other._inputArguments;
+        }
+    
+        /// <summary>
+        /// Encoding frame rate
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("frame_rate")]
+        [System.ComponentModel.DescriptionAttribute("Encoding frame rate")]
+        public int FrameRate
+        {
+            get
+            {
+                return _frameRate;
+            }
+            set
+            {
+                _frameRate = value;
+            }
+        }
+    
+        /// <summary>
+        /// Container extension
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("container_extension")]
+        [System.ComponentModel.DescriptionAttribute("Container extension")]
+        public string ContainerExtension
+        {
+            get
+            {
+                return _containerExtension;
+            }
+            set
+            {
+                _containerExtension = value;
+            }
+        }
+    
+        /// <summary>
+        /// Output arguments
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("output_arguments")]
+        [System.ComponentModel.DescriptionAttribute("Output arguments")]
+        public string OutputArguments
+        {
+            get
+            {
+                return _outputArguments;
+            }
+            set
+            {
+                _outputArguments = value;
+            }
+        }
+    
+        /// <summary>
+        /// Input arguments
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("input_arguments")]
+        [System.ComponentModel.DescriptionAttribute("Input arguments")]
+        public string InputArguments
+        {
+            get
+            {
+                return _inputArguments;
+            }
+            set
+            {
+                _inputArguments = value;
+            }
+        }
+    
+        public System.IObservable<VideoWriterFfmpeg> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new VideoWriterFfmpeg(this)));
+        }
+    
+        public System.IObservable<VideoWriterFfmpeg> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new VideoWriterFfmpeg(this));
+        }
+    
+        protected override bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            if (base.PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(", ");
+            }
+            stringBuilder.Append("FrameRate = " + _frameRate + ", ");
+            stringBuilder.Append("ContainerExtension = " + _containerExtension + ", ");
+            stringBuilder.Append("OutputArguments = " + _outputArguments + ", ");
+            stringBuilder.Append("InputArguments = " + _inputArguments);
+            return true;
+        }
+    }
+
+
+    /// <summary>
+    /// OpenCV video writer configuration.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.ComponentModel.DescriptionAttribute("OpenCV video writer configuration.")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class VideoWriterOpenCv : VideoWriter
+    {
+    
+        private int _frameRate;
+    
+        private string _containerExtension;
+    
+        private string _fourCc;
+    
+        public VideoWriterOpenCv()
+        {
+            _frameRate = 30;
+            _containerExtension = "avi";
+            _fourCc = "FMP4";
+        }
+    
+        protected VideoWriterOpenCv(VideoWriterOpenCv other) : 
+                base(other)
+        {
+            _frameRate = other._frameRate;
+            _containerExtension = other._containerExtension;
+            _fourCc = other._fourCc;
+        }
+    
+        /// <summary>
+        /// Encoding frame rate
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("frame_rate")]
+        [System.ComponentModel.DescriptionAttribute("Encoding frame rate")]
+        public int FrameRate
+        {
+            get
+            {
+                return _frameRate;
+            }
+            set
+            {
+                _frameRate = value;
+            }
+        }
+    
+        /// <summary>
+        /// Container extension
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("container_extension")]
+        [System.ComponentModel.DescriptionAttribute("Container extension")]
+        public string ContainerExtension
+        {
+            get
+            {
+                return _containerExtension;
+            }
+            set
+            {
+                _containerExtension = value;
+            }
+        }
+    
+        /// <summary>
+        /// Four character code
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("four_cc")]
+        [System.ComponentModel.DescriptionAttribute("Four character code")]
+        public string FourCc
+        {
+            get
+            {
+                return _fourCc;
+            }
+            set
+            {
+                _fourCc = value;
+            }
+        }
+    
+        public System.IObservable<VideoWriterOpenCv> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new VideoWriterOpenCv(this)));
+        }
+    
+        public System.IObservable<VideoWriterOpenCv> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new VideoWriterOpenCv(this));
+        }
+    
+        protected override bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            if (base.PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(", ");
+            }
+            stringBuilder.Append("FrameRate = " + _frameRate + ", ");
+            stringBuilder.Append("ContainerExtension = " + _containerExtension + ", ");
+            stringBuilder.Append("FourCc = " + _fourCc);
+            return true;
+        }
+    }
+
+
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
     [Newtonsoft.Json.JsonConverter(typeof(JsonInheritanceConverter), "trigger_type")]
     [JsonInheritanceAttribute("radius", typeof(RadiusThreshold))]
@@ -4055,6 +5394,19 @@ namespace AindBehaviorDirectedForagingDataSchema
             stringBuilder.Append("}");
             return stringBuilder.ToString();
         }
+    }
+
+
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public enum SpinnakerCameraColorProcessing
+    {
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="Default")]
+        Default = 0,
+    
+        [System.Runtime.Serialization.EnumMemberAttribute(Value="NoColorProcessing")]
+        NoColorProcessing = 1,
     }
 
 
@@ -4260,6 +5612,47 @@ namespace AindBehaviorDirectedForagingDataSchema
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
     [System.ComponentModel.DefaultPropertyAttribute("Type")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Combinator)]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<VideoWriterFfmpeg>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<VideoWriterOpenCv>))]
+    public partial class MatchVideoWriter : Bonsai.Expressions.SingleArgumentExpressionBuilder
+    {
+    
+        public Bonsai.Expressions.TypeMapping Type { get; set; }
+
+        public override System.Linq.Expressions.Expression Build(System.Collections.Generic.IEnumerable<System.Linq.Expressions.Expression> arguments)
+        {
+            var typeMapping = Type;
+            var returnType = typeMapping != null ? typeMapping.GetType().GetGenericArguments()[0] : typeof(VideoWriter);
+            return System.Linq.Expressions.Expression.Call(
+                typeof(MatchVideoWriter),
+                "Process",
+                new System.Type[] { returnType },
+                System.Linq.Enumerable.Single(arguments));
+        }
+
+    
+        private static System.IObservable<TResult> Process<TResult>(System.IObservable<VideoWriter> source)
+            where TResult : VideoWriter
+        {
+            return System.Reactive.Linq.Observable.Create<TResult>(observer =>
+            {
+                var sourceObserver = System.Reactive.Observer.Create<VideoWriter>(
+                    value =>
+                    {
+                        var match = value as TResult;
+                        if (match != null) observer.OnNext(match);
+                    },
+                    observer.OnError,
+                    observer.OnCompleted);
+                return System.ObservableExtensions.SubscribeSafe(source, sourceObserver);
+            });
+        }
+    }
+
+
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.ComponentModel.DefaultPropertyAttribute("Type")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Combinator)]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<RadiusThreshold>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<FixedTimer>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<RandomisedTimer>))]
@@ -4357,6 +5750,11 @@ namespace AindBehaviorDirectedForagingDataSchema
             return Process<BinomialDistributionParameters>(source);
         }
 
+        public System.IObservable<string> Process(System.IObservable<CameraControllerSpinnakerCamera> source)
+        {
+            return Process<CameraControllerSpinnakerCamera>(source);
+        }
+
         public System.IObservable<string> Process(System.IObservable<Distribution> source)
         {
             return Process<Distribution>(source);
@@ -4447,6 +5845,11 @@ namespace AindBehaviorDirectedForagingDataSchema
             return Process<RandomisedTimer>(source);
         }
 
+        public System.IObservable<string> Process(System.IObservable<Rect> source)
+        {
+            return Process<Rect>(source);
+        }
+
         public System.IObservable<string> Process(System.IObservable<Scalar> source)
         {
             return Process<Scalar>(source);
@@ -4467,6 +5870,11 @@ namespace AindBehaviorDirectedForagingDataSchema
             return Process<Session>(source);
         }
 
+        public System.IObservable<string> Process(System.IObservable<SpinnakerCamera> source)
+        {
+            return Process<SpinnakerCamera>(source);
+        }
+
         public System.IObservable<string> Process(System.IObservable<Trial> source)
         {
             return Process<Trial>(source);
@@ -4485,6 +5893,21 @@ namespace AindBehaviorDirectedForagingDataSchema
         public System.IObservable<string> Process(System.IObservable<UniformDistributionParameters> source)
         {
             return Process<UniformDistributionParameters>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<VideoWriter> source)
+        {
+            return Process<VideoWriter>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<VideoWriterFfmpeg> source)
+        {
+            return Process<VideoWriterFfmpeg>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<VideoWriterOpenCv> source)
+        {
+            return Process<VideoWriterOpenCv>(source);
         }
 
         public System.IObservable<string> Process(System.IObservable<TriggerSource> source)
@@ -4519,6 +5942,7 @@ namespace AindBehaviorDirectedForagingDataSchema
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<BetaDistributionParameters>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<BinomialDistribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<BinomialDistributionParameters>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<CameraControllerSpinnakerCamera>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Distribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<ExponentialDistribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<ExponentialDistributionParameters>))]
@@ -4537,14 +5961,19 @@ namespace AindBehaviorDirectedForagingDataSchema
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<PoissonDistributionParameters>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<RadiusThreshold>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<RandomisedTimer>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Rect>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Scalar>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<ScalarDistributionParameter>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<ScalingParameters>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Session>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<SpinnakerCamera>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Trial>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<TruncationParameters>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<UniformDistribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<UniformDistributionParameters>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<VideoWriter>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<VideoWriterFfmpeg>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<VideoWriterOpenCv>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<TriggerSource>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<TruncationParameters2>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<ScalingParameters2>))]
