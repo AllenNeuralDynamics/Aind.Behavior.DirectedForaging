@@ -3,6 +3,7 @@ from typing import Literal, List, Annotated, Union
 
 import aind_behavior_services.task.distributions as distributions
 from aind_behavior_services.task import Task, TaskParameters
+from aind_behavior_services.common import Point2f
 from pydantic import Field, BaseModel
 
 from aind_behavior_directed_foraging import (
@@ -30,6 +31,7 @@ class TriggerSource(BaseModel):
     
 class RadiusThreshold(TriggerSource):
     trigger_type: Literal["radius"]
+    trigger_center: Point2f
     radius: float
     
 class RandomisedTimer(TriggerSource):
@@ -39,6 +41,10 @@ class RandomisedTimer(TriggerSource):
 class FixedTimer(TriggerSource):
     trigger_type: Literal["fixed_timer"]
     sequence: List[float]
+    
+class MaskRegion(BaseModel):
+    fill_value: float = Field(default=150)
+    mask_polygon: List[Point2f]
 
 class AindBehaviorDirectedForagingTaskParameters(TaskParameters):
     """
@@ -46,12 +52,13 @@ class AindBehaviorDirectedForagingTaskParameters(TaskParameters):
     """
     trials: List[Trial]
     trigger_source: Annotated[Union[RadiusThreshold, RandomisedTimer, FixedTimer], Field(discriminator="trigger_type")]
+    track_threshold: float = Field(description="Threshold value used to separate subject from background during blob tracking")
+    mask_region: MaskRegion
 
 class AindBehaviorDirectedForagingTaskLogic(Task):
     """
     Main task logic model for the directed-foraging task.
     """
-
     version: Literal[__semver__] = __semver__
     name: Literal["AindBehaviorDirectedForaging"] = Field(default="AindBehaviorDirectedForaging", description="Name of the task logic", frozen=True)
     task_parameters: AindBehaviorDirectedForagingTaskParameters = Field(description="Parameters of the task logic")

@@ -2,6 +2,7 @@ import os
 
 import aind_behavior_services.task.distributions as distributions
 from aind_behavior_curriculum import Stage, TrainerState
+from aind_behavior_services.common import Point2f
 
 from aind_behavior_directed_foraging.task_logic import (
     AindBehaviorDirectedForagingTaskLogic,
@@ -10,6 +11,7 @@ from aind_behavior_directed_foraging.task_logic import (
     OdorDefinition,
     RadiusThreshold,
     RandomisedTimer,
+    MaskRegion,
     FixedTimer
 )
 
@@ -24,9 +26,23 @@ task_logic = AindBehaviorDirectedForagingTaskLogic(
             Trial(odor_definition=odorA, release_time=0.5, dig_threshold=5, trial_timeout=30, threshold_reward=2, threshold_punishment=5),
             Trial(odor_definition=odorB, release_time=0.5, dig_threshold=5, trial_timeout=30, threshold_reward=2, threshold_punishment=5)
         ],
-        # trigger_source=RadiusThreshold(trigger_type="radius", radius=0.5)
+        trigger_source=RadiusThreshold(trigger_type="radius", radius=60, trigger_center=Point2f(x=333, y=329)),
         # trigger_source=RandomisedTimer(trigger_type="randomised_timer", distribution=distributions.UniformDistribution(distribution_parameters=distributions.UniformDistributionParameters(min=1, max=30)))
-        trigger_source=FixedTimer(trigger_type="fixed_timer", sequence=[5, 20, 30.06, 40, 50.2])
+        # trigger_source=FixedTimer(trigger_type="fixed_timer", sequence=[5, 20, 30.06, 40, 50.2]),
+        track_threshold=2,
+        mask_region=MaskRegion(
+            fill_value=150,
+            mask_polygon=[
+                Point2f(x=9, y=134),
+                Point2f(x=323, y=76),
+                Point2f(x=615, y=70),
+                Point2f(x=719, y=120),
+                Point2f(x=719, y=539),
+                Point2f(x=269, y=539),
+                Point2f(x=0, y=539),
+                Point2f(x=9, y=277),
+            ]
+        )
     )
 )
 
