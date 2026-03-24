@@ -2,6 +2,7 @@ import os
 
 import aind_behavior_services.task.distributions as distributions
 from aind_behavior_curriculum import Stage, TrainerState
+from aind_behavior_services.common import Point2f
 
 from aind_behavior_directed_foraging.task_logic import (
     AindBehaviorDirectedForagingTaskLogic,
@@ -10,6 +11,7 @@ from aind_behavior_directed_foraging.task_logic import (
     OdorDefinition,
     RadiusThreshold,
     RandomisedTimer,
+    TriggerRegion,
     FixedTimer
 )
 
@@ -26,7 +28,9 @@ task_logic = AindBehaviorDirectedForagingTaskLogic(
         ],
         # trigger_source=RadiusThreshold(trigger_type="radius", radius=0.5)
         # trigger_source=RandomisedTimer(trigger_type="randomised_timer", distribution=distributions.UniformDistribution(distribution_parameters=distributions.UniformDistributionParameters(min=1, max=30)))
-        trigger_source=FixedTimer(trigger_type="fixed_timer", sequence=[5, 20, 30.06, 40, 50.2])
+        trigger_source=FixedTimer(trigger_type="fixed_timer", sequence=[5, 20, 30.06, 40, 50.2]),
+        trigger_region=TriggerRegion(region_center=Point2f(x=188, y=398), radius=60),
+        track_threshold=64
     )
 )
 

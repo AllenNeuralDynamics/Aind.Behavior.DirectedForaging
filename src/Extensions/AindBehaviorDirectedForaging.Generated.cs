@@ -362,10 +362,15 @@ namespace AindBehaviorDirectedForagingDataSchema
     
         private TriggerSource _triggerSource;
     
+        private TriggerRegion _triggerRegion;
+    
+        private double _trackThreshold;
+    
         public AindBehaviorDirectedForagingTaskParameters()
         {
             _aindBehaviorServicesPkgVersion = "0.13.2";
             _trials = new System.Collections.Generic.List<Trial>();
+            _triggerRegion = new TriggerRegion();
         }
     
         protected AindBehaviorDirectedForagingTaskParameters(AindBehaviorDirectedForagingTaskParameters other)
@@ -374,6 +379,8 @@ namespace AindBehaviorDirectedForagingDataSchema
             _aindBehaviorServicesPkgVersion = other._aindBehaviorServicesPkgVersion;
             _trials = other._trials;
             _triggerSource = other._triggerSource;
+            _triggerRegion = other._triggerRegion;
+            _trackThreshold = other._trackThreshold;
         }
     
         /// <summary>
@@ -435,6 +442,37 @@ namespace AindBehaviorDirectedForagingDataSchema
             }
         }
     
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("trigger_region", Required=Newtonsoft.Json.Required.Always)]
+        public TriggerRegion TriggerRegion
+        {
+            get
+            {
+                return _triggerRegion;
+            }
+            set
+            {
+                _triggerRegion = value;
+            }
+        }
+    
+        /// <summary>
+        /// Threshold value used to separate subject from background during blob tracking
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("track_threshold", Required=Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DescriptionAttribute("Threshold value used to separate subject from background during blob tracking")]
+        public double TrackThreshold
+        {
+            get
+            {
+                return _trackThreshold;
+            }
+            set
+            {
+                _trackThreshold = value;
+            }
+        }
+    
         public System.IObservable<AindBehaviorDirectedForagingTaskParameters> Generate()
         {
             return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new AindBehaviorDirectedForagingTaskParameters(this)));
@@ -450,7 +488,9 @@ namespace AindBehaviorDirectedForagingDataSchema
             stringBuilder.Append("RngSeed = " + _rngSeed + ", ");
             stringBuilder.Append("AindBehaviorServicesPkgVersion = " + _aindBehaviorServicesPkgVersion + ", ");
             stringBuilder.Append("Trials = " + _trials + ", ");
-            stringBuilder.Append("TriggerSource = " + _triggerSource);
+            stringBuilder.Append("TriggerSource = " + _triggerSource + ", ");
+            stringBuilder.Append("TriggerRegion = " + _triggerRegion + ", ");
+            stringBuilder.Append("TrackThreshold = " + _trackThreshold);
             return true;
         }
     
@@ -2670,6 +2710,96 @@ namespace AindBehaviorDirectedForagingDataSchema
 
 
     /// <summary>
+    /// Represents a 2D point with float coordinates.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.ComponentModel.DescriptionAttribute("Represents a 2D point with float coordinates.")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class Point2f
+    {
+    
+        private double _x;
+    
+        private double _y;
+    
+        public Point2f()
+        {
+        }
+    
+        protected Point2f(Point2f other)
+        {
+            _x = other._x;
+            _y = other._y;
+        }
+    
+        /// <summary>
+        /// X coordinate of the point (px)
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("x", Required=Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DescriptionAttribute("X coordinate of the point (px)")]
+        public double X
+        {
+            get
+            {
+                return _x;
+            }
+            set
+            {
+                _x = value;
+            }
+        }
+    
+        /// <summary>
+        /// Y coordinate of the point (px)
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("y", Required=Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DescriptionAttribute("Y coordinate of the point (px)")]
+        public double Y
+        {
+            get
+            {
+                return _y;
+            }
+            set
+            {
+                _y = value;
+            }
+        }
+    
+        public System.IObservable<Point2f> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new Point2f(this)));
+        }
+    
+        public System.IObservable<Point2f> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new Point2f(this));
+        }
+    
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            stringBuilder.Append("X = " + _x + ", ");
+            stringBuilder.Append("Y = " + _y);
+            return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
+        }
+    }
+
+
+    /// <summary>
     /// A Poisson probability distribution.
     ///
     ///Models the number of events occurring in a fixed interval of time or space
@@ -4622,6 +4752,86 @@ namespace AindBehaviorDirectedForagingDataSchema
     }
 
 
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class TriggerRegion
+    {
+    
+        private Point2f _regionCenter;
+    
+        private double _radius;
+    
+        public TriggerRegion()
+        {
+            _regionCenter = new Point2f();
+        }
+    
+        protected TriggerRegion(TriggerRegion other)
+        {
+            _regionCenter = other._regionCenter;
+            _radius = other._radius;
+        }
+    
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("region_center", Required=Newtonsoft.Json.Required.Always)]
+        public Point2f RegionCenter
+        {
+            get
+            {
+                return _regionCenter;
+            }
+            set
+            {
+                _regionCenter = value;
+            }
+        }
+    
+        [Newtonsoft.Json.JsonPropertyAttribute("radius", Required=Newtonsoft.Json.Required.Always)]
+        public double Radius
+        {
+            get
+            {
+                return _radius;
+            }
+            set
+            {
+                _radius = value;
+            }
+        }
+    
+        public System.IObservable<TriggerRegion> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new TriggerRegion(this)));
+        }
+    
+        public System.IObservable<TriggerRegion> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new TriggerRegion(this));
+        }
+    
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            stringBuilder.Append("RegionCenter = " + _regionCenter + ", ");
+            stringBuilder.Append("Radius = " + _radius);
+            return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
+        }
+    }
+
+
     /// <summary>
     /// Parameters for truncating a distribution to a specified range. Truncation should
     ///be applied after sampling and scaling.
@@ -5825,6 +6035,11 @@ namespace AindBehaviorDirectedForagingDataSchema
             return Process<PdfDistributionParameters>(source);
         }
 
+        public System.IObservable<string> Process(System.IObservable<Point2f> source)
+        {
+            return Process<Point2f>(source);
+        }
+
         public System.IObservable<string> Process(System.IObservable<PoissonDistribution> source)
         {
             return Process<PoissonDistribution>(source);
@@ -5878,6 +6093,11 @@ namespace AindBehaviorDirectedForagingDataSchema
         public System.IObservable<string> Process(System.IObservable<Trial> source)
         {
             return Process<Trial>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<TriggerRegion> source)
+        {
+            return Process<TriggerRegion>(source);
         }
 
         public System.IObservable<string> Process(System.IObservable<TruncationParameters> source)
@@ -5957,6 +6177,7 @@ namespace AindBehaviorDirectedForagingDataSchema
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<OdorDefinition>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<PdfDistribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<PdfDistributionParameters>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Point2f>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<PoissonDistribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<PoissonDistributionParameters>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<RadiusThreshold>))]
@@ -5968,6 +6189,7 @@ namespace AindBehaviorDirectedForagingDataSchema
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Session>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<SpinnakerCamera>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Trial>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<TriggerRegion>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<TruncationParameters>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<UniformDistribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<UniformDistributionParameters>))]

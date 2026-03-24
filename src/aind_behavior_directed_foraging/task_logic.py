@@ -52,12 +52,12 @@ class AindBehaviorDirectedForagingTaskParameters(TaskParameters):
     trials: List[Trial]
     trigger_source: Annotated[Union[RadiusThreshold, RandomisedTimer, FixedTimer], Field(discriminator="trigger_type")]
     trigger_region: TriggerRegion
+    track_threshold: float = Field(description="Threshold value used to separate subject from background during blob tracking")
 
 class AindBehaviorDirectedForagingTaskLogic(Task):
     """
     Main task logic model for the directed-foraging task.
     """
-
     version: Literal[__semver__] = __semver__
     name: Literal["AindBehaviorDirectedForaging"] = Field(default="AindBehaviorDirectedForaging", description="Name of the task logic", frozen=True)
     task_parameters: AindBehaviorDirectedForagingTaskParameters = Field(description="Parameters of the task logic")

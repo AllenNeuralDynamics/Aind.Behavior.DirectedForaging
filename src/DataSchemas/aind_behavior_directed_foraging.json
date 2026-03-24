@@ -145,11 +145,21 @@
             }
           ],
           "title": "Trigger Source"
+        },
+        "trigger_region": {
+          "$ref": "#/$defs/TriggerRegion"
+        },
+        "track_threshold": {
+          "description": "Threshold value used to separate subject from background during blob tracking",
+          "title": "Track Threshold",
+          "type": "number"
         }
       },
       "required": [
         "trials",
-        "trigger_source"
+        "trigger_source",
+        "trigger_region",
+        "track_threshold"
       ],
       "title": "AindBehaviorDirectedForagingTaskParameters",
       "type": "object"
@@ -901,6 +911,27 @@
         }
       },
       "title": "PdfDistributionParameters",
+      "type": "object"
+    },
+    "Point2f": {
+      "description": "Represents a 2D point with float coordinates.",
+      "properties": {
+        "x": {
+          "description": "X coordinate of the point (px)",
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "description": "Y coordinate of the point (px)",
+          "title": "Y",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "title": "Point2f",
       "type": "object"
     },
     "PoissonDistribution": {
@@ -1695,6 +1726,23 @@
         "threshold_punishment"
       ],
       "title": "Trial",
+      "type": "object"
+    },
+    "TriggerRegion": {
+      "properties": {
+        "region_center": {
+          "$ref": "#/$defs/Point2f"
+        },
+        "radius": {
+          "title": "Radius",
+          "type": "number"
+        }
+      },
+      "required": [
+        "region_center",
+        "radius"
+      ],
+      "title": "TriggerRegion",
       "type": "object"
     },
     "TruncationParameters": {
