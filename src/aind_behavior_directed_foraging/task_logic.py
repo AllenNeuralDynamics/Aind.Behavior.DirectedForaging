@@ -3,6 +3,7 @@ from typing import Literal, List, Annotated, Union
 
 import aind_behavior_services.task.distributions as distributions
 from aind_behavior_services.task import Task, TaskParameters
+from aind_behavior_services.common import Point2f
 from pydantic import Field, BaseModel
 
 from aind_behavior_directed_foraging import (
@@ -39,6 +40,10 @@ class RandomisedTimer(TriggerSource):
 class FixedTimer(TriggerSource):
     trigger_type: Literal["fixed_timer"]
     sequence: List[float]
+    
+class TriggerRegion(BaseModel):
+    region_center: Point2f
+    radius: float
 
 class AindBehaviorDirectedForagingTaskParameters(TaskParameters):
     """
@@ -46,6 +51,7 @@ class AindBehaviorDirectedForagingTaskParameters(TaskParameters):
     """
     trials: List[Trial]
     trigger_source: Annotated[Union[RadiusThreshold, RandomisedTimer, FixedTimer], Field(discriminator="trigger_type")]
+    trigger_region: TriggerRegion
 
 class AindBehaviorDirectedForagingTaskLogic(Task):
     """
