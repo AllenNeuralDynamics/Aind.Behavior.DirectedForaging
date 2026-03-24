@@ -362,8 +362,6 @@ namespace AindBehaviorDirectedForagingDataSchema
     
         private TriggerSource _triggerSource;
     
-        private TriggerRegion _triggerRegion;
-    
         private double _trackThreshold;
     
         private MaskRegion _maskRegion;
@@ -372,7 +370,6 @@ namespace AindBehaviorDirectedForagingDataSchema
         {
             _aindBehaviorServicesPkgVersion = "0.13.2";
             _trials = new System.Collections.Generic.List<Trial>();
-            _triggerRegion = new TriggerRegion();
             _maskRegion = new MaskRegion();
         }
     
@@ -382,7 +379,6 @@ namespace AindBehaviorDirectedForagingDataSchema
             _aindBehaviorServicesPkgVersion = other._aindBehaviorServicesPkgVersion;
             _trials = other._trials;
             _triggerSource = other._triggerSource;
-            _triggerRegion = other._triggerRegion;
             _trackThreshold = other._trackThreshold;
             _maskRegion = other._maskRegion;
         }
@@ -446,20 +442,6 @@ namespace AindBehaviorDirectedForagingDataSchema
             }
         }
     
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        [Newtonsoft.Json.JsonPropertyAttribute("trigger_region", Required=Newtonsoft.Json.Required.Always)]
-        public TriggerRegion TriggerRegion
-        {
-            get
-            {
-                return _triggerRegion;
-            }
-            set
-            {
-                _triggerRegion = value;
-            }
-        }
-    
         /// <summary>
         /// Threshold value used to separate subject from background during blob tracking
         /// </summary>
@@ -507,7 +489,6 @@ namespace AindBehaviorDirectedForagingDataSchema
             stringBuilder.Append("AindBehaviorServicesPkgVersion = " + _aindBehaviorServicesPkgVersion + ", ");
             stringBuilder.Append("Trials = " + _trials + ", ");
             stringBuilder.Append("TriggerSource = " + _triggerSource + ", ");
-            stringBuilder.Append("TriggerRegion = " + _triggerRegion + ", ");
             stringBuilder.Append("TrackThreshold = " + _trackThreshold + ", ");
             stringBuilder.Append("MaskRegion = " + _maskRegion);
             return true;
@@ -3108,16 +3089,34 @@ namespace AindBehaviorDirectedForagingDataSchema
     public partial class RadiusThreshold : TriggerSource
     {
     
+        private Point2f _triggerCenter;
+    
         private double _radius;
     
         public RadiusThreshold()
         {
+            _triggerCenter = new Point2f();
         }
     
         protected RadiusThreshold(RadiusThreshold other) : 
                 base(other)
         {
+            _triggerCenter = other._triggerCenter;
             _radius = other._radius;
+        }
+    
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("trigger_center", Required=Newtonsoft.Json.Required.Always)]
+        public Point2f TriggerCenter
+        {
+            get
+            {
+                return _triggerCenter;
+            }
+            set
+            {
+                _triggerCenter = value;
+            }
         }
     
         [Newtonsoft.Json.JsonPropertyAttribute("radius", Required=Newtonsoft.Json.Required.Always)]
@@ -3149,6 +3148,7 @@ namespace AindBehaviorDirectedForagingDataSchema
             {
                 stringBuilder.Append(", ");
             }
+            stringBuilder.Append("TriggerCenter = " + _triggerCenter + ", ");
             stringBuilder.Append("Radius = " + _radius);
             return true;
         }
@@ -4852,86 +4852,6 @@ namespace AindBehaviorDirectedForagingDataSchema
     }
 
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
-    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
-    [Bonsai.CombinatorAttribute(MethodName="Generate")]
-    public partial class TriggerRegion
-    {
-    
-        private Point2f _regionCenter;
-    
-        private double _radius;
-    
-        public TriggerRegion()
-        {
-            _regionCenter = new Point2f();
-        }
-    
-        protected TriggerRegion(TriggerRegion other)
-        {
-            _regionCenter = other._regionCenter;
-            _radius = other._radius;
-        }
-    
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        [Newtonsoft.Json.JsonPropertyAttribute("region_center", Required=Newtonsoft.Json.Required.Always)]
-        public Point2f RegionCenter
-        {
-            get
-            {
-                return _regionCenter;
-            }
-            set
-            {
-                _regionCenter = value;
-            }
-        }
-    
-        [Newtonsoft.Json.JsonPropertyAttribute("radius", Required=Newtonsoft.Json.Required.Always)]
-        public double Radius
-        {
-            get
-            {
-                return _radius;
-            }
-            set
-            {
-                _radius = value;
-            }
-        }
-    
-        public System.IObservable<TriggerRegion> Generate()
-        {
-            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new TriggerRegion(this)));
-        }
-    
-        public System.IObservable<TriggerRegion> Generate<TSource>(System.IObservable<TSource> source)
-        {
-            return System.Reactive.Linq.Observable.Select(source, _ => new TriggerRegion(this));
-        }
-    
-        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
-        {
-            stringBuilder.Append("RegionCenter = " + _regionCenter + ", ");
-            stringBuilder.Append("Radius = " + _radius);
-            return true;
-        }
-    
-        public override string ToString()
-        {
-            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
-            stringBuilder.Append(GetType().Name);
-            stringBuilder.Append(" { ");
-            if (PrintMembers(stringBuilder))
-            {
-                stringBuilder.Append(" ");
-            }
-            stringBuilder.Append("}");
-            return stringBuilder.ToString();
-        }
-    }
-
-
     /// <summary>
     /// Parameters for truncating a distribution to a specified range. Truncation should
     ///be applied after sampling and scaling.
@@ -6200,11 +6120,6 @@ namespace AindBehaviorDirectedForagingDataSchema
             return Process<Trial>(source);
         }
 
-        public System.IObservable<string> Process(System.IObservable<TriggerRegion> source)
-        {
-            return Process<TriggerRegion>(source);
-        }
-
         public System.IObservable<string> Process(System.IObservable<TruncationParameters> source)
         {
             return Process<TruncationParameters>(source);
@@ -6295,7 +6210,6 @@ namespace AindBehaviorDirectedForagingDataSchema
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Session>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<SpinnakerCamera>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Trial>))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<TriggerRegion>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<TruncationParameters>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<UniformDistribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<UniformDistributionParameters>))]

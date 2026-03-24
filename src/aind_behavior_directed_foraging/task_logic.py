@@ -31,6 +31,7 @@ class TriggerSource(BaseModel):
     
 class RadiusThreshold(TriggerSource):
     trigger_type: Literal["radius"]
+    trigger_center: Point2f
     radius: float
     
 class RandomisedTimer(TriggerSource):
@@ -40,10 +41,6 @@ class RandomisedTimer(TriggerSource):
 class FixedTimer(TriggerSource):
     trigger_type: Literal["fixed_timer"]
     sequence: List[float]
-    
-class TriggerRegion(BaseModel):
-    region_center: Point2f
-    radius: float
     
 class MaskRegion(BaseModel):
     fill_value: float = Field(default=150)
@@ -55,7 +52,6 @@ class AindBehaviorDirectedForagingTaskParameters(TaskParameters):
     """
     trials: List[Trial]
     trigger_source: Annotated[Union[RadiusThreshold, RandomisedTimer, FixedTimer], Field(discriminator="trigger_type")]
-    trigger_region: TriggerRegion
     track_threshold: float = Field(description="Threshold value used to separate subject from background during blob tracking")
     mask_region: MaskRegion
 

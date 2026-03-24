@@ -146,9 +146,6 @@
           ],
           "title": "Trigger Source"
         },
-        "trigger_region": {
-          "$ref": "#/$defs/TriggerRegion"
-        },
         "track_threshold": {
           "description": "Threshold value used to separate subject from background during blob tracking",
           "title": "Track Threshold",
@@ -161,7 +158,6 @@
       "required": [
         "trials",
         "trigger_source",
-        "trigger_region",
         "track_threshold",
         "mask_region"
       ],
@@ -1031,6 +1027,9 @@
           "title": "Trigger Type",
           "type": "string"
         },
+        "trigger_center": {
+          "$ref": "#/$defs/Point2f"
+        },
         "radius": {
           "title": "Radius",
           "type": "number"
@@ -1038,6 +1037,7 @@
       },
       "required": [
         "trigger_type",
+        "trigger_center",
         "radius"
       ],
       "title": "RadiusThreshold",
@@ -1751,23 +1751,6 @@
         "threshold_punishment"
       ],
       "title": "Trial",
-      "type": "object"
-    },
-    "TriggerRegion": {
-      "properties": {
-        "region_center": {
-          "$ref": "#/$defs/Point2f"
-        },
-        "radius": {
-          "title": "Radius",
-          "type": "number"
-        }
-      },
-      "required": [
-        "region_center",
-        "radius"
-      ],
-      "title": "TriggerRegion",
       "type": "object"
     },
     "TruncationParameters": {
