@@ -153,13 +153,17 @@
           "description": "Threshold value used to separate subject from background during blob tracking",
           "title": "Track Threshold",
           "type": "number"
+        },
+        "mask_region": {
+          "$ref": "#/$defs/MaskRegion"
         }
       },
       "required": [
         "trials",
         "trigger_source",
         "trigger_region",
-        "track_threshold"
+        "track_threshold",
+        "mask_region"
       ],
       "title": "AindBehaviorDirectedForagingTaskParameters",
       "type": "object"
@@ -736,6 +740,27 @@
         }
       },
       "title": "LogNormalDistributionParameters",
+      "type": "object"
+    },
+    "MaskRegion": {
+      "properties": {
+        "fill_value": {
+          "default": 150,
+          "title": "Fill Value",
+          "type": "number"
+        },
+        "mask_polygon": {
+          "items": {
+            "$ref": "#/$defs/Point2f"
+          },
+          "title": "Mask Polygon",
+          "type": "array"
+        }
+      },
+      "required": [
+        "mask_polygon"
+      ],
+      "title": "MaskRegion",
       "type": "object"
     },
     "NormalDistribution": {

@@ -366,11 +366,14 @@ namespace AindBehaviorDirectedForagingDataSchema
     
         private double _trackThreshold;
     
+        private MaskRegion _maskRegion;
+    
         public AindBehaviorDirectedForagingTaskParameters()
         {
             _aindBehaviorServicesPkgVersion = "0.13.2";
             _trials = new System.Collections.Generic.List<Trial>();
             _triggerRegion = new TriggerRegion();
+            _maskRegion = new MaskRegion();
         }
     
         protected AindBehaviorDirectedForagingTaskParameters(AindBehaviorDirectedForagingTaskParameters other)
@@ -381,6 +384,7 @@ namespace AindBehaviorDirectedForagingDataSchema
             _triggerSource = other._triggerSource;
             _triggerRegion = other._triggerRegion;
             _trackThreshold = other._trackThreshold;
+            _maskRegion = other._maskRegion;
         }
     
         /// <summary>
@@ -473,6 +477,20 @@ namespace AindBehaviorDirectedForagingDataSchema
             }
         }
     
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("mask_region", Required=Newtonsoft.Json.Required.Always)]
+        public MaskRegion MaskRegion
+        {
+            get
+            {
+                return _maskRegion;
+            }
+            set
+            {
+                _maskRegion = value;
+            }
+        }
+    
         public System.IObservable<AindBehaviorDirectedForagingTaskParameters> Generate()
         {
             return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new AindBehaviorDirectedForagingTaskParameters(this)));
@@ -490,7 +508,8 @@ namespace AindBehaviorDirectedForagingDataSchema
             stringBuilder.Append("Trials = " + _trials + ", ");
             stringBuilder.Append("TriggerSource = " + _triggerSource + ", ");
             stringBuilder.Append("TriggerRegion = " + _triggerRegion + ", ");
-            stringBuilder.Append("TrackThreshold = " + _trackThreshold);
+            stringBuilder.Append("TrackThreshold = " + _trackThreshold + ", ");
+            stringBuilder.Append("MaskRegion = " + _maskRegion);
             return true;
         }
     
@@ -2159,6 +2178,87 @@ namespace AindBehaviorDirectedForagingDataSchema
             stringBuilder.Append("Family = " + _family + ", ");
             stringBuilder.Append("Mean = " + _mean + ", ");
             stringBuilder.Append("Std = " + _std);
+            return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
+        }
+    }
+
+
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class MaskRegion
+    {
+    
+        private double _fillValue;
+    
+        private System.Collections.Generic.List<Point2f> _maskPolygon;
+    
+        public MaskRegion()
+        {
+            _fillValue = 150D;
+            _maskPolygon = new System.Collections.Generic.List<Point2f>();
+        }
+    
+        protected MaskRegion(MaskRegion other)
+        {
+            _fillValue = other._fillValue;
+            _maskPolygon = other._maskPolygon;
+        }
+    
+        [Newtonsoft.Json.JsonPropertyAttribute("fill_value")]
+        public double FillValue
+        {
+            get
+            {
+                return _fillValue;
+            }
+            set
+            {
+                _fillValue = value;
+            }
+        }
+    
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("mask_polygon", Required=Newtonsoft.Json.Required.Always)]
+        public System.Collections.Generic.List<Point2f> MaskPolygon
+        {
+            get
+            {
+                return _maskPolygon;
+            }
+            set
+            {
+                _maskPolygon = value;
+            }
+        }
+    
+        public System.IObservable<MaskRegion> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new MaskRegion(this)));
+        }
+    
+        public System.IObservable<MaskRegion> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new MaskRegion(this));
+        }
+    
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            stringBuilder.Append("FillValue = " + _fillValue + ", ");
+            stringBuilder.Append("MaskPolygon = " + _maskPolygon);
             return true;
         }
     
@@ -6010,6 +6110,11 @@ namespace AindBehaviorDirectedForagingDataSchema
             return Process<LogNormalDistributionParameters>(source);
         }
 
+        public System.IObservable<string> Process(System.IObservable<MaskRegion> source)
+        {
+            return Process<MaskRegion>(source);
+        }
+
         public System.IObservable<string> Process(System.IObservable<NormalDistribution> source)
         {
             return Process<NormalDistribution>(source);
@@ -6172,6 +6277,7 @@ namespace AindBehaviorDirectedForagingDataSchema
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<HarpDelphiController>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<LogNormalDistribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<LogNormalDistributionParameters>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<MaskRegion>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<NormalDistribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<NormalDistributionParameters>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<OdorDefinition>))]

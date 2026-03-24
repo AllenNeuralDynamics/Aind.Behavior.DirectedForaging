@@ -12,6 +12,7 @@ from aind_behavior_directed_foraging.task_logic import (
     RadiusThreshold,
     RandomisedTimer,
     TriggerRegion,
+    MaskRegion,
     FixedTimer
 )
 
@@ -29,8 +30,21 @@ task_logic = AindBehaviorDirectedForagingTaskLogic(
         # trigger_source=RadiusThreshold(trigger_type="radius", radius=0.5)
         # trigger_source=RandomisedTimer(trigger_type="randomised_timer", distribution=distributions.UniformDistribution(distribution_parameters=distributions.UniformDistributionParameters(min=1, max=30)))
         trigger_source=FixedTimer(trigger_type="fixed_timer", sequence=[5, 20, 30.06, 40, 50.2]),
-        trigger_region=TriggerRegion(region_center=Point2f(x=188, y=398), radius=60),
-        track_threshold=64
+        trigger_region=TriggerRegion(region_center=Point2f(x=333, y=329), radius=60),
+        track_threshold=2,
+        mask_region=MaskRegion(
+            fill_value=150,
+            mask_polygon=[
+                Point2f(x=9, y=134),
+                Point2f(x=323, y=76),
+                Point2f(x=615, y=70),
+                Point2f(x=719, y=120),
+                Point2f(x=719, y=539),
+                Point2f(x=269, y=539),
+                Point2f(x=0, y=539),
+                Point2f(x=9, y=277),
+            ]
+        )
     )
 )
 
