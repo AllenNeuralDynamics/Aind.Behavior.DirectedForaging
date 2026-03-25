@@ -12,11 +12,11 @@
                  xmlns:harp="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp"
                  xmlns:p6="clr-namespace:AllenNeuralDynamics.DelphiController;assembly=AllenNeuralDynamics.DelphiController"
                  xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                 xmlns:wie="clr-namespace:Bonsai.Windows.Input;assembly=Bonsai.Windows.Input"
                  xmlns:cv="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision"
                  xmlns:p7="clr-namespace:OpenCV.Net;assembly=OpenCV.Net"
                  xmlns:p8="clr-namespace:;assembly=Extensions"
                  xmlns:spk="clr-namespace:Bonsai.Spinnaker;assembly=Bonsai.Spinnaker"
-                 xmlns:wie="clr-namespace:Bonsai.Windows.Input;assembly=Bonsai.Windows.Input"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
@@ -144,7 +144,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="num:CreateRandom">
-                <num:Seed>1</num:Seed>
+                <num:Seed>7</num:Seed>
               </Combinator>
             </Expression>
             <Expression xsi:type="Combinator">
@@ -850,6 +850,21 @@
                   <Expression xsi:type="rx:BehaviorSubject">
                     <Name>DelphiControllerQueueReady</Name>
                   </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="wie:MouseWheel" />
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="FloatProperty">
+                      <Value>0.01</Value>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:CombineLatest" />
+                  </Expression>
+                  <Expression xsi:type="Multiply" />
+                  <Expression xsi:type="rx:PublishSubject">
+                    <Name>WheelDisplacement</Name>
+                  </Expression>
                 </Nodes>
                 <Edges>
                   <Edge From="0" To="4" Label="Source1" />
@@ -878,6 +893,10 @@
                   <Edge From="26" To="27" Label="Source1" />
                   <Edge From="27" To="28" Label="Source1" />
                   <Edge From="28" To="29" Label="Source1" />
+                  <Edge From="30" To="32" Label="Source1" />
+                  <Edge From="31" To="32" Label="Source2" />
+                  <Edge From="32" To="33" Label="Source1" />
+                  <Edge From="33" To="34" Label="Source1" />
                 </Edges>
               </Workflow>
             </Expression>
@@ -1612,6 +1631,31 @@
                   <Expression xsi:type="MulticastSubject">
                     <Name>DelphiControllerCommands</Name>
                   </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>TrialDefinition</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>TrialTimeout</Selector>
+                  </Expression>
+                  <Expression xsi:type="scr:ExpressionTransform">
+                    <scr:Expression>TimeSpan.FromSeconds(it)</scr:Expression>
+                  </Expression>
+                  <Expression xsi:type="PropertyMapping">
+                    <PropertyMappings>
+                      <Property Name="DueTime" />
+                    </PropertyMappings>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:Timer">
+                      <rx:DueTime>PT15S</rx:DueTime>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>TrialTrigger</Name>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:SubscribeWhen" />
+                  </Expression>
                   <Expression xsi:type="WorkflowOutput" />
                 </Nodes>
                 <Edges>
@@ -1630,7 +1674,13 @@
                   <Edge From="14" To="15" Label="Source2" />
                   <Edge From="15" To="16" Label="Source1" />
                   <Edge From="16" To="17" Label="Source1" />
-                  <Edge From="17" To="18" Label="Source1" />
+                  <Edge From="18" To="19" Label="Source1" />
+                  <Edge From="19" To="20" Label="Source1" />
+                  <Edge From="20" To="21" Label="Source1" />
+                  <Edge From="21" To="22" Label="Source1" />
+                  <Edge From="22" To="24" Label="Source1" />
+                  <Edge From="23" To="24" Label="Source2" />
+                  <Edge From="24" To="25" Label="Source1" />
                 </Edges>
               </Workflow>
             </Expression>
@@ -1796,7 +1846,7 @@
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="rx:Delay">
-                            <rx:DueTime>PT25.963S</rx:DueTime>
+                            <rx:DueTime>PT17.466S</rx:DueTime>
                           </Combinator>
                         </Expression>
                         <Expression xsi:type="Combinator">
@@ -1962,7 +2012,7 @@
                         </Expression>
                         <Expression xsi:type="Index">
                           <Operand xsi:type="IntProperty">
-                            <Value>4</Value>
+                            <Value>0</Value>
                           </Operand>
                         </Expression>
                         <Expression xsi:type="Combinator">

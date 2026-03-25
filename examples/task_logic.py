@@ -21,13 +21,13 @@ odorB = OdorDefinition(odor_id="OdorB", olfactometer_mask=2)
 task_logic = AindBehaviorDirectedForagingTaskLogic(
     task_parameters=AindBehaviorDirectedForagingTaskParameters(
         trials = [
-            Trial(odor_definition=odorA, release_time=0.5, dig_threshold=5, trial_timeout=30, threshold_reward=2, threshold_punishment=5),
-            Trial(odor_definition=odorB, release_time=0.5, dig_threshold=5, trial_timeout=30, threshold_reward=2, threshold_punishment=5),
-            Trial(odor_definition=odorA, release_time=0.5, dig_threshold=5, trial_timeout=30, threshold_reward=2, threshold_punishment=5),
-            Trial(odor_definition=odorB, release_time=0.5, dig_threshold=5, trial_timeout=30, threshold_reward=2, threshold_punishment=5)
+            Trial(odor_definition=odorA, release_time=0.5, dig_threshold=5, trial_timeout=15, threshold_reward=2, threshold_punishment=5),
+            Trial(odor_definition=odorB, release_time=0.5, dig_threshold=5, trial_timeout=15, threshold_reward=2, threshold_punishment=5),
+            Trial(odor_definition=odorA, release_time=0.5, dig_threshold=5, trial_timeout=15, threshold_reward=2, threshold_punishment=5),
+            Trial(odor_definition=odorB, release_time=0.5, dig_threshold=5, trial_timeout=15, threshold_reward=2, threshold_punishment=5)
         ],
-        trigger_source=RadiusThreshold(trigger_type="radius", radius=60, trigger_center=Point2f(x=333, y=329)),
-        # trigger_source=RandomisedTimer(trigger_type="randomised_timer", distribution=distributions.UniformDistribution(distribution_parameters=distributions.UniformDistributionParameters(min=1, max=30)))
+        # trigger_source=RadiusThreshold(trigger_type="radius", radius=60, trigger_center=Point2f(x=333, y=329)),
+        trigger_source=RandomisedTimer(trigger_type="randomised_timer", distribution=distributions.UniformDistribution(distribution_parameters=distributions.UniformDistributionParameters(min=16, max=20))),
         # trigger_source=FixedTimer(trigger_type="fixed_timer", sequence=[5, 20, 30.06, 40, 50.2]),
         track_threshold=2,
         mask_region=MaskRegion(
