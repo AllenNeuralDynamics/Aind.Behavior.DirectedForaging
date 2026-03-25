@@ -9,18 +9,21 @@ from aind_behavior_directed_foraging.rig import (
     HarpDelphiController
 )
 
-video_writer = cameras.VideoWriterFfmpeg(frame_rate=60, container_extension="mp4")
+FFMPEG_OUTPUT_8BIT = '-vf "scale=out_range=full,setparams=range=full:colorspace=bt709:color_primaries=bt709:color_trc=linear" -c:v h264_nvenc -pix_fmt yuv420p -color_range 2 -colorspace bt709 -color_trc linear -tune hq -preset p3 -rc vbr -cq 18 -b:v 0M -metadata author="Allen Institute for Neural Dynamics" -maxrate 700M -bufsize 350M -f matroska -write_crc32 0'
+FFMPEG_INPUT = "-colorspace bt709 -color_primaries bt709 -color_range 2 -color_trc linear"
+
+video_writer = cameras.VideoWriterFfmpeg(frame_rate=60, container_extension="mp4", output_arguments=FFMPEG_OUTPUT_8BIT, input_arguments=FFMPEG_INPUT)
 
 rig = AindBehaviorDirectedForagingRig(
     computer_name="TestRigComputer", 
     rig_name="test_rig", 
     data_directory=Path("../temp_data"),
-    harp_delphi_controller=HarpDelphiController(port_name="COM4", enable_valve_leds=True),
+    harp_delphi_controller=HarpDelphiController(port_name="COM3", enable_valve_leds=True),
     triggered_camera_controller=cameras.CameraController[cameras.SpinnakerCamera](
         frame_rate=60,
         cameras = {
             "MainCamera": cameras.SpinnakerCamera(
-                serial_number="23113702", binning=1, exposure=3000, gain=0, video_writer=video_writer
+                serial_number="18575294", binning=1, exposure=3000, gain=0, video_writer=video_writer
             )
         }
     )

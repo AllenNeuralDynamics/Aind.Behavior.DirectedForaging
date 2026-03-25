@@ -49,7 +49,7 @@ public class LimitedAindSpinnakerCapture : SpinnakerCapture
         }
         if (AdcBitDepth.HasValue)
         {
-            // camera.AdcBitDepth.Value = AdcBitDepth.Value.ToString();
+            camera.AdcBitDepth.Value = AdcBitDepth.Value.ToString();
         }
         camera.BinningSelector.Value = BinningSelectorEnums.All.ToString();
         camera.BinningHorizontalMode.Value = BinningHorizontalModeEnums.Sum.ToString();
