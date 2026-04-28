@@ -47,127 +47,9 @@
               <Property Name="DueTime" Category="RetryDelivery" />
               <Property Name="Count" Category="RetryDelivery" />
             </Expression>
-            <Expression xsi:type="GroupWorkflow">
-              <Name>TimedRetryCount</Name>
-              <Description>Passes each value from the source sequence, and repeats it a fixed number of times until a feedback signal is received within the specified time.</Description>
-              <Workflow>
-                <Nodes>
-                  <Expression xsi:type="WorkflowInput">
-                    <Name>Source1</Name>
-                  </Expression>
-                  <Expression xsi:type="WorkflowInput">
-                    <Name>Source2</Name>
-                  </Expression>
-                  <Expression xsi:type="ExternalizedMapping">
-                    <Property Name="DueTime" />
-                    <Property Name="Count" />
-                  </Expression>
-                  <Expression xsi:type="rx:Defer">
-                    <Name />
-                    <Description />
-                    <Workflow>
-                      <Nodes>
-                        <Expression xsi:type="WorkflowInput">
-                          <Name>Source1</Name>
-                        </Expression>
-                        <Expression xsi:type="ExternalizedMapping">
-                          <Property Name="DueTime" Description="The time interval within which the feedback is expected." />
-                          <Property Name="Count" Description="The maximum number of times to resend a value when feedback is not received." />
-                        </Expression>
-                        <Expression xsi:type="rx:CreateObservable">
-                          <Workflow>
-                            <Nodes>
-                              <Expression xsi:type="WorkflowInput">
-                                <Name>Source1</Name>
-                              </Expression>
-                              <Expression xsi:type="rx:AsyncSubject">
-                                <Name>Command</Name>
-                              </Expression>
-                              <Expression xsi:type="scr:ExpressionTransform">
-                                <scr:Expression>new(
-it as Value,
-False as Repetition)</scr:Expression>
-                              </Expression>
-                              <Expression xsi:type="SubscribeSubject">
-                                <Name>Command</Name>
-                              </Expression>
-                              <Expression xsi:type="ExternalizedMapping">
-                                <Property Name="DueTime" />
-                              </Expression>
-                              <Expression xsi:type="Combinator">
-                                <Combinator xsi:type="rx:Delay">
-                                  <rx:DueTime>PT0S</rx:DueTime>
-                                </Combinator>
-                              </Expression>
-                              <Expression xsi:type="ExternalizedMapping">
-                                <Property Name="Count" />
-                              </Expression>
-                              <Expression xsi:type="Combinator">
-                                <Combinator xsi:type="rx:RepeatCount">
-                                  <rx:Count>0</rx:Count>
-                                </Combinator>
-                              </Expression>
-                              <Expression xsi:type="SubscribeSubject">
-                                <Name>Feedback</Name>
-                              </Expression>
-                              <Expression xsi:type="Combinator">
-                                <Combinator xsi:type="rx:TakeUntil" />
-                              </Expression>
-                              <Expression xsi:type="scr:ExpressionTransform">
-                                <scr:Expression>new(
-it as Value,
-True as Repetition)</scr:Expression>
-                              </Expression>
-                              <Expression xsi:type="Combinator">
-                                <Combinator xsi:type="rx:Merge" />
-                              </Expression>
-                              <Expression xsi:type="WorkflowOutput" />
-                            </Nodes>
-                            <Edges>
-                              <Edge From="0" To="1" Label="Source1" />
-                              <Edge From="1" To="2" Label="Source1" />
-                              <Edge From="2" To="11" Label="Source1" />
-                              <Edge From="3" To="5" Label="Source1" />
-                              <Edge From="4" To="5" Label="Source2" />
-                              <Edge From="5" To="7" Label="Source1" />
-                              <Edge From="6" To="7" Label="Source2" />
-                              <Edge From="7" To="9" Label="Source1" />
-                              <Edge From="8" To="9" Label="Source2" />
-                              <Edge From="9" To="10" Label="Source1" />
-                              <Edge From="10" To="11" Label="Source2" />
-                              <Edge From="11" To="12" Label="Source1" />
-                            </Edges>
-                          </Workflow>
-                        </Expression>
-                        <Expression xsi:type="Combinator">
-                          <Combinator xsi:type="rx:Switch" />
-                        </Expression>
-                        <Expression xsi:type="WorkflowOutput" />
-                        <Expression xsi:type="WorkflowInput">
-                          <Name>Source2</Name>
-                        </Expression>
-                        <Expression xsi:type="rx:PublishSubject">
-                          <Name>Feedback</Name>
-                        </Expression>
-                      </Nodes>
-                      <Edges>
-                        <Edge From="0" To="2" Label="Source1" />
-                        <Edge From="1" To="2" Label="Source2" />
-                        <Edge From="2" To="3" Label="Source1" />
-                        <Edge From="3" To="4" Label="Source1" />
-                        <Edge From="5" To="6" Label="Source1" />
-                      </Edges>
-                    </Workflow>
-                  </Expression>
-                  <Expression xsi:type="WorkflowOutput" />
-                </Nodes>
-                <Edges>
-                  <Edge From="0" To="3" Label="Source1" />
-                  <Edge From="1" To="3" Label="Source2" />
-                  <Edge From="2" To="3" Label="Source3" />
-                  <Edge From="3" To="4" Label="Source1" />
-                </Edges>
-              </Workflow>
+            <Expression xsi:type="IncludeWorkflow" Path="Aeon.Acquisition:TimedRetryCount.bonsai">
+              <DueTime>PT5S</DueTime>
+              <Count>1</Count>
             </Expression>
             <Expression xsi:type="MemberSelector">
               <Selector>Value</Selector>
@@ -192,6 +74,11 @@ True as Repetition)</scr:Expression>
                     </harp:Payload>
                   </Expression>
                   <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:Delay">
+                      <rx:DueTime>PT0.1S</rx:DueTime>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
                     <Combinator xsi:type="rx:Merge" />
                   </Expression>
                   <Expression xsi:type="WorkflowOutput" />
@@ -199,9 +86,10 @@ True as Repetition)</scr:Expression>
                 <Edges>
                   <Edge From="0" To="1" Label="Source1" />
                   <Edge From="1" To="2" Label="Source1" />
-                  <Edge From="1" To="3" Label="Source1" />
-                  <Edge From="2" To="3" Label="Source2" />
-                  <Edge From="3" To="4" Label="Source1" />
+                  <Edge From="1" To="4" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source1" />
+                  <Edge From="3" To="4" Label="Source2" />
+                  <Edge From="4" To="5" Label="Source1" />
                 </Edges>
               </Workflow>
             </Expression>
@@ -264,7 +152,7 @@ True as Repetition)</scr:Expression>
                 <harp:VisualIndicators>On</harp:VisualIndicators>
                 <harp:Heartbeat>Enabled</harp:Heartbeat>
                 <harp:IgnoreErrors>false</harp:IgnoreErrors>
-                <harp:PortName />
+                <harp:PortName>COM20</harp:PortName>
               </Combinator>
             </Expression>
             <Expression xsi:type="rx:Condition">
@@ -321,7 +209,7 @@ True as Repetition)</scr:Expression>
                         </Expression>
                         <Expression xsi:type="HasFlag">
                           <Operand xsi:type="WorkflowProperty" TypeArguments="p1:DigitalOutputs">
-                            <Value>None</Value>
+                            <Value>Out0</Value>
                           </Operand>
                         </Expression>
                         <Expression xsi:type="WorkflowOutput" />
@@ -430,7 +318,7 @@ Item2.Seconds as Seconds)</scr:Expression>
                   </Expression>
                   <Expression xsi:type="HasFlag">
                     <Operand xsi:type="WorkflowProperty" TypeArguments="p1:AuxiliaryInputs">
-                      <Value>None</Value>
+                      <Value>Aux1</Value>
                     </Operand>
                   </Expression>
                   <Expression xsi:type="WorkflowOutput" />
