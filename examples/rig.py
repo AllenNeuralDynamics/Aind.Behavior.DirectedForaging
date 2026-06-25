@@ -4,6 +4,7 @@ from pathlib import Path
 import aind_behavior_services.rig as rig
 import aind_behavior_services.rig.cameras as cameras
 from aind_behavior_services.rig.cameras import SpinnakerCameraAdcBitDepth
+from aind_behavior_services.rig.harp import HarpSniffDetector
 
 from aind_behavior_directed_foraging.rig import (
     AindBehaviorDirectedForagingRig,
@@ -34,7 +35,8 @@ rig = AindBehaviorDirectedForagingRig(
         port_name="COM20",
         retry_delivery_count=0,
         retry_delivery_due_time=0
-    )
+    ),
+    harp_sniff_detector=HarpSniffDetector(port_name="COM32")
 )
 
 def main(path_seed: str = "./local/{schema}.json"):
