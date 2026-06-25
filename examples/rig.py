@@ -7,7 +7,8 @@ from aind_behavior_services.rig.cameras import SpinnakerCameraAdcBitDepth
 
 from aind_behavior_directed_foraging.rig import (
     AindBehaviorDirectedForagingRig,
-    HarpDelphiController
+    HarpDelphiController,
+    HarpUndergroundFeeder
 )
 
 FFMPEG_OUTPUT_8BIT = '-vf "scale=out_range=full,setparams=range=full:colorspace=bt709:color_primaries=bt709:color_trc=linear" -c:v h264_nvenc -pix_fmt yuv420p -color_range 2 -colorspace bt709 -color_trc linear -tune hq -preset p3 -rc vbr -cq 18 -b:v 0M -metadata author="Allen Institute for Neural Dynamics" -maxrate 700M -bufsize 350M -f matroska -write_crc32 0'
@@ -28,6 +29,11 @@ rig = AindBehaviorDirectedForagingRig(
                 serial_number="23113702", binning=1, exposure=3000, gain=0, video_writer=video_writer, adc_bit_depth=SpinnakerCameraAdcBitDepth.ADC10BIT
             )
         }
+    ),
+    harp_underground_feeder=HarpUndergroundFeeder(
+        port_name="COM20",
+        retry_delivery_count=0,
+        retry_delivery_due_time=0
     )
 )
 
