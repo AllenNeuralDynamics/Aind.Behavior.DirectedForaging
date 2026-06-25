@@ -23,11 +23,10 @@ class HarpDelphiController(harp.HarpDeviceBase):
 class HarpUndergroundFeeder(harp.HarpOutputExpander):
     retry_delivery_count: int
     retry_delivery_due_time: float
-    radius: float
 
 class AindBehaviorDirectedForagingRig(rig.Rig):
     version: Literal[__semver__] = __semver__
     harp_delphi_controller: HarpDelphiController
     triggered_camera_controller: cameras.CameraController[cameras.SpinnakerCamera]
-    # harp_underground_feeder: HarpUndergroundFeeder
+    harp_underground_feeder: HarpUndergroundFeeder
     

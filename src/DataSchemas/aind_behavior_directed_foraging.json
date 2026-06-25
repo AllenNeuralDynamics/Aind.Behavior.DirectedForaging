@@ -35,6 +35,9 @@
         },
         "triggered_camera_controller": {
           "$ref": "#/$defs/CameraController_SpinnakerCamera_"
+        },
+        "harp_underground_feeder": {
+          "$ref": "#/$defs/HarpUndergroundFeeder"
         }
       },
       "required": [
@@ -42,7 +45,8 @@
         "rig_name",
         "data_directory",
         "harp_delphi_controller",
-        "triggered_camera_controller"
+        "triggered_camera_controller",
+        "harp_underground_feeder"
       ],
       "title": "AindBehaviorDirectedForagingRig",
       "type": "object"
@@ -665,6 +669,67 @@
         "enable_valve_leds"
       ],
       "title": "HarpDelphiController",
+      "type": "object"
+    },
+    "HarpUndergroundFeeder": {
+      "properties": {
+        "device_type": {
+          "const": "OutputExpander",
+          "default": "OutputExpander",
+          "title": "Device Type",
+          "type": "string"
+        },
+        "calibration": {
+          "default": null,
+          "description": "Calibration for the device.",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/BaseModel"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "who_am_i": {
+          "const": 1108,
+          "default": 1108,
+          "title": "Who Am I",
+          "type": "integer"
+        },
+        "serial_number": {
+          "default": null,
+          "description": "Device serial number",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Serial Number"
+        },
+        "port_name": {
+          "description": "Device port name",
+          "title": "Port Name",
+          "type": "string"
+        },
+        "retry_delivery_count": {
+          "title": "Retry Delivery Count",
+          "type": "integer"
+        },
+        "retry_delivery_due_time": {
+          "title": "Retry Delivery Due Time",
+          "type": "number"
+        }
+      },
+      "required": [
+        "port_name",
+        "retry_delivery_count",
+        "retry_delivery_due_time"
+      ],
+      "title": "HarpUndergroundFeeder",
       "type": "object"
     },
     "LogNormalDistribution": {

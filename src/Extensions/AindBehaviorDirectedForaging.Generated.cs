@@ -29,12 +29,15 @@ namespace AindBehaviorDirectedForagingDataSchema
     
         private CameraControllerSpinnakerCamera _triggeredCameraController;
     
+        private HarpUndergroundFeeder _harpUndergroundFeeder;
+    
         public AindBehaviorDirectedForagingRig()
         {
             _aindBehaviorServicesPkgVersion = "0.13.2";
             _version = "0.0.0-rc0";
             _harpDelphiController = new HarpDelphiController();
             _triggeredCameraController = new CameraControllerSpinnakerCamera();
+            _harpUndergroundFeeder = new HarpUndergroundFeeder();
         }
     
         protected AindBehaviorDirectedForagingRig(AindBehaviorDirectedForagingRig other)
@@ -46,6 +49,7 @@ namespace AindBehaviorDirectedForagingDataSchema
             _dataDirectory = other._dataDirectory;
             _harpDelphiController = other._harpDelphiController;
             _triggeredCameraController = other._triggeredCameraController;
+            _harpUndergroundFeeder = other._harpUndergroundFeeder;
         }
     
         [Newtonsoft.Json.JsonPropertyAttribute("aind_behavior_services_pkg_version")]
@@ -153,6 +157,20 @@ namespace AindBehaviorDirectedForagingDataSchema
             }
         }
     
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("harp_underground_feeder", Required=Newtonsoft.Json.Required.Always)]
+        public HarpUndergroundFeeder HarpUndergroundFeeder
+        {
+            get
+            {
+                return _harpUndergroundFeeder;
+            }
+            set
+            {
+                _harpUndergroundFeeder = value;
+            }
+        }
+    
         public System.IObservable<AindBehaviorDirectedForagingRig> Generate()
         {
             return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new AindBehaviorDirectedForagingRig(this)));
@@ -171,7 +189,8 @@ namespace AindBehaviorDirectedForagingDataSchema
             stringBuilder.Append("RigName = " + _rigName + ", ");
             stringBuilder.Append("DataDirectory = " + _dataDirectory + ", ");
             stringBuilder.Append("HarpDelphiController = " + _harpDelphiController + ", ");
-            stringBuilder.Append("TriggeredCameraController = " + _triggeredCameraController);
+            stringBuilder.Append("TriggeredCameraController = " + _triggeredCameraController + ", ");
+            stringBuilder.Append("HarpUndergroundFeeder = " + _harpUndergroundFeeder);
             return true;
         }
     
@@ -1934,6 +1953,184 @@ namespace AindBehaviorDirectedForagingDataSchema
             stringBuilder.Append("VacuumCloseTime = " + _vacuumCloseTime + ", ");
             stringBuilder.Append("OdorTransitionTime = " + _odorTransitionTime + ", ");
             stringBuilder.Append("MaxOdorDeliveryTime = " + _maxOdorDeliveryTime);
+            return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
+        }
+    }
+
+
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.6.1.0 (Newtonsoft.Json v13.0.0.0)")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class HarpUndergroundFeeder
+    {
+    
+        private string _deviceType;
+    
+        private BaseModel _calibration;
+    
+        private int _whoAmI;
+    
+        private string _serialNumber;
+    
+        private string _portName;
+    
+        private int _retryDeliveryCount;
+    
+        private double _retryDeliveryDueTime;
+    
+        public HarpUndergroundFeeder()
+        {
+            _deviceType = "OutputExpander";
+            _whoAmI = 1108;
+        }
+    
+        protected HarpUndergroundFeeder(HarpUndergroundFeeder other)
+        {
+            _deviceType = other._deviceType;
+            _calibration = other._calibration;
+            _whoAmI = other._whoAmI;
+            _serialNumber = other._serialNumber;
+            _portName = other._portName;
+            _retryDeliveryCount = other._retryDeliveryCount;
+            _retryDeliveryDueTime = other._retryDeliveryDueTime;
+        }
+    
+        [Newtonsoft.Json.JsonPropertyAttribute("device_type")]
+        public string DeviceType
+        {
+            get
+            {
+                return _deviceType;
+            }
+            set
+            {
+                _deviceType = value;
+            }
+        }
+    
+        /// <summary>
+        /// Calibration for the device.
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("calibration")]
+        [System.ComponentModel.DescriptionAttribute("Calibration for the device.")]
+        public BaseModel Calibration
+        {
+            get
+            {
+                return _calibration;
+            }
+            set
+            {
+                _calibration = value;
+            }
+        }
+    
+        [Newtonsoft.Json.JsonPropertyAttribute("who_am_i")]
+        public int WhoAmI
+        {
+            get
+            {
+                return _whoAmI;
+            }
+            set
+            {
+                _whoAmI = value;
+            }
+        }
+    
+        /// <summary>
+        /// Device serial number
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("serial_number")]
+        [System.ComponentModel.DescriptionAttribute("Device serial number")]
+        public string SerialNumber
+        {
+            get
+            {
+                return _serialNumber;
+            }
+            set
+            {
+                _serialNumber = value;
+            }
+        }
+    
+        /// <summary>
+        /// Device port name
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("port_name", Required=Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DescriptionAttribute("Device port name")]
+        public string PortName
+        {
+            get
+            {
+                return _portName;
+            }
+            set
+            {
+                _portName = value;
+            }
+        }
+    
+        [Newtonsoft.Json.JsonPropertyAttribute("retry_delivery_count", Required=Newtonsoft.Json.Required.Always)]
+        public int RetryDeliveryCount
+        {
+            get
+            {
+                return _retryDeliveryCount;
+            }
+            set
+            {
+                _retryDeliveryCount = value;
+            }
+        }
+    
+        [Newtonsoft.Json.JsonPropertyAttribute("retry_delivery_due_time", Required=Newtonsoft.Json.Required.Always)]
+        public double RetryDeliveryDueTime
+        {
+            get
+            {
+                return _retryDeliveryDueTime;
+            }
+            set
+            {
+                _retryDeliveryDueTime = value;
+            }
+        }
+    
+        public System.IObservable<HarpUndergroundFeeder> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new HarpUndergroundFeeder(this)));
+        }
+    
+        public System.IObservable<HarpUndergroundFeeder> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new HarpUndergroundFeeder(this));
+        }
+    
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            stringBuilder.Append("DeviceType = " + _deviceType + ", ");
+            stringBuilder.Append("Calibration = " + _calibration + ", ");
+            stringBuilder.Append("WhoAmI = " + _whoAmI + ", ");
+            stringBuilder.Append("SerialNumber = " + _serialNumber + ", ");
+            stringBuilder.Append("PortName = " + _portName + ", ");
+            stringBuilder.Append("RetryDeliveryCount = " + _retryDeliveryCount + ", ");
+            stringBuilder.Append("RetryDeliveryDueTime = " + _retryDeliveryDueTime);
             return true;
         }
     
@@ -6020,6 +6217,11 @@ namespace AindBehaviorDirectedForagingDataSchema
             return Process<HarpDelphiController>(source);
         }
 
+        public System.IObservable<string> Process(System.IObservable<HarpUndergroundFeeder> source)
+        {
+            return Process<HarpUndergroundFeeder>(source);
+        }
+
         public System.IObservable<string> Process(System.IObservable<LogNormalDistribution> source)
         {
             return Process<LogNormalDistribution>(source);
@@ -6190,6 +6392,7 @@ namespace AindBehaviorDirectedForagingDataSchema
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<GammaDistribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<GammaDistributionParameters>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<HarpDelphiController>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<HarpUndergroundFeeder>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<LogNormalDistribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<LogNormalDistributionParameters>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<MaskRegion>))]
