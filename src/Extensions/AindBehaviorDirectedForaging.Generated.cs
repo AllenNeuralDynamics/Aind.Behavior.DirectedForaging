@@ -2185,18 +2185,18 @@ namespace AindBehaviorDirectedForagingDataSchema
     
         private double _fillValue;
     
-        private System.Collections.Generic.List<Point2f> _maskPolygon;
+        private System.Collections.Generic.List<System.Collections.Generic.List<Point2f>> _maskPolygons;
     
         public MaskRegion()
         {
             _fillValue = 150D;
-            _maskPolygon = new System.Collections.Generic.List<Point2f>();
+            _maskPolygons = new System.Collections.Generic.List<System.Collections.Generic.List<Point2f>>();
         }
     
         protected MaskRegion(MaskRegion other)
         {
             _fillValue = other._fillValue;
-            _maskPolygon = other._maskPolygon;
+            _maskPolygons = other._maskPolygons;
         }
     
         [Newtonsoft.Json.JsonPropertyAttribute("fill_value")]
@@ -2213,16 +2213,16 @@ namespace AindBehaviorDirectedForagingDataSchema
         }
     
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        [Newtonsoft.Json.JsonPropertyAttribute("mask_polygon", Required=Newtonsoft.Json.Required.Always)]
-        public System.Collections.Generic.List<Point2f> MaskPolygon
+        [Newtonsoft.Json.JsonPropertyAttribute("mask_polygons", Required=Newtonsoft.Json.Required.Always)]
+        public System.Collections.Generic.List<System.Collections.Generic.List<Point2f>> MaskPolygons
         {
             get
             {
-                return _maskPolygon;
+                return _maskPolygons;
             }
             set
             {
-                _maskPolygon = value;
+                _maskPolygons = value;
             }
         }
     
@@ -2239,7 +2239,7 @@ namespace AindBehaviorDirectedForagingDataSchema
         protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
         {
             stringBuilder.Append("FillValue = " + _fillValue + ", ");
-            stringBuilder.Append("MaskPolygon = " + _maskPolygon);
+            stringBuilder.Append("MaskPolygons = " + _maskPolygons);
             return true;
         }
     

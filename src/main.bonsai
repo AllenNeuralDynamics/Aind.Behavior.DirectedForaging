@@ -16,6 +16,7 @@
                  xmlns:cv="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision"
                  xmlns:p7="clr-namespace:OpenCV.Net;assembly=OpenCV.Net"
                  xmlns:p8="clr-namespace:;assembly=Extensions"
+                 xmlns:spk="clr-namespace:Bonsai.Spinnaker;assembly=Bonsai.Spinnaker"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
@@ -1065,9 +1066,9 @@
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="p8:LimitedAindSpinnakerCapture">
-                            <Index xsi:nil="true" xmlns="clr-namespace:Bonsai.Spinnaker;assembly=Bonsai.Spinnaker" />
-                            <SerialNumber xmlns="clr-namespace:Bonsai.Spinnaker;assembly=Bonsai.Spinnaker">18575294</SerialNumber>
-                            <ColorProcessing xmlns="clr-namespace:Bonsai.Spinnaker;assembly=Bonsai.Spinnaker">Default</ColorProcessing>
+                            <spk:Index xsi:nil="true" />
+                            <spk:SerialNumber>18575294</spk:SerialNumber>
+                            <spk:ColorProcessing>Default</spk:ColorProcessing>
                             <p8:ExposureTime>3000</p8:ExposureTime>
                             <p8:Gain>0</p8:Gain>
                             <p8:Binning>1</p8:Binning>
@@ -1342,7 +1343,7 @@
               <Name>TaskLogicParameters</Name>
             </Expression>
             <Expression xsi:type="MemberSelector">
-              <Selector>MaskRegion.MaskPolygon</Selector>
+              <Selector>MaskRegion.MaskPolygons</Selector>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="p8:PointListToRegion" />
