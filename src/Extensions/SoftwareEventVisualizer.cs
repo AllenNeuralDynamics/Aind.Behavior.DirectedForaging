@@ -28,7 +28,7 @@ public class SoftwareEventVisualizer
 
     private float timeWindow = 120.0f;
     public List<ShadedAreaPlotter> ShadedAreaPlotters {get; set;}
-    private List<PointPlotter> PointPlotters = new List<PointPlotter>();
+    public List<PointPlotter> PointPlotters {get; set;}
     private int maxTrials = 0;
 
     private readonly Dictionary<string, List<EventRecord>> eventHistory = new Dictionary<string, List<EventRecord>>();

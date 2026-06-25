@@ -9,6 +9,7 @@
                  xmlns:p4="clr-namespace:AllenNeuralDynamics.Core;assembly=AllenNeuralDynamics.Core"
                  xmlns:p5="clr-namespace:AllenNeuralDynamics.Core.Design;assembly=AllenNeuralDynamics.Core.Design"
                  xmlns:imvizui="clr-namespace:Bonsai.ImGui.Visualizers;assembly=Bonsai.ImGui.Visualizers.Design"
+                 xmlns:wie="clr-namespace:Bonsai.Windows.Input;assembly=Bonsai.Windows.Input"
                  xmlns:imviz="clr-namespace:Bonsai.ImGui.Visualizers;assembly=Bonsai.ImGui.Visualizers"
                  xmlns:imgui="clr-namespace:Bonsai.ImGui;assembly=Bonsai.ImGui"
                  xmlns="https://bonsai-rx.org/2018/workflow">
@@ -307,6 +308,20 @@
       <Expression xsi:type="rx:PublishSubject">
         <Name>Frame</Name>
       </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="wie:KeyDown">
+          <wie:Filter>A</wie:Filter>
+          <wie:SuppressRepetitions>false</wie:SuppressRepetitions>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p4:CreateSoftwareEvent">
+          <p4:EventName>InstantEvent</p4:EventName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="MulticastSubject">
+        <Name>SoftwareEvents</Name>
+      </Expression>
       <Expression xsi:type="SubscribeSubject">
         <Name>Frame</Name>
       </Expression>
@@ -398,6 +413,82 @@
             <p2:TimestampedOfSoftwareEvent />
             <p2:TimestampedOfSoftwareEvent />
             <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
           </p2:SoftwareEvents>
           <p2:TrialBreakEventName>EndTrialEvent</p2:TrialBreakEventName>
           <p2:ShadedAreaPlotters>
@@ -417,6 +508,15 @@
               <p2:Alpha>0.3</p2:Alpha>
             </p2:ShadedAreaPlotter>
           </p2:ShadedAreaPlotters>
+          <p2:PointPlotters>
+            <p2:PointPlotter>
+              <p2:EventName>InstantEvent</p2:EventName>
+              <p2:Color>Black</p2:Color>
+              <p2:YPosition>0.5</p2:YPosition>
+              <p2:MarkerSize>3</p2:MarkerSize>
+              <p2:Marker>Circle</p2:Marker>
+            </p2:PointPlotter>
+          </p2:PointPlotters>
         </Combinator>
       </Expression>
     </Nodes>
@@ -446,19 +546,21 @@
       <Edge From="27" To="28" Label="Source1" />
       <Edge From="28" To="29" Label="Source1" />
       <Edge From="30" To="31" Label="Source1" />
-      <Edge From="32" To="37" Label="Source1" />
+      <Edge From="32" To="33" Label="Source1" />
       <Edge From="33" To="34" Label="Source1" />
-      <Edge From="34" To="35" Label="Source1" />
-      <Edge From="35" To="36" Label="Source1" />
-      <Edge From="36" To="37" Label="Source2" />
+      <Edge From="35" To="40" Label="Source1" />
+      <Edge From="36" To="37" Label="Source1" />
+      <Edge From="37" To="38" Label="Source1" />
       <Edge From="38" To="39" Label="Source1" />
-      <Edge From="39" To="40" Label="Source1" />
-      <Edge From="39" To="42" Label="Source1" />
-      <Edge From="40" To="41" Label="Source1" />
+      <Edge From="39" To="40" Label="Source2" />
+      <Edge From="41" To="42" Label="Source1" />
       <Edge From="42" To="43" Label="Source1" />
-      <Edge From="44" To="47" Label="Source1" />
+      <Edge From="42" To="45" Label="Source1" />
+      <Edge From="43" To="44" Label="Source1" />
       <Edge From="45" To="46" Label="Source1" />
-      <Edge From="46" To="47" Label="Source2" />
+      <Edge From="47" To="50" Label="Source1" />
+      <Edge From="48" To="49" Label="Source1" />
+      <Edge From="49" To="50" Label="Source2" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>
