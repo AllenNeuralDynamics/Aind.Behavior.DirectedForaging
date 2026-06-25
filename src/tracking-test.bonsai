@@ -5,6 +5,9 @@
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns:cv="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision"
                  xmlns:p2="clr-namespace:;assembly=Extensions"
+                 xmlns:imvizui="clr-namespace:Bonsai.ImGui.Visualizers;assembly=Bonsai.ImGui.Visualizers.Design"
+                 xmlns:imviz="clr-namespace:Bonsai.ImGui.Visualizers;assembly=Bonsai.ImGui.Visualizers"
+                 xmlns:imgui="clr-namespace:Bonsai.ImGui;assembly=Bonsai.ImGui"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
@@ -174,6 +177,64 @@
           </cv:FillValue>
         </Combinator>
       </Expression>
+      <Expression xsi:type="rx:PublishSubject">
+        <Name>ImageFeed</Name>
+      </Expression>
+      <Expression xsi:type="imvizui:ImPlotVisualizerBuilder" />
+      <Expression xsi:type="rx:PublishSubject">
+        <Name>Frame</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Frame</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>ImageFeed</Name>
+      </Expression>
+      <Expression xsi:type="imviz:SampleOnNewFrame">
+        <Name>Frame</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="imviz:StoreImage">
+          <imviz:InternalFormat>Rgba</imviz:InternalFormat>
+          <imviz:WrapS>Repeat</imviz:WrapS>
+          <imviz:WrapT>Repeat</imviz:WrapT>
+          <imviz:MinFilter>Linear</imviz:MinFilter>
+          <imviz:MagFilter>Linear</imviz:MagFilter>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="Image" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="imgui:ImageBuilder">
+        <imgui:Visible>true</imgui:Visible>
+        <imgui:ImageSize>
+          <imgui:X>640</imgui:X>
+          <imgui:Y>480</imgui:Y>
+        </imgui:ImageSize>
+        <imgui:UV0>
+          <imgui:X>0</imgui:X>
+          <imgui:Y>0</imgui:Y>
+        </imgui:UV0>
+        <imgui:UV1>
+          <imgui:X>1</imgui:X>
+          <imgui:Y>1</imgui:Y>
+        </imgui:UV1>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Frame</Name>
+      </Expression>
+      <Expression xsi:type="imgui:TableBuilder">
+        <imgui:Visible>true</imgui:Visible>
+        <imgui:Columns>1</imgui:Columns>
+        <imgui:Flags>None</imgui:Flags>
+        <imgui:OuterSize>
+          <imgui:X>0</imgui:X>
+          <imgui:Y>0</imgui:Y>
+        </imgui:OuterSize>
+        <imgui:InnerWidth>0</imgui:InnerWidth>
+      </Expression>
     </Nodes>
     <Edges>
       <Edge From="0" To="1" Label="Source1" />
@@ -183,6 +244,14 @@
       <Edge From="6" To="7" Label="Source1" />
       <Edge From="7" To="8" Label="Source1" />
       <Edge From="8" To="9" Label="Source2" />
+      <Edge From="9" To="10" Label="Source1" />
+      <Edge From="11" To="12" Label="Source1" />
+      <Edge From="13" To="18" Label="Source1" />
+      <Edge From="14" To="15" Label="Source1" />
+      <Edge From="15" To="16" Label="Source1" />
+      <Edge From="16" To="17" Label="Source1" />
+      <Edge From="17" To="18" Label="Source2" />
+      <Edge From="19" To="20" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

@@ -1,0 +1,566 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.9.0"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:p1="clr-namespace:AindBehaviorDirectedForagingDataSchema;assembly=Extensions"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
+                 xmlns:cv="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision"
+                 xmlns:p2="clr-namespace:;assembly=Extensions"
+                 xmlns:p3="clr-namespace:AllenNeuralDynamics.AindBehaviorServices.DataTypes;assembly=AllenNeuralDynamics.AindBehaviorServices"
+                 xmlns:p4="clr-namespace:AllenNeuralDynamics.Core;assembly=AllenNeuralDynamics.Core"
+                 xmlns:p5="clr-namespace:AllenNeuralDynamics.Core.Design;assembly=AllenNeuralDynamics.Core.Design"
+                 xmlns:imvizui="clr-namespace:Bonsai.ImGui.Visualizers;assembly=Bonsai.ImGui.Visualizers.Design"
+                 xmlns:wie="clr-namespace:Bonsai.Windows.Input;assembly=Bonsai.Windows.Input"
+                 xmlns:imviz="clr-namespace:Bonsai.ImGui.Visualizers;assembly=Bonsai.ImGui.Visualizers"
+                 xmlns:imgui="clr-namespace:Bonsai.ImGui;assembly=Bonsai.ImGui"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="TaskLogicPath" />
+        <Property Name="RigPath" />
+        <Property Name="SessionPath" />
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="AllenNeuralDynamics.Core:ReadSchemas.bonsai">
+        <TaskLogicPath>..\local\example_AindBehaviorDirectedForagingTaskLogic.json</TaskLogicPath>
+        <RigPath>..\local\AindBehaviorDirectedForagingRig.json</RigPath>
+        <SessionPath>..\local\Session.json</SessionPath>
+      </Expression>
+      <Expression xsi:type="GroupWorkflow">
+        <Name>LoadSchemas</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>RawSessionSchema</Name>
+            </Expression>
+            <Expression xsi:type="p1:DeserializeFromJson">
+              <p1:Type xsi:type="TypeMapping" TypeArguments="p1:Session" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Take">
+                <rx:Count>1</rx:Count>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:AsyncSubject">
+              <Name>SubjectSchema</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>RawRigSchema</Name>
+            </Expression>
+            <Expression xsi:type="p1:DeserializeFromJson">
+              <p1:Type xsi:type="TypeMapping" TypeArguments="p1:AindBehaviorDirectedForagingRig" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Take">
+                <rx:Count>1</rx:Count>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:AsyncSubject">
+              <Name>RigSchema</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>RawTaskLogicSchema</Name>
+            </Expression>
+            <Expression xsi:type="p1:DeserializeFromJson">
+              <p1:Type xsi:type="TypeMapping" TypeArguments="p1:AindBehaviorDirectedForagingTaskLogic" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Take">
+                <rx:Count>1</rx:Count>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:AsyncSubject">
+              <Name>TaskLogicSchema</Name>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>TaskParameters</Selector>
+            </Expression>
+            <Expression xsi:type="rx:AsyncSubject">
+              <Name>TaskLogicParameters</Name>
+            </Expression>
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="1" To="2" Label="Source1" />
+            <Edge From="2" To="3" Label="Source1" />
+            <Edge From="4" To="5" Label="Source1" />
+            <Edge From="5" To="6" Label="Source1" />
+            <Edge From="6" To="7" Label="Source1" />
+            <Edge From="8" To="9" Label="Source1" />
+            <Edge From="9" To="10" Label="Source1" />
+            <Edge From="10" To="11" Label="Source1" />
+            <Edge From="11" To="12" Label="Source1" />
+            <Edge From="12" To="13" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:CameraCapture">
+          <cv:Index>0</cv:Index>
+          <cv:CaptureProperties />
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:Grayscale" />
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>TaskLogicParameters</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>MaskRegion.MaskPolygons</Selector>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p2:PointListToRegion" />
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="Regions" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:MaskPolygon">
+          <cv:Regions>
+            <cv:ArrayOfPoint>
+              <cv:Point>
+                <cv:X>9</cv:X>
+                <cv:Y>134</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>323</cv:X>
+                <cv:Y>76</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>615</cv:X>
+                <cv:Y>70</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>719</cv:X>
+                <cv:Y>120</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>719</cv:X>
+                <cv:Y>539</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>269</cv:X>
+                <cv:Y>539</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>0</cv:X>
+                <cv:Y>539</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>9</cv:X>
+                <cv:Y>277</cv:Y>
+              </cv:Point>
+            </cv:ArrayOfPoint>
+            <cv:ArrayOfPoint>
+              <cv:Point>
+                <cv:X>0</cv:X>
+                <cv:Y>0</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>100</cv:X>
+                <cv:Y>0</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>100</cv:X>
+                <cv:Y>100</cv:Y>
+              </cv:Point>
+              <cv:Point>
+                <cv:X>0</cv:X>
+                <cv:Y>100</cv:Y>
+              </cv:Point>
+            </cv:ArrayOfPoint>
+          </cv:Regions>
+          <cv:MaskType>ToZero</cv:MaskType>
+          <cv:FillValue>
+            <cv:Val0>150</cv:Val0>
+            <cv:Val1>150</cv:Val1>
+            <cv:Val2>150</cv:Val2>
+            <cv:Val3>150</cv:Val3>
+          </cv:FillValue>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="rx:PublishSubject">
+        <Name>ImageFeed</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Timer">
+          <rx:DueTime>PT0S</rx:DueTime>
+          <rx:Period>PT0.01S</rx:Period>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="DoubleProperty">
+          <Value>0.01</Value>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="rx:Accumulate" />
+      <Expression xsi:type="rx:PublishSubject">
+        <Name>TimeBase</Name>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject" TypeArguments="p3:SoftwareEvent">
+        <rx:Name>SoftwareEvents</rx:Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Timestamp" />
+      </Expression>
+      <Expression xsi:type="Unit" />
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p4:CreateSoftwareEvent">
+          <p4:EventName>InitialEvent</p4:EventName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Timestamp" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Merge" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p5:AccumulateToImmutableList" />
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>SoftwareEventHistory</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>TaskLogicParameters</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:DelaySubscription">
+          <rx:DueTime>PT1S</rx:DueTime>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Trials</Selector>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Merge" />
+      </Expression>
+      <Expression xsi:type="rx:CreateObservable">
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="p4:CreateSoftwareEvent">
+                <p4:EventName>TrialEvent</p4:EventName>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="MulticastSubject">
+              <Name>SoftwareEvents</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Delay">
+                <rx:DueTime>PT10S</rx:DueTime>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="p4:CreateSoftwareEvent">
+                <p4:EventName>MidTrialEvent</p4:EventName>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="MulticastSubject">
+              <Name>SoftwareEvents</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Delay">
+                <rx:DueTime>PT5S</rx:DueTime>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="p4:CreateSoftwareEvent">
+                <p4:EventName>EndTrialEvent</p4:EventName>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="MulticastSubject">
+              <Name>SoftwareEvents</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Take">
+                <rx:Count>1</rx:Count>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="1" To="2" Label="Source1" />
+            <Edge From="2" To="3" Label="Source1" />
+            <Edge From="3" To="4" Label="Source1" />
+            <Edge From="4" To="5" Label="Source1" />
+            <Edge From="5" To="6" Label="Source1" />
+            <Edge From="6" To="7" Label="Source1" />
+            <Edge From="7" To="8" Label="Source1" />
+            <Edge From="8" To="9" Label="Source1" />
+            <Edge From="9" To="10" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Concat" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Repeat" />
+      </Expression>
+      <Expression xsi:type="imvizui:ImPlotVisualizerBuilder" />
+      <Expression xsi:type="rx:PublishSubject">
+        <Name>Frame</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="wie:KeyDown">
+          <wie:Filter>A</wie:Filter>
+          <wie:SuppressRepetitions>false</wie:SuppressRepetitions>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p4:CreateSoftwareEvent">
+          <p4:EventName>InstantEvent</p4:EventName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="MulticastSubject">
+        <Name>SoftwareEvents</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Frame</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>ImageFeed</Name>
+      </Expression>
+      <Expression xsi:type="imviz:SampleOnNewFrame">
+        <Name>Frame</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="imviz:StoreImage">
+          <imviz:InternalFormat>Rgba</imviz:InternalFormat>
+          <imviz:WrapS>Repeat</imviz:WrapS>
+          <imviz:WrapT>Repeat</imviz:WrapT>
+          <imviz:MinFilter>Linear</imviz:MinFilter>
+          <imviz:MagFilter>Linear</imviz:MagFilter>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="Image" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="imgui:ImageBuilder">
+        <imgui:Visible>true</imgui:Visible>
+        <imgui:ImageSize>
+          <imgui:X>640</imgui:X>
+          <imgui:Y>480</imgui:Y>
+        </imgui:ImageSize>
+        <imgui:UV0>
+          <imgui:X>0</imgui:X>
+          <imgui:Y>0</imgui:Y>
+        </imgui:UV0>
+        <imgui:UV1>
+          <imgui:X>1</imgui:X>
+          <imgui:Y>1</imgui:Y>
+        </imgui:UV1>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Frame</Name>
+      </Expression>
+      <Expression xsi:type="imgui:TableBuilder">
+        <imgui:Visible>true</imgui:Visible>
+        <imgui:Columns>2</imgui:Columns>
+        <imgui:Flags>None</imgui:Flags>
+        <imgui:OuterSize>
+          <imgui:X>0</imgui:X>
+          <imgui:Y>0</imgui:Y>
+        </imgui:OuterSize>
+        <imgui:InnerWidth>0</imgui:InnerWidth>
+      </Expression>
+      <Expression xsi:type="imgui:TableNextColumnBuilder">
+        <imgui:Visible>true</imgui:Visible>
+      </Expression>
+      <Expression xsi:type="imgui:ButtonBuilder">
+        <imgui:Visible>true</imgui:Visible>
+        <imgui:Text>START</imgui:Text>
+      </Expression>
+      <Expression xsi:type="imgui:TableNextColumnBuilder">
+        <imgui:Visible>true</imgui:Visible>
+      </Expression>
+      <Expression xsi:type="imgui:ButtonBuilder">
+        <imgui:Visible>true</imgui:Visible>
+        <imgui:Text>STOP</imgui:Text>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Frame</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>SoftwareEventHistory</Name>
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="SoftwareEvents" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p2:SoftwareEventVisualizer">
+          <p2:Visible>true</p2:Visible>
+          <p2:SoftwareEvents>
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+            <p2:TimestampedOfSoftwareEvent />
+          </p2:SoftwareEvents>
+          <p2:TrialBreakEventName>EndTrialEvent</p2:TrialBreakEventName>
+          <p2:ShadedAreaPlotters>
+            <p2:ShadedAreaPlotter>
+              <p2:EventName>TrialEvent</p2:EventName>
+              <p2:Color>CornflowerBlue</p2:Color>
+              <p2:Alpha>0.3</p2:Alpha>
+            </p2:ShadedAreaPlotter>
+            <p2:ShadedAreaPlotter>
+              <p2:EventName>InitialEvent</p2:EventName>
+              <p2:Color>Lime</p2:Color>
+              <p2:Alpha>0.3</p2:Alpha>
+            </p2:ShadedAreaPlotter>
+            <p2:ShadedAreaPlotter>
+              <p2:EventName>MidTrialEvent</p2:EventName>
+              <p2:Color>Red</p2:Color>
+              <p2:Alpha>0.3</p2:Alpha>
+            </p2:ShadedAreaPlotter>
+          </p2:ShadedAreaPlotters>
+          <p2:PointPlotters>
+            <p2:PointPlotter>
+              <p2:EventName>InstantEvent</p2:EventName>
+              <p2:Color>Black</p2:Color>
+              <p2:YPosition>0.5</p2:YPosition>
+              <p2:MarkerSize>3</p2:MarkerSize>
+              <p2:Marker>Circle</p2:Marker>
+            </p2:PointPlotter>
+          </p2:PointPlotters>
+        </Combinator>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge From="0" To="1" Label="Source1" />
+      <Edge From="3" To="4" Label="Source1" />
+      <Edge From="4" To="9" Label="Source1" />
+      <Edge From="5" To="6" Label="Source1" />
+      <Edge From="6" To="7" Label="Source1" />
+      <Edge From="7" To="8" Label="Source1" />
+      <Edge From="8" To="9" Label="Source2" />
+      <Edge From="9" To="10" Label="Source1" />
+      <Edge From="11" To="12" Label="Source1" />
+      <Edge From="12" To="13" Label="Source1" />
+      <Edge From="13" To="14" Label="Source1" />
+      <Edge From="15" To="16" Label="Source1" />
+      <Edge From="16" To="20" Label="Source1" />
+      <Edge From="17" To="18" Label="Source1" />
+      <Edge From="18" To="19" Label="Source1" />
+      <Edge From="19" To="20" Label="Source2" />
+      <Edge From="20" To="21" Label="Source1" />
+      <Edge From="21" To="22" Label="Source1" />
+      <Edge From="23" To="24" Label="Source1" />
+      <Edge From="24" To="25" Label="Source1" />
+      <Edge From="25" To="26" Label="Source1" />
+      <Edge From="26" To="27" Label="Source1" />
+      <Edge From="27" To="28" Label="Source1" />
+      <Edge From="28" To="29" Label="Source1" />
+      <Edge From="30" To="31" Label="Source1" />
+      <Edge From="32" To="33" Label="Source1" />
+      <Edge From="33" To="34" Label="Source1" />
+      <Edge From="35" To="40" Label="Source1" />
+      <Edge From="36" To="37" Label="Source1" />
+      <Edge From="37" To="38" Label="Source1" />
+      <Edge From="38" To="39" Label="Source1" />
+      <Edge From="39" To="40" Label="Source2" />
+      <Edge From="41" To="42" Label="Source1" />
+      <Edge From="42" To="43" Label="Source1" />
+      <Edge From="42" To="45" Label="Source1" />
+      <Edge From="43" To="44" Label="Source1" />
+      <Edge From="45" To="46" Label="Source1" />
+      <Edge From="47" To="50" Label="Source1" />
+      <Edge From="48" To="49" Label="Source1" />
+      <Edge From="49" To="50" Label="Source2" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>

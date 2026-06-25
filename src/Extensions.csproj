@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>net480</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
-	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Bonsai.Core" Version="2.9.0" />
@@ -10,5 +10,8 @@
     <PackageReference Include="MathNet.Numerics" Version="4.15.0" />
     <PackageReference Include="AllenNeuralDynamics.Core" Version="0.4.1" />
     <PackageReference Include="Bonsai.Spinnaker" Version="0.7.1" />
+    <PackageReference Include="Hexa.NET.ImGui" Version="2.2.9" />
+    <PackageReference Include="Hexa.NET.ImPlot" Version="2.2.9" />
+    <PackageReference Include="System.Collections.Immutable" Version="10.0.9" />
   </ItemGroup>
 </Project>
