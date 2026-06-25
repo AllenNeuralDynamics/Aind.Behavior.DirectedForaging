@@ -19,4 +19,12 @@ public class PointListToRegion
             return new OpenCV.Net.Point[][] { pointArray };
         });
     }
+
+    public IObservable<OpenCV.Net.Point[][]> Process(IObservable<List<List<Point2f>>> source)
+    {
+        return source.Select(value =>
+        {
+            return value.Select(p => p.Select(x => new OpenCV.Net.Point((int)x.X, (int)x.Y)).ToArray()).ToArray();
+        });
+    }
 }

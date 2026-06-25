@@ -44,7 +44,7 @@ class FixedTimer(TriggerSource):
     
 class MaskRegion(BaseModel):
     fill_value: float = Field(default=150)
-    mask_polygon: List[Point2f]
+    mask_polygons: List[List[Point2f]]
 
 class AindBehaviorDirectedForagingTaskParameters(TaskParameters):
     """

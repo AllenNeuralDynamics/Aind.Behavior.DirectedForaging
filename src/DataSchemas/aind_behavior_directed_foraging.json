@@ -745,16 +745,19 @@
           "title": "Fill Value",
           "type": "number"
         },
-        "mask_polygon": {
+        "mask_polygons": {
           "items": {
-            "$ref": "#/$defs/Point2f"
+            "items": {
+              "$ref": "#/$defs/Point2f"
+            },
+            "type": "array"
           },
-          "title": "Mask Polygon",
+          "title": "Mask Polygons",
           "type": "array"
         }
       },
       "required": [
-        "mask_polygon"
+        "mask_polygons"
       ],
       "title": "MaskRegion",
       "type": "object"

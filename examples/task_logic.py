@@ -32,15 +32,23 @@ task_logic = AindBehaviorDirectedForagingTaskLogic(
         track_threshold=2,
         mask_region=MaskRegion(
             fill_value=150,
-            mask_polygon=[
-                Point2f(x=9, y=134),
-                Point2f(x=323, y=76),
-                Point2f(x=615, y=70),
-                Point2f(x=719, y=120),
-                Point2f(x=719, y=539),
-                Point2f(x=269, y=539),
-                Point2f(x=0, y=539),
-                Point2f(x=9, y=277),
+            mask_polygons=[
+                [
+                    Point2f(x=9, y=134),
+                    Point2f(x=323, y=76),
+                    Point2f(x=615, y=70),
+                    Point2f(x=719, y=120),
+                    Point2f(x=719, y=539),
+                    Point2f(x=269, y=539),
+                    Point2f(x=0, y=539),
+                    Point2f(x=9, y=277),
+                ],
+                [
+                    Point2f(x=0, y=0),
+                    Point2f(x=100, y=0),
+                    Point2f(x=100, y=100),
+                    Point2f(x=0, y=100),
+                ]
             ]
         )
     )
