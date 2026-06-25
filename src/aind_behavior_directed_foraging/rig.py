@@ -29,4 +29,5 @@ class AindBehaviorDirectedForagingRig(rig.Rig):
     harp_delphi_controller: HarpDelphiController
     triggered_camera_controller: cameras.CameraController[cameras.SpinnakerCamera]
     harp_underground_feeder: HarpUndergroundFeeder
+    harp_sniff_detector: harp.HarpSniffDetector
     
