@@ -31,11 +31,11 @@ rig = AindBehaviorDirectedForagingRig(
         }
     ),
     harp_underground_feeder=HarpUndergroundFeeder(
-        port_name="COM20",
+        port_name="COM8",
         retry_delivery_count=0,
         retry_delivery_due_time=0
     ),
-    harp_sniff_detector=HarpSniffDetector(port_name="COM32")
+    harp_sniff_detector=HarpSniffDetector(port_name="COM7")
 )
 
 def main(path_seed: str = "./local/{schema}.json"):
