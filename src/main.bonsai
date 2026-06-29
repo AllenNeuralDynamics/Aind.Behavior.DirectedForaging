@@ -16,12 +16,12 @@
                  xmlns:sys="clr-namespace:System;assembly=mscorlib"
                  xmlns:cv="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision"
                  xmlns:p9="clr-namespace:OpenCV.Net;assembly=OpenCV.Net"
-                 xmlns:p10="clr-namespace:;assembly=Extensions"
+                 xmlns:p10="clr-namespace:AllenNeuralDynamics.Core;assembly=AllenNeuralDynamics.Core"
                  xmlns:spk="clr-namespace:Bonsai.Spinnaker;assembly=Bonsai.Spinnaker"
+                 xmlns:p11="clr-namespace:;assembly=Extensions"
                  xmlns:imvizui="clr-namespace:Bonsai.ImGui.Visualizers;assembly=Bonsai.ImGui.Visualizers.Design"
                  xmlns:imgui="clr-namespace:Bonsai.ImGui;assembly=Bonsai.ImGui"
                  xmlns:imviz="clr-namespace:Bonsai.ImGui.Visualizers;assembly=Bonsai.ImGui.Visualizers"
-                 xmlns:p11="clr-namespace:AllenNeuralDynamics.Core;assembly=AllenNeuralDynamics.Core"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
@@ -1151,11 +1151,10 @@
                           </PropertyMappings>
                         </Expression>
                         <Expression xsi:type="Combinator">
-                          <Combinator xsi:type="p10:LimitedAindSpinnakerCapture">
+                          <Combinator xsi:type="p10:AindSpinnakerCapture">
                             <spk:Index xsi:nil="true" />
-                            <spk:SerialNumber>23113702</spk:SerialNumber>
                             <spk:ColorProcessing>Default</spk:ColorProcessing>
-                            <p10:ExposureTime>3000</p10:ExposureTime>
+                            <p10:ExposureTime>19000</p10:ExposureTime>
                             <p10:Gain>0</p10:Gain>
                             <p10:Binning>1</p10:Binning>
                             <p10:Gamma xsi:nil="true" />
@@ -1412,7 +1411,7 @@
               <Selector>MaskRegion.MaskPolygons</Selector>
             </Expression>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="p10:PointListToRegion" />
+              <Combinator xsi:type="p11:PointListToRegion" />
             </Expression>
             <Expression xsi:type="PropertyMapping">
               <PropertyMappings>
@@ -1715,55 +1714,55 @@
               </PropertyMappings>
             </Expression>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="p10:SoftwareEventVisualizer">
-                <p10:Visible>true</p10:Visible>
-                <p10:SoftwareEvents />
-                <p10:TrialBreakEventName>EndTrialEvent</p10:TrialBreakEventName>
-                <p10:ShadedAreaPlotters>
-                  <p10:ShadedAreaPlotter>
-                    <p10:EventName>ExperimentStart</p10:EventName>
-                    <p10:Color>LawnGreen</p10:Color>
-                    <p10:Alpha>0.3</p10:Alpha>
-                  </p10:ShadedAreaPlotter>
-                  <p10:ShadedAreaPlotter>
-                    <p10:EventName>TrialStart</p10:EventName>
-                    <p10:Color>CornflowerBlue</p10:Color>
-                    <p10:Alpha>0.3</p10:Alpha>
-                  </p10:ShadedAreaPlotter>
-                  <p10:ShadedAreaPlotter>
-                    <p10:EventName>OdorQueued</p10:EventName>
-                    <p10:Color>Violet</p10:Color>
-                    <p10:Alpha>0.3</p10:Alpha>
-                  </p10:ShadedAreaPlotter>
-                  <p10:ShadedAreaPlotter>
-                    <p10:EventName>OdorReleased</p10:EventName>
-                    <p10:Color>BlueViolet</p10:Color>
-                    <p10:Alpha>0.3</p10:Alpha>
-                  </p10:ShadedAreaPlotter>
-                </p10:ShadedAreaPlotters>
-                <p10:PointPlotters>
-                  <p10:PointPlotter>
-                    <p10:EventName>RadiusTrigger</p10:EventName>
-                    <p10:Color>DarkGreen</p10:Color>
-                    <p10:YPosition>0.5</p10:YPosition>
-                    <p10:MarkerSize>3</p10:MarkerSize>
-                    <p10:Marker>Circle</p10:Marker>
-                  </p10:PointPlotter>
-                  <p10:PointPlotter>
-                    <p10:EventName>TimerTrigger</p10:EventName>
-                    <p10:Color>DarkGreen</p10:Color>
-                    <p10:YPosition>0.5</p10:YPosition>
-                    <p10:MarkerSize>3</p10:MarkerSize>
-                    <p10:Marker>Square</p10:Marker>
-                  </p10:PointPlotter>
-                  <p10:PointPlotter>
-                    <p10:EventName>RandomTrigger</p10:EventName>
-                    <p10:Color>DarkGreen</p10:Color>
-                    <p10:YPosition>0.5</p10:YPosition>
-                    <p10:MarkerSize>3</p10:MarkerSize>
-                    <p10:Marker>Diamond</p10:Marker>
-                  </p10:PointPlotter>
-                </p10:PointPlotters>
+              <Combinator xsi:type="p11:SoftwareEventVisualizer">
+                <p11:Visible>true</p11:Visible>
+                <p11:SoftwareEvents />
+                <p11:TrialBreakEventName>EndTrialEvent</p11:TrialBreakEventName>
+                <p11:ShadedAreaPlotters>
+                  <p11:ShadedAreaPlotter>
+                    <p11:EventName>ExperimentStart</p11:EventName>
+                    <p11:Color>LawnGreen</p11:Color>
+                    <p11:Alpha>0.3</p11:Alpha>
+                  </p11:ShadedAreaPlotter>
+                  <p11:ShadedAreaPlotter>
+                    <p11:EventName>TrialStart</p11:EventName>
+                    <p11:Color>CornflowerBlue</p11:Color>
+                    <p11:Alpha>0.3</p11:Alpha>
+                  </p11:ShadedAreaPlotter>
+                  <p11:ShadedAreaPlotter>
+                    <p11:EventName>OdorQueued</p11:EventName>
+                    <p11:Color>Violet</p11:Color>
+                    <p11:Alpha>0.3</p11:Alpha>
+                  </p11:ShadedAreaPlotter>
+                  <p11:ShadedAreaPlotter>
+                    <p11:EventName>OdorReleased</p11:EventName>
+                    <p11:Color>BlueViolet</p11:Color>
+                    <p11:Alpha>0.3</p11:Alpha>
+                  </p11:ShadedAreaPlotter>
+                </p11:ShadedAreaPlotters>
+                <p11:PointPlotters>
+                  <p11:PointPlotter>
+                    <p11:EventName>RadiusTrigger</p11:EventName>
+                    <p11:Color>DarkGreen</p11:Color>
+                    <p11:YPosition>0.5</p11:YPosition>
+                    <p11:MarkerSize>3</p11:MarkerSize>
+                    <p11:Marker>Circle</p11:Marker>
+                  </p11:PointPlotter>
+                  <p11:PointPlotter>
+                    <p11:EventName>TimerTrigger</p11:EventName>
+                    <p11:Color>DarkGreen</p11:Color>
+                    <p11:YPosition>0.5</p11:YPosition>
+                    <p11:MarkerSize>3</p11:MarkerSize>
+                    <p11:Marker>Square</p11:Marker>
+                  </p11:PointPlotter>
+                  <p11:PointPlotter>
+                    <p11:EventName>RandomTrigger</p11:EventName>
+                    <p11:Color>DarkGreen</p11:Color>
+                    <p11:YPosition>0.5</p11:YPosition>
+                    <p11:MarkerSize>3</p11:MarkerSize>
+                    <p11:Marker>Diamond</p11:Marker>
+                  </p11:PointPlotter>
+                </p11:PointPlotters>
               </Combinator>
             </Expression>
           </Nodes>
@@ -1818,8 +1817,8 @@
               <Name>StartExperiment</Name>
             </Expression>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="p11:CreateSoftwareEvent">
-                <p11:EventName>ExperimentStart</p11:EventName>
+              <Combinator xsi:type="p10:CreateSoftwareEvent">
+                <p10:EventName>ExperimentStart</p10:EventName>
               </Combinator>
             </Expression>
             <Expression xsi:type="MulticastSubject">
@@ -1912,8 +1911,8 @@
                           <Property Name="EventName" />
                         </Expression>
                         <Expression xsi:type="Combinator">
-                          <Combinator xsi:type="p11:CreateSoftwareEvent">
-                            <p11:EventName>TrialStart</p11:EventName>
+                          <Combinator xsi:type="p10:CreateSoftwareEvent">
+                            <p10:EventName>TrialStart</p10:EventName>
                           </Combinator>
                         </Expression>
                         <Expression xsi:type="MulticastSubject">
@@ -1995,8 +1994,8 @@
                           <Property Name="EventName" />
                         </Expression>
                         <Expression xsi:type="Combinator">
-                          <Combinator xsi:type="p11:CreateSoftwareEvent">
-                            <p11:EventName>OdorQueued</p11:EventName>
+                          <Combinator xsi:type="p10:CreateSoftwareEvent">
+                            <p10:EventName>OdorQueued</p10:EventName>
                           </Combinator>
                         </Expression>
                         <Expression xsi:type="MulticastSubject">
@@ -2041,8 +2040,8 @@
                           <Property Name="EventName" />
                         </Expression>
                         <Expression xsi:type="Combinator">
-                          <Combinator xsi:type="p11:CreateSoftwareEvent">
-                            <p11:EventName>OdorReleased</p11:EventName>
+                          <Combinator xsi:type="p10:CreateSoftwareEvent">
+                            <p10:EventName>OdorReleased</p10:EventName>
                           </Combinator>
                         </Expression>
                         <Expression xsi:type="MulticastSubject">
@@ -2140,8 +2139,8 @@
                                 <Property Name="EventName" />
                               </Expression>
                               <Expression xsi:type="Combinator">
-                                <Combinator xsi:type="p11:CreateSoftwareEvent">
-                                  <p11:EventName>PelletDelivery</p11:EventName>
+                                <Combinator xsi:type="p10:CreateSoftwareEvent">
+                                  <p10:EventName>PelletDelivery</p10:EventName>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="MulticastSubject">
@@ -2223,8 +2222,8 @@
                           <Property Name="EventName" />
                         </Expression>
                         <Expression xsi:type="Combinator">
-                          <Combinator xsi:type="p11:CreateSoftwareEvent">
-                            <p11:EventName>EndTrialEvent</p11:EventName>
+                          <Combinator xsi:type="p10:CreateSoftwareEvent">
+                            <p10:EventName>EndTrialEvent</p10:EventName>
                           </Combinator>
                         </Expression>
                         <Expression xsi:type="MulticastSubject">
@@ -2392,8 +2391,8 @@
                     <Property Name="EventName" />
                   </Expression>
                   <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="p11:CreateSoftwareEvent">
-                      <p11:EventName>RadiusTrigger</p11:EventName>
+                    <Combinator xsi:type="p10:CreateSoftwareEvent">
+                      <p10:EventName>RadiusTrigger</p10:EventName>
                     </Combinator>
                   </Expression>
                   <Expression xsi:type="MulticastSubject">
@@ -2532,8 +2531,8 @@
                     <Property Name="EventName" />
                   </Expression>
                   <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="p11:CreateSoftwareEvent">
-                      <p11:EventName>RandomTrigger</p11:EventName>
+                    <Combinator xsi:type="p10:CreateSoftwareEvent">
+                      <p10:EventName>RandomTrigger</p10:EventName>
                     </Combinator>
                   </Expression>
                   <Expression xsi:type="MulticastSubject">
@@ -2784,8 +2783,8 @@
                     <Property Name="EventName" />
                   </Expression>
                   <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="p11:CreateSoftwareEvent">
-                      <p11:EventName>TimerTrigger</p11:EventName>
+                    <Combinator xsi:type="p10:CreateSoftwareEvent">
+                      <p10:EventName>TimerTrigger</p10:EventName>
                     </Combinator>
                   </Expression>
                   <Expression xsi:type="MulticastSubject">
@@ -4739,7 +4738,7 @@ groupMasks:
                     <Combinator xsi:type="harp:CreateTimestamped" />
                   </Expression>
                   <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="p11:TimestampSoftwareEvent" />
+                    <Combinator xsi:type="p10:TimestampSoftwareEvent" />
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="AllenNeuralDynamics.Core:LogSoftwareEventsDemux.bonsai">
                     <LoggerName>SoftwareEvents</LoggerName>
