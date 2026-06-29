@@ -31,7 +31,7 @@
         <Property Name="SessionPath" />
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="AllenNeuralDynamics.Core:ReadSchemas.bonsai">
-        <TaskLogicPath>..\local\example_AindBehaviorDirectedForagingTaskLogic.json</TaskLogicPath>
+        <TaskLogicPath>..\local\AindBehaviorDirectedForagingTaskLogic.json</TaskLogicPath>
         <RigPath>..\local\AindBehaviorDirectedForagingRig.json</RigPath>
         <SessionPath>..\local\Session.json</SessionPath>
       </Expression>
@@ -149,7 +149,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="num:CreateRandom">
-                <num:Seed>4</num:Seed>
+                <num:Seed>8</num:Seed>
               </Combinator>
             </Expression>
             <Expression xsi:type="Combinator">
@@ -189,7 +189,7 @@
             </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="AllenNeuralDynamics.Core:GenerateRootLoggingPathFromSession.bonsai">
               <RootFolder>..\temp_data</RootFolder>
-              <SessionName>test_2026-03-25T153133Z</SessionName>
+              <SessionName>test_2026-06-29T172245Z</SessionName>
               <SubjectName>LoggingRootPath</SubjectName>
             </Expression>
           </Nodes>
@@ -343,7 +343,7 @@
                       <harp:VisualIndicators>On</harp:VisualIndicators>
                       <harp:Heartbeat>Enabled</harp:Heartbeat>
                       <harp:IgnoreErrors>false</harp:IgnoreErrors>
-                      <harp:PortName>COM3</harp:PortName>
+                      <harp:PortName>COM4</harp:PortName>
                     </Combinator>
                   </Expression>
                   <Expression xsi:type="rx:PublishSubject">
@@ -371,7 +371,7 @@
                       <harp:VisualIndicators>On</harp:VisualIndicators>
                       <harp:Heartbeat>Disabled</harp:Heartbeat>
                       <harp:IgnoreErrors>false</harp:IgnoreErrors>
-                      <harp:PortName>COMx</harp:PortName>
+                      <harp:PortName>COM32</harp:PortName>
                     </Combinator>
                   </Expression>
                   <Expression xsi:type="rx:PublishSubject">
@@ -892,12 +892,6 @@
                   <Expression xsi:type="SubscribeSubject">
                     <Name>RigSchema</Name>
                   </Expression>
-                  <Expression xsi:type="PropertyMapping">
-                    <PropertyMappings>
-                      <Property Name="PortName" Selector="HarpUndergroundFeeder.PortName" />
-                      <Property Name="Count" Selector="HarpUndergroundFeeder.RetryDeliveryCount" />
-                    </PropertyMappings>
-                  </Expression>
                   <Expression xsi:type="MemberSelector">
                     <Selector>HarpUndergroundFeeder.RetryDeliveryDueTime</Selector>
                   </Expression>
@@ -909,6 +903,28 @@
                       <Property Name="DueTime" />
                     </PropertyMappings>
                   </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>RigSchema</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>HarpUndergroundFeeder.PortName</Selector>
+                  </Expression>
+                  <Expression xsi:type="PropertyMapping">
+                    <PropertyMappings>
+                      <Property Name="PortName" />
+                    </PropertyMappings>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>RigSchema</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>HarpUndergroundFeeder.RetryDeliveryCount</Selector>
+                  </Expression>
+                  <Expression xsi:type="PropertyMapping">
+                    <PropertyMappings>
+                      <Property Name="Count" />
+                    </PropertyMappings>
+                  </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="Aeon.Foraging:UndergroundFeeder.bonsai">
                     <PatchEvents>PatchEvents</PatchEvents>
                     <SampleRate>SampleRate500Hz</SampleRate>
@@ -917,7 +933,7 @@
                     <DueTime>PT0S</DueTime>
                     <Count>0</Count>
                     <ResetFeeder>ResetFeeder</ResetFeeder>
-                    <PortName>COM20</PortName>
+                    <PortName>COM8</PortName>
                     <Radius>4</Radius>
                     <WheelDisplacement>WheelDisplacement</WheelDisplacement>
                   </Expression>
@@ -966,14 +982,18 @@
                   <Edge From="29" To="30" Label="Source1" />
                   <Edge From="30" To="31" Label="Source1" />
                   <Edge From="32" To="33" Label="Source1" />
-                  <Edge From="32" To="34" Label="Source1" />
-                  <Edge From="33" To="37" Label="Source1" />
+                  <Edge From="33" To="34" Label="Source1" />
                   <Edge From="34" To="35" Label="Source1" />
-                  <Edge From="35" To="36" Label="Source1" />
-                  <Edge From="36" To="37" Label="Source2" />
-                  <Edge From="38" To="39" Label="Source1" />
+                  <Edge From="35" To="42" Label="Source1" />
+                  <Edge From="36" To="37" Label="Source1" />
+                  <Edge From="37" To="38" Label="Source1" />
+                  <Edge From="38" To="42" Label="Source2" />
                   <Edge From="39" To="40" Label="Source1" />
                   <Edge From="40" To="41" Label="Source1" />
+                  <Edge From="41" To="42" Label="Source3" />
+                  <Edge From="43" To="44" Label="Source1" />
+                  <Edge From="44" To="45" Label="Source1" />
+                  <Edge From="45" To="46" Label="Source1" />
                 </Edges>
               </Workflow>
             </Expression>
@@ -1133,7 +1153,7 @@
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="p10:LimitedAindSpinnakerCapture">
                             <spk:Index xsi:nil="true" />
-                            <spk:SerialNumber>18575294</spk:SerialNumber>
+                            <spk:SerialNumber>23113702</spk:SerialNumber>
                             <spk:ColorProcessing>Default</spk:ColorProcessing>
                             <p10:ExposureTime>3000</p10:ExposureTime>
                             <p10:Gain>0</p10:Gain>
@@ -1146,7 +1166,7 @@
                               <p10:Width>0</p10:Width>
                               <p10:Height>0</p10:Height>
                             </p10:RegionOfInterest>
-                            <p10:AdcBitDepth>Bit8</p10:AdcBitDepth>
+                            <p10:AdcBitDepth>Bit10</p10:AdcBitDepth>
                           </Combinator>
                         </Expression>
                         <Expression xsi:type="SubscribeSubject">
@@ -1436,6 +1456,24 @@
                       <cv:Y>277</cv:Y>
                     </cv:Point>
                   </cv:ArrayOfPoint>
+                  <cv:ArrayOfPoint>
+                    <cv:Point>
+                      <cv:X>0</cv:X>
+                      <cv:Y>0</cv:Y>
+                    </cv:Point>
+                    <cv:Point>
+                      <cv:X>100</cv:X>
+                      <cv:Y>0</cv:Y>
+                    </cv:Point>
+                    <cv:Point>
+                      <cv:X>100</cv:X>
+                      <cv:Y>100</cv:Y>
+                    </cv:Point>
+                    <cv:Point>
+                      <cv:X>0</cv:X>
+                      <cv:Y>100</cv:Y>
+                    </cv:Point>
+                  </cv:ArrayOfPoint>
                 </cv:Regions>
                 <cv:MaskType>ToZero</cv:MaskType>
                 <cv:FillValue>
@@ -1521,7 +1559,6 @@
             <Expression xsi:type="rx:PublishSubject">
               <Name>Frame</Name>
             </Expression>
-            <Expression xsi:type="WorkflowOutput" />
             <Expression xsi:type="SubscribeSubject">
               <Name>Frame</Name>
             </Expression>
@@ -1732,36 +1769,35 @@
           </Nodes>
           <Edges>
             <Edge From="0" To="1" Label="Source1" />
-            <Edge From="1" To="2" Label="Source1" />
+            <Edge From="2" To="3" Label="Source1" />
             <Edge From="3" To="4" Label="Source1" />
-            <Edge From="4" To="5" Label="Source1" />
-            <Edge From="4" To="11" Label="Source1" />
-            <Edge From="5" To="10" Label="Source1" />
+            <Edge From="3" To="10" Label="Source1" />
+            <Edge From="4" To="9" Label="Source1" />
+            <Edge From="5" To="6" Label="Source1" />
             <Edge From="6" To="7" Label="Source1" />
             <Edge From="7" To="8" Label="Source1" />
-            <Edge From="8" To="9" Label="Source1" />
-            <Edge From="9" To="10" Label="Source2" />
-            <Edge From="11" To="16" Label="Source1" />
+            <Edge From="8" To="9" Label="Source2" />
+            <Edge From="10" To="15" Label="Source1" />
+            <Edge From="11" To="12" Label="Source1" />
             <Edge From="12" To="13" Label="Source1" />
             <Edge From="13" To="14" Label="Source1" />
-            <Edge From="14" To="15" Label="Source1" />
-            <Edge From="15" To="16" Label="Source2" />
+            <Edge From="14" To="15" Label="Source2" />
+            <Edge From="16" To="17" Label="Source1" />
             <Edge From="17" To="18" Label="Source1" />
+            <Edge From="17" To="21" Label="Source1" />
+            <Edge From="17" To="24" Label="Source1" />
+            <Edge From="17" To="27" Label="Source1" />
             <Edge From="18" To="19" Label="Source1" />
-            <Edge From="18" To="22" Label="Source1" />
-            <Edge From="18" To="25" Label="Source1" />
-            <Edge From="18" To="28" Label="Source1" />
             <Edge From="19" To="20" Label="Source1" />
-            <Edge From="20" To="21" Label="Source1" />
+            <Edge From="21" To="22" Label="Source1" />
             <Edge From="22" To="23" Label="Source1" />
-            <Edge From="23" To="24" Label="Source1" />
+            <Edge From="24" To="25" Label="Source1" />
             <Edge From="25" To="26" Label="Source1" />
-            <Edge From="26" To="27" Label="Source1" />
+            <Edge From="27" To="28" Label="Source1" />
             <Edge From="28" To="29" Label="Source1" />
-            <Edge From="29" To="30" Label="Source1" />
-            <Edge From="31" To="34" Label="Source1" />
-            <Edge From="32" To="33" Label="Source1" />
-            <Edge From="33" To="34" Label="Source2" />
+            <Edge From="30" To="33" Label="Source1" />
+            <Edge From="31" To="32" Label="Source1" />
+            <Edge From="32" To="33" Label="Source2" />
           </Edges>
         </Workflow>
       </Expression>
@@ -3822,280 +3858,425 @@ groupMasks:
                     <DeviceMetadata>%YAML 1.1
 ---
 # yaml-language-server: $schema=https://harp-tech.org/draft-02/schema/device.json
-device: DelphiController
-whoAmI: 1407
-firmwareVersion: "0.0"
-hardwareTargets: "1.0"
+device: OutputExpander
+whoAmI: 1108
+firmwareVersion: "2.3"
+hardwareTargets: "1.2"
 registers:
-    ValveState:
-        address: 32
-        type: U16
-        maskType: ValveMask
-        access: Write
-        description: "Set the enabled/disabled state (enabled = 1) of all valves"
-    ValvesSet:
-        address: 33
-        type: U16
-        maskType: ValveMask
-        access: Write
-        description: "Write a 1 to any bit to enable the corresponding valve."
-    ValvesClear:
-        address: 34
-        type: U16
-        maskType: ValveMask
-        access: Write
-        description: "Write a 1 to any bit to disable the corresponding valve."
-    ValveConfig0: &amp;valveConfig
-        address: 35
-        type: U8
-        length: 12
-        access: Write
-        description: "the hit duty cycle (float: 0 - 1.0), hold duty cycle (float: 0 - 1.0), and hit duration in microseconds (U32) for Valve0."
-    ValveConfig1:
-        &lt;&lt;: *valveConfig
-        address: 36
-        description: "the hit duty cycle (float: 0 - 1.0), hold duty cycle (float: 0 - 1.0), and hit duration in microseconds (U32) for Valve1."
-    ValveConfig2:
-        &lt;&lt;: *valveConfig
-        address: 37
-        description: "the hit duty cycle (float: 0 - 1.0), hold duty cycle (float: 0 - 1.0), and hit duration in microseconds (U32) for Valve2."
-    ValveConfig3:
-        &lt;&lt;: *valveConfig
-        address: 38
-        description: "the hit duty cycle (float: 0 - 1.0), hold duty cycle (float: 0 - 1.0), and hit duration in microseconds (U32) for Valve3."
-    ValveConfig4:
-        &lt;&lt;: *valveConfig
-        address: 39
-        description: "the hit duty cycle (float: 0 - 1.0), hold duty cycle (float: 0 - 1.0), and hit duration in microseconds (U32) for Valve4."
-    ValveConfig5:
-        &lt;&lt;: *valveConfig
-        address: 40
-        description: "the hit duty cycle (float: 0 - 1.0), hold duty cycle (float: 0 - 1.0), and hit duration in microseconds (U32) for Valve5."
-    ValveConfig6:
-        &lt;&lt;: *valveConfig
-        address: 41
-        description: "the hit duty cycle (float: 0 - 1.0), hold duty cycle (float: 0 - 1.0), and hit duration in microseconds (U32) for Valve6."
-    ValveConfig7:
-        &lt;&lt;: *valveConfig
-        address: 42
-        description: "the hit duty cycle (float: 0 - 1.0), hold duty cycle (float: 0 - 1.0), and hit duration in microseconds (U32) for Valve7."
-    ValveConfig8:
-        &lt;&lt;: *valveConfig
-        address: 43
-        description: "the hit duty cycle (float: 0 - 1.0), hold duty cycle (float: 0 - 1.0), and hit duration in microseconds (U32) for Valve8."
-    ValveConfig9:
-        &lt;&lt;: *valveConfig
-        address: 44
-        description: "the hit duty cycle (float: 0 - 1.0), hold duty cycle (float: 0 - 1.0), and hit duration in microseconds (U32) for Valve9."
-    ValveConfig10:
-        &lt;&lt;: *valveConfig
-        address: 45
-        description: "the hit duty cycle (float: 0 - 1.0), hold duty cycle (float: 0 - 1.0), and hit duration in microseconds (U32) for Valve10."
-    ValveConfig11:
-        &lt;&lt;: *valveConfig
-        address: 46
-        description: "the hit duty cycle (float: 0 - 1.0), hold duty cycle (float: 0 - 1.0), and hit duration in microseconds (U32) for Valve11."
-    ValveConfig12:
-        &lt;&lt;: *valveConfig
-        address: 47
-        description: "the hit duty cycle (float: 0 - 1.0), hold duty cycle (float: 0 - 1.0), and hit duration in microseconds (U32) for Valve12."
-    ValveConfig13:
-        &lt;&lt;: *valveConfig
-        address: 48
-        description: "the hit duty cycle (float: 0 - 1.0), hold duty cycle (float: 0 - 1.0), and hit duration in microseconds (U32) for Valve13."
-    ValveConfig14:
-        &lt;&lt;: *valveConfig
-        address: 49
-        description: "the hit duty cycle (float: 0 - 1.0), hold duty cycle (float: 0 - 1.0), and hit duration in microseconds (U32) for Valve14."
-    ValveConfig15:
-        &lt;&lt;: *valveConfig
-        address: 50
-        description: "the hit duty cycle (float: 0 - 1.0), hold duty cycle (float: 0 - 1.0), and hit duration in microseconds (U32) for Valve15."
-    AuxGPIODir:
-        address: 51
-        type: U8
-        maskType: AuxGPIOMask
-        access: Write
-        description: "Specify each auxiliary GPIO pin as an input (0) or output (1)."
-    AuxGPIOState:
-        address: 52
-        type: U8
-        maskType: AuxGPIOMask
-        access: Write
-        description: "Set the state (one or off) of any auxiliary GPIO pins specified as outputs."
-    AuxGPIOSet:
-        address: 53
-        type: U8
-        maskType: AuxGPIOMask
-        access: Write
-        description: "When writing a 1 to any bit, turn on the specified auxiliary GPIO pins specified as outputs."
-    AuxGPIOClear:
-        address: 54
-        type: U8
-        maskType: AuxGPIOMask
-        access: Write
-        description: "When writing a 1 to any bit, Turn off the specified auxiliary GPIO pins specified as outputs."
-    AuxGPIOInputRiseEvent:
-        address: 55
-        type: U8
-        maskType: AuxGPIOMask
-        access: Event
-        description: ""
-    AuxGPIOInputFallEvent:
-        address: 56
-        type: U8
-        maskType: AuxGPIOMask
-        access: Event
-        description: ""
-    AuxGPIORisingInputs:
-        address: 57
-        type: U8
-        maskType: AuxGPIOMask
-        access: Write
-        description: ""
-    AuxGPIOFallingInputs:
-        address: 58
-        type: U8
-        maskType: AuxGPIOMask
-        access: Write
-        description: ""
-    PokePin:
-        address: 59
-        type: U8
-        access: Write
-        description: "which poke ports are active."
-    PokePinInverted:
-        address: 60
-        type: U8
-        access: Write
-        description: "Which poke ports are inverted (i.e: transition from HIGH to LOW when a poke occurs)."
-    PokeState:
-        address: 61
-        type: U8
-        access: Event
-        description: "The state of the poke port. An event will be triggered given a poke/ beam break that is greater than the min poke time."
-    RawPokeState:
-        address: 62
-        type: U8
-        access: Event
-        description: "The raw state of the poke pin. Events will be triggered at the onset of a beam break (1) and offset (0)."
-    PokeDometer:
-        address: 63
-        type: U32
-        access: Read
-        description: "number of mouse pokes per port since boot or reset."
-    FSMState:
-        address: 64
-        type: U8
-        access: Write
-        description: "Enable (1) (aka reset) or Disable (0) the poke handling state machine. Note that CurrentOdorIndex must be specified first. Disabling and then enabling a previously-enabled FSM will reset it to its starting state."
-    ForceFSM:
-        address: 65
-        type: U8
-        access: Write
-        description: "Force the poke handling state machine to iterate as if handling a mouse poke. PokeDometers are not incremented."
-    QueuedOdorIndex:
-        address: 66
-        type: S8
-        access: Write
-        description: "Queued odor (value: odor valve index) that will be delievered to the odor port given a register poke. After an odor has been dispensed, the register will be set to -1, which indicates that a new odor is needed"
-    VacuumCloseTimeUS:
-        address: 67
-        type: U32
-        access: Write
-        description: "Time alotted (in microseconds) for the vacuum valve to close."
-    MinOdorDeliveryTimeUS:
-        address: 68
-        type: U32
-        access: Write
-        description: "Minimum time alotted (in microseconds) for the odor delivery state."
-    MaxOdorDeliveryTimeUS:
-        address: 69
-        type: U32
-        access: Write
-        description: "Maximum time alotted (in microseconds) for the odor delivery state."
-    OdorTransitionTimeUS:
-        address: 70
-        type: U32
-        access: Write
-        description: "Time alotted (in microseconds) before the vacuum turns on to remove the current odor."
-    VacuumSetupTimeUS:
-        address: 71
-        type: U32
-        access: Write
-        description: "Time alotted (in microseconds) for the vacuum to open."
-    FinalValveEnergizedTimeUS:
-        address: 72
-        type: U32
-        access: Write
-        description: "Time alotted (in microseconds) for the final valve to open and remain on."
-    MinimumPokeTimeUS:
-        address: 73
-        type: U32
-        access: Write
-        description: "Minimum time (in microseconds) necessary for a mouse poke port beam to be broken before being interpretted as a poke."
-    CamPin:
-        address: 74
-        type: U8
-        access: Write
-        description: "The GPIO output pin used for camera triggering. Default pin is 26."
-    CamPinState:
-        address: 75
-        type: U8
-        access: Event
-        description: "Event is initiated when a rising edge of the camera triggered signal (PWM) is detected. The actual value of the pin doesn't change."
-    FrameRate:
-        address: 76
-        type: U32
-        access: Write
-        description: "Set the frame rate of the camera trigger/ frequency of the PWM signal."
-    DutyCycle:
-        address: 77
-        type: Float
-        access: Write
-        description: "Set the duty cycle of the PWM. Default and recommend is 0.5 for producing a square wave."
-    EnableCamTrigger:
-        address: 78
-        type: U8
-        access: Write
-        description: "Enable (1) and disable (0) camera triggering/ the PWM signal."
-    EnableValveLeds:
-        address: 79
-        type: U8
-        access: Write
-        description: "Enable (1) and disable (0) valve LEDs."
-
+  AuxInState:
+    address: 32
+    type: U8
+    access: Event
+    maskType: AuxiliaryInputs
+    description: Reports the state of the auxiliary inputs.
+  AuxInRisingEdge:
+    address: 33
+    type: U8
+    access: Write
+    maskType: AuxiliaryInputs
+    description: Enables rising edge detection on the auxiliary inputs.
+  AuxInFallingEdge:
+    address: 34
+    type: U8
+    access: Write
+    maskType: AuxiliaryInputs
+    description: Enables falling edge detection on the auxiliary input port.
+  OutputSet: &amp;output
+    address: 35
+    type: U16
+    access: Write
+    maskType: DigitalOutputs
+    description: Set the specified digital output lines.
+  OutputClear:
+    &lt;&lt;: *output
+    address: 36
+    description: Clear the specified digital output lines
+  OutputToggle:
+    &lt;&lt;: *output
+    address: 37
+    description: Toggle the specified digital output lines
+  OutputState:
+    &lt;&lt;: *output
+    address: 38
+    description: Write the state of all digital output lines
+  PwmAndStimEnable: &amp;pwmstimcontrol
+    address: 39
+    type: U16
+    access: Write
+    maskType: PwmAndStimMappings
+    description: Enables PWM and stimulation on the specified digital output lines.
+  PwmAndStimDisable:
+    &lt;&lt;: *pwmstimcontrol
+    address: 40
+    description: Disables PWM and stimulation on the specified digital output lines.
+  PwmAndStimState:
+    &lt;&lt;: *pwmstimcontrol
+    address: 41
+    description: Writes the mapping between PWM/stimulation and the specified digital output lines in a single command.
+  Pwm0Frequency: &amp;pwmfrequency
+    address: 42
+    type: Float
+    maxValue: 1000
+    minValue: 0.5
+    access: Write
+    description: Sets the frequency of PWM0 (Hz).
+  Pwm0DutyCycle: &amp;dutycycle
+    address: 43
+    type: Float
+    minValue: 1
+    maxValue: 100
+    defaultValue: 50
+    access: Write
+    description: Sets the duty cycle of PWM0 (%).
+  Pwm0PulseCount: &amp;pulsecount
+    address: 44
+    type: U16
+    access: Write
+    description: Sets the number of pulses to generate for PWM0.
+  Pwm0ActualFrequency: &amp;realfrequency
+    address: 45
+    type: Float
+    access: Read
+    description: Reports the actual frequency to be generated from PWM0 (Hz).
+  Pwm0ActualDutyCycle: &amp;realdutycycle
+    address: 46
+    type: Float
+    access: Read
+    description: Reports the actual duty cycle to be generated from PWM0 (%).
+  Pwm0AcquisitionMode: &amp;pwmmode
+    address: 47
+    type: U8
+    access: Write
+    maskType: AcquisitionMode
+    description: Sets the acquisition mode of PWM0.
+  Pwm0TriggerSource: &amp;pwmtriggermode
+    address: 48
+    type: U8
+    access: Write
+    maskType: TriggerSource
+    description: Sets the trigger source of PWM0.
+  Pwm0EventConfig: &amp;eventenable
+    address: 49
+    type: U8
+    access: Write
+    maskType: EnableFlag
+    description: Enables the generation of events for PWM0.
+  Pwm1Frequency:
+    &lt;&lt;: *pwmfrequency
+    address: 50
+    description: Sets the frequency of PWM1 (Hz).
+  Pwm1DutyCycle:
+    &lt;&lt;: *dutycycle
+    address: 51
+    description: Sets the duty cycle of PWM1 (%).
+  Pwm1PulseCount:
+    &lt;&lt;: *pulsecount
+    address: 52
+    description: Sets the number of pulses to generate for PWM1.
+  Pwm1ActualFrequency:
+    &lt;&lt;: *realfrequency
+    address: 53
+    description: Reports the actual frequency to be generated from PWM1 (Hz).
+  Pwm1ActualDutyCycle:
+    &lt;&lt;: *realdutycycle
+    address: 54
+    description: Reports the actual duty cycle to be generated from PWM1 (%).
+  Pwm1AcquisitionMode:
+    &lt;&lt;: *pwmmode
+    address: 55
+    description: Sets the acquisition mode of PWM1.
+  Pwm1TriggerSource:
+    &lt;&lt;: *pwmtriggermode
+    address: 56
+    description: Sets the trigger source of PWM1.
+  Pwm1EventConfig:
+    &lt;&lt;: *eventenable
+    address: 57
+    description: Enables the generation of events for PWM1.
+  Pwm2Frequency:
+    &lt;&lt;: *pwmfrequency
+    address: 58
+    description: Sets the frequency of PWM2 (Hz).
+  Pwm2DutyCycle:
+    &lt;&lt;: *dutycycle
+    address: 59
+    description: Sets the duty cycle of PWM2 (%).
+  Pwm2PulseCount:
+    &lt;&lt;: *pulsecount
+    address: 60
+    description: Sets the number of pulses to generate for PWM2.
+  Pwm2ActualFrequency:
+    &lt;&lt;: *realfrequency
+    address: 61
+    description: Reports the actual frequency to be generated from PWM2 (Hz).
+  Pwm2ActualDutyCycle:
+    &lt;&lt;: *realdutycycle
+    address: 62
+    description: Reports the actual duty cycle to be generated from PWM2 (%).
+  Pwm2AcquisitionMode:
+    &lt;&lt;: *pwmmode
+    address: 63
+    description: Sets the acquisition mode of PWM2.
+  Pwm2TriggerSource:
+    &lt;&lt;: *pwmtriggermode
+    address: 64
+    description: Sets the trigger source of PWM2.
+  Pwm2EventConfig:
+    &lt;&lt;: *eventenable
+    address: 65
+    description: Enables the generation of events for PWM2.
+  PwmStart:
+    address: 66
+    type: U8
+    access: [Write, Event]
+    maskType: PwmChannels
+    description: Starts the a PWM on the specified channels. An event will be generated if the start was triggered by an auxiliary input.
+  PwmStop:
+    address: 67
+    type: U8
+    access: Write
+    maskType: PwmChannels
+    description: Stops the a PWM on the specified channels.
+  PwmRiseEvent:
+    address: 68
+    type: U8
+    access: [Write, Event]
+    maskType: PwmChannels
+    description: Enables the generation of an event on every rising edge of the PWM line.
+  Stim0PulseOnTime: &amp;stimulusontime
+    address: 69
+    type: U16
+    access: Write
+    description: Sets the duration (us) each pulse is on for.
+  Stim0PulseOffTime:
+    &lt;&lt;: *stimulusontime
+    address: 70
+    description: Sets the duration (us) each pulse is off for.
+  Stim0PulseCount:
+    &lt;&lt;: *pulsecount
+    address: 71
+    description: Sets the number of pulses to be generate when triggered.
+  Stim0AcquisitionMode:
+    address: 72
+    type: U8
+    access: Write
+    maskType: AcquisitionMode
+    description: Sets the acquisition mode of Stim0.
+  Stim0TriggerSource:
+    address: 73
+    type: U8
+    access: Write
+    maskType: TriggerSource
+    description: Sets the trigger source of Stim0.
+  StimStart:
+    address: 74
+    type: U8
+    access: Write
+    maskType: StimChannels
+    description: Starts a target Stim protocol.
+  StimStop:
+    address: 75
+    type: U8
+    access: Write
+    maskType: StimChannels
+    description: Stops the target Stim protocol.
+  OutputPulse:
+    address: 76
+    type: U16
+    access: Write
+    maskType: DigitalOutputs
+    description: Enables pulse generation on the specified digital output line.
+  Out0PulseWidth: &amp;outpulsewidth
+    address: 77
+    type: U16
+    access: Write
+    description: Sets the duration (ms) of the pulse to be generated on the specified digital output line.
+  Out1PulseWidth:
+    &lt;&lt;: *outpulsewidth
+    address: 78
+  Out2PulseWidth:
+    &lt;&lt;: *outpulsewidth
+    address: 79
+  Out3PulseWidth:
+    &lt;&lt;: *outpulsewidth
+    address: 80
+  Out4PulseWidth:
+    &lt;&lt;: *outpulsewidth
+    address: 81
+  Out5PulseWidth:
+    &lt;&lt;: *outpulsewidth
+    address: 82
+  Out6PulseWidth:
+    &lt;&lt;: *outpulsewidth
+    address: 83
+  Out7PulseWidth:
+    &lt;&lt;: *outpulsewidth
+    address: 84
+  Out8PulseWidth:
+    &lt;&lt;: *outpulsewidth
+    address: 85
+  Out9PulseWidth:
+    &lt;&lt;: *outpulsewidth
+    address: 86
+  ExpansionBoard:
+    address: 87
+    type: U8
+    access: Write
+    maskType: ExpansionBoardType
+    description: Selects the board to be interfaced with via the expansion port.
+  Reserved0: &amp;reserved
+    address: 88
+    type: U8
+    access: Read
+    visibility: private
+    description: Reserved for future use.
+  Reserved1:
+    &lt;&lt;: *reserved
+    address: 89
+  MagneticEncoder:
+    address: 90
+    type: U16
+    length: 2
+    access: Event
+    description: Generated event with the latest read from the magnetic encoder.
+    payloadSpec:
+      Angle:
+        offset: 0
+        description: The angle position measurement of the magnetic encoder.
+      Magnitude:
+        offset: 1
+        description: The magnitude of the magnetic field.
+  MagneticEncoderSampleRate:
+    address: 91
+    type: U8
+    access: Write
+    maskType: MagneticEncoderSampleRateMode
+    description: Sets the sample rate of the magnetic encoder.
+  Reserved2:
+    &lt;&lt;: *reserved
+    address: 92
+  Reserved3:
+    &lt;&lt;: *reserved
+    address: 93
+  ServoPeriod:
+    address: 94
+    type: U16
+    access: Write
+    description: Sets the period of the servo pulses (us).
+  Servo0PulseWidth: &amp;servopulsewidth
+    address: 95
+    type: U16
+    access: Write
+    description: Sets the pulse width of the Servo0 pulses (us).
+  Servo1PulseWidth:
+    &lt;&lt;: *servopulsewidth
+    address: 96
+    description: Sets the pulse width of the Servo1 pulses (us).
+  Servo2PulseWidth:
+    &lt;&lt;: *servopulsewidth
+    address: 97
+    description: Sets the pulse width of the Servo2 pulses (us).
+  Reserved4:
+    &lt;&lt;: *reserved
+    address: 98
+  Reserved5:
+    &lt;&lt;: *reserved
+    address: 99
+  OpticalFlow:
+    address: 100
+    type: S16
+    length: 3
+    access: Event
+    description: Generated event with the latest read from the optical flow sensor.
+    payloadSpec:
+      DeltaX:
+        offset: 0
+        description: The movement in the X axis.
+      DeltaY:
+        offset: 1
+        description: The movement in the Y axis.
+      Squal:
+        offset: 2
+        description: The measure of the number of features visible by the sensor.
+bitMasks:
+  AuxiliaryInputs:
+    bits:
+      Aux0: 0x1
+      Aux1: 0x2
+      Aux0Changed: 0x10
+      Aux1Changed: 0x20
+    description: Specifies the state of auxiliary input lines.
+  DigitalOutputs:
+    description: Specifies the available digital output lines.
+    bits:
+      Out0: 0x1
+      Out1: 0x2
+      Out2: 0x4
+      Out3: 0x8
+      Out4: 0x10
+      Out5: 0x20
+      Out6: 0x40
+      Out7: 0x80
+      Out8: 0x100
+      Out9: 0x200
+  PwmAndStimMappings:
+    description: Specifies the mapping PWM and Stimulation to digital output lines.
+    bits:
+      Pwm0ToOut1: 0x1
+      Pwm0ToOut2: 0x2
+      Pwm0ToOut3: 0x4
+      Pwm1ToOut6: 0x8
+      Pwm1ToOut7: 0x10
+      Pwm1ToOut8: 0x20
+      Pwm2ToOut9: 0x40
+      Stim0ToOut0: 0x80
+      Stim0ToOut5: 0x100
+  PwmChannels:
+    description: Specifies the available PWM protocols.
+    bits:
+      Pwm0: 0x1
+      Pwm1: 0x2
+      Pwm2: 0x4
+  StimChannels:
+    description: Specifies the available Stim protocols.
+    bits:
+      Stim0: 0x1
 groupMasks:
-    ValveMask:
-        description: "Valve that can be configured/enabled/disabled"
-        values:
-            Valve0: 0x0
-            Valve1: 0x1
-            Valve2: 0x2
-            Valve3: 0x3
-            Valve4: 0x4
-            Valve5: 0x5
-            Valve6: 0x6
-            Valve7: 0x7
-            Valve8: 0x8
-            Valve9: 0x9
-            Valve10: 0xA
-            Valve11: 0xB
-            Valve12: 0xC
-            Valve13: 0xD
-            Valve14: 0xE
-            Valve15: 0xF
-    AuxGPIOMask:
-        description: "Auxiliary GPIO index."
-        values:
-            AuxGPIO0: 0x0
-            AuxGPIO1: 0x1
-            AuxGPIO2: 0x2
-            AuxGPIO3: 0x3
-            AuxGPIO4: 0x4
-            AuxGPIO5: 0x5
-            AuxGPIO6: 0x6
-            AuxGPIO7: 0x7</DeviceMetadata>
+  AcquisitionMode:
+    description: Available configurations for a PWM line.
+    values:
+      Continuous: 0
+      Finite: 1
+  TriggerSource:
+    description: Available trigger sources.
+    values:
+      Software: 0
+      Aux0Rising: 1
+      Aux0Falling: 2
+      Aux0WhileHigh: 3
+      Aux0WhileLow: 4
+      Aux1Rising: 16
+      Aux1Falling: 32
+      Aux1WhileHigh: 64
+      Aux1WhileLow: 128
+  ExpansionBoardType:
+    description: Specifies the available expansion boards implemented.
+    values:
+      Breakout: 0
+      MagneticEncoder: 1
+      ServoMotor1: 2
+      ServoMotor2: 3
+      ServoMotor3: 4
+      OpticalFlow: 5
+  MagneticEncoderSampleRateMode:
+    description: Specifies the sample rate of the encoder.
+    values:
+      SampleRate50Hz: 0
+      SampleRate100Hz: 1
+      SampleRate200Hz: 2
+      SampleRate250Hz: 3
+      SampleRate500Hz: 4
+      SampleRate1000Hz: 5</DeviceMetadata>
                     <Modality>Behavior</Modality>
                     <DeviceName>UndergroundFeeder</DeviceName>
                   </Expression>
@@ -4240,7 +4421,7 @@ groupMasks:
                           <Modality>BehaviorVideos</Modality>
                           <LogName>MainCamera</LogName>
                           <VideoExtension>mp4</VideoExtension>
-                          <OutputArguments>-vf "scale=out_range=full,setparams=range=full:colorspace=bt709:color_primaries=bt709:color_trc=linear" -c:v h264_nvenc -pix_fmt yuv420p -color_range 2 -colorspace bt709 -color_trc linear -tune hq -preset p3 -rc vbr -cq 18 -b:v 0M -metadata author="Allen Institute for Neural Dynamics" -maxrate 700M -bufsize 350M -f matroska -write_crc32 0</OutputArguments>
+                          <OutputArguments>-vf "format=yuv420p10le,scale=out_range=full,setparams=range=full:colorspace=bt709:color_primaries=bt709:color_trc=linear" -c:v hevc_nvenc -pix_fmt p010le -color_range 2 -colorspace bt709 -color_trc linear -tune hq -preset p4 -rc vbr -cq 12 -b:v 0M -metadata author="Allen Institute for Neural Dynamics" -maxrate 700M -bufsize 350M -f matroska -write_crc32 0</OutputArguments>
                           <InputArguments>-colorspace bt709 -color_primaries bt709 -color_range 2 -color_trc linear</InputArguments>
                           <Verbosity>Warning</Verbosity>
                           <FrameRate>60</FrameRate>
