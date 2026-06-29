@@ -89,7 +89,7 @@ public class LimitedAindSpinnakerCapture : SpinnakerCapture
         {
             if (RegionOfInterest.X != 0 || RegionOfInterest.Y != 0 || RegionOfInterest.Height != 0 || RegionOfInterest.Width != 0)
             {
-                throw new InvalidOperationException("If Heigh or Width is 0, all size arguments must be 0.");
+                throw new InvalidOperationException("If Height or Width is 0, all size arguments must be 0.");
             }
 
             // If the region of interest is not set, set the width and height to the maximum values
