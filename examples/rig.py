@@ -1,7 +1,6 @@
 import os
 from pathlib import Path
 
-import aind_behavior_services.rig as rig
 import aind_behavior_services.rig.cameras as cameras
 from aind_behavior_services.rig.cameras import SpinnakerCameraAdcBitDepth
 from aind_behavior_services.rig.harp import HarpSniffDetector
@@ -9,7 +8,7 @@ from aind_behavior_services.rig.harp import HarpSniffDetector
 from aind_behavior_directed_foraging.rig import (
     AindBehaviorDirectedForagingRig,
     HarpDelphiController,
-    HarpUndergroundFeeder
+    HarpUndergroundFeeder,
 )
 
 FFMPEG_OUTPUT_8BIT = '-vf "scale=out_range=full,setparams=range=full:colorspace=bt709:color_primaries=bt709:color_trc=linear" -c:v h264_nvenc -pix_fmt yuv420p -color_range 2 -colorspace bt709 -color_trc linear -tune hq -preset p3 -rc vbr -cq 18 -b:v 0M -metadata author="Allen Institute for Neural Dynamics" -maxrate 700M -bufsize 350M -f matroska -write_crc32 0'

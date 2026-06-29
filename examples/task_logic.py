@@ -7,12 +7,10 @@ from aind_behavior_services.common import Point2f
 from aind_behavior_directed_foraging.task_logic import (
     AindBehaviorDirectedForagingTaskLogic,
     AindBehaviorDirectedForagingTaskParameters,
-    Trial,
-    OdorDefinition,
-    RadiusThreshold,
-    RandomisedTimer,
     MaskRegion,
-    FixedTimer
+    OdorDefinition,
+    RandomisedTimer,
+    Trial,
 )
 
 odorA = OdorDefinition(odor_id="OdorA", olfactometer_mask=1)

@@ -1,12 +1,13 @@
 # Import core types
 from typing import Literal
-from pydantic import Field
 
 import aind_behavior_services.rig as rig
-import aind_behavior_services.rig.harp as harp
 import aind_behavior_services.rig.cameras as cameras
+import aind_behavior_services.rig.harp as harp
+from pydantic import Field
 
 from aind_behavior_directed_foraging import __semver__
+
 
 class HarpDelphiController(harp.HarpDeviceBase):
     device_type: Literal["DelphiController"] = "DelphiController"

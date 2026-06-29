@@ -1,9 +1,7 @@
 import os
-import typing as t
 from pathlib import Path
 
 import contraqctor
-import semver
 
 from aind_behavior_directed_foraging import __semver__
 

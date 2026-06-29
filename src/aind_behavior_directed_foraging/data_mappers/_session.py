@@ -8,14 +8,12 @@ import git
 import pydantic
 from aind_behavior_services.session import AindBehaviorSessionModel
 from aind_data_schema.core import acquisition
-
 from clabe.apps import CurriculumSuggestion
 from clabe.data_mapper import aind_data_schema as ads
 from clabe.launcher import Launcher, Promise
 
 from aind_behavior_directed_foraging.rig import AindBehaviorDirectedForagingRig
 from aind_behavior_directed_foraging.task_logic import AindBehaviorDirectedForagingTaskLogic
-
 
 logger = logging.getLogger(__name__)
 

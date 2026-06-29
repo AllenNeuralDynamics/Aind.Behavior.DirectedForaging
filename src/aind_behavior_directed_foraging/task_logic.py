@@ -1,10 +1,10 @@
 import logging
-from typing import Literal, List, Annotated, Union
+from typing import Annotated, List, Literal, Union
 
 import aind_behavior_services.task.distributions as distributions
-from aind_behavior_services.task import Task, TaskParameters
 from aind_behavior_services.common import Point2f
-from pydantic import Field, BaseModel
+from aind_behavior_services.task import Task, TaskParameters
+from pydantic import BaseModel, Field
 
 from aind_behavior_directed_foraging import (
     __semver__,

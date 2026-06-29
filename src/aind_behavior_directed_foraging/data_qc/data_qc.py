@@ -1,7 +1,6 @@
 """Data quality check definitions for the directed-foraging task."""
 
 import logging
-from typing import List
 
 from contraqctor import contract, qc
 
