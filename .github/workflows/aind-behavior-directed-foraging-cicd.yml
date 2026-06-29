@@ -58,7 +58,7 @@ jobs:
         run: uv run python -m unittest
 
       - name: Regenerate schemas
-        run: uv run directed-foraging regenerate
+        run: uv run .\src\aind_behavior_directed_foraging\regenerate.py
 
       - name: Check for uncommitted changes
         run: |
